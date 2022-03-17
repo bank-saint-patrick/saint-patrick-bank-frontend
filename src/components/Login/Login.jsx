@@ -38,9 +38,9 @@ export const Login = () => {
                 </button>
                 <br />
                 <span className="text-slate-700 text-sm font-normal">¿Olvidaste tu contraseña?</span>
-                <p className="text-slate-700 text-sm font-normal">
+                <a href="/register" className="text-slate-700 text-sm font-normal">
                   ¿Aun no estás registrado?<span className="text-teal-700  text-base font-semibold"> registrarme</span>
-                </p>
+                </a>
               </form>
             </div>
           </div>
