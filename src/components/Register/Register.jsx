@@ -1,12 +1,12 @@
 import React from "react";
-import logo from "../presets/logo.jpeg";
+// import logo from "../presets/logo.jpeg";
 // import "./login.css";
 
 // Crear un objeto json con usuarios ficticios
 
 // Crear una functión para hacer el registro ficticio
 
-export const Registro = () => {
+export const Register = () => {
   // llamaar a la función del registro
 
   return (
@@ -17,7 +17,7 @@ export const Registro = () => {
             <span className="text-custom-st-patrick-yw py-1">BANCO</span>
             <span className="text-custom-st-patrick-gn ml-1 mr-2 py-1">SAINT PATRICK</span>
             <a href="/login" className="ml-1">
-              <img src={logo} alt="logo no encontrado" width="27em" className="pb-1" id="app-logo" />
+              {/* <img src={logo} alt="logo no encontrado" width="27em" className="pb-1" id="app-logo" /> */}
             </a>
           </div>
         </div>
