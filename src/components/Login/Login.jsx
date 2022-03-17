@@ -6,7 +6,7 @@ import "./login.css";
 const usuarios = [
   {
     dni: "12345678900987654321",
-    password: md5("qwerty"),
+    password: "qwerty",
   },
 ];
 
