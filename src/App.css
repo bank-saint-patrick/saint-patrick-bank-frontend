@@ -1,0 +1,16 @@
+.App {
+  text-align: center;
+}
+
+#app-logo {
+  margin-left: 3pt;
+}
+
+.brand {
+  font-family: 'Hind Vadodara', sans-serif;
+  margin-left: -45px;
+}
+
+#register_brand {
+  font-family: 'Hind Vadodara', sans-serif;
+}
