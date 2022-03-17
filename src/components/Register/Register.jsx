@@ -14,7 +14,7 @@ export const Register = () => {
       <div className="grid grid-rows-6 w-screen divide-y-4 divide-solid divide-gray-300 h-96 visible">
         <div className="grid grid-cols-4 bg-white text-sm px-3 py-2">
           <div className="flex inline-block mx-4 my-2 col-span-4" id="register_brand">
-            <span className="text-custom-st-patrick-yw py-1">BANCO</span>
+            <span className="text-custom-st-patrick-yw py-1">BANCO DAT</span>
             <span className="text-custom-st-patrick-gn ml-1 mr-2 py-1">SAINT PATRICK</span>
             <a href="/login" className="ml-1">
               {/* <img src={logo} alt="logo no encontrado" width="27em" className="pb-1" id="app-logo" /> */}
