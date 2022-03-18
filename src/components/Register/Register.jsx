@@ -9,31 +9,40 @@ let data = [
     dni: "0123445677",
     name: "Ramona",
     lastname: "Pérez Mendiola",
+    phone: "(19)3557295",
+    product: "crédito AhorraMax",
     email: "rapez08@mymail.com",
     password: "GT56L98m900X2",
   },
 ];
 
 // Crear una functión para hacer el registro ficticio
-/*function toDoRegisterFake() {
-  data.find();
+function toDoRegisterFake(dni,name,lastname,phone,product,email,password) {
+  let registerEntry = { dni, name, lastname, phone, product, email, password };
+  data.map(regis => {
+    if (registerEntry !== regis) {
+      data.push(registerEntry);
+    }
+  });
 }
-*/
 
 export const Register = () => {
   // llamar a la función del registro
-  // const [registerArr, setRegisterArr] = React.useState(toDoRegisterFake());
   const submitHandler = (ev) => {
     ev.preventDefault();
-    fetch("http://localhost:3000/api/v1/register", {
+    toDoRegisterFake(dni, name, lastname, phone, productNm, email, password);
+    console.log(data);
+  };
+  /*  fetch("http://localhost:3000/api/v1/register", {
       method: "POST",
       headers: {
         Accept: "aplication/json",
         "Content-type": "aplication/json",
       },
-      body: JSON.stringify({ dni: dni, name: name, lastname: lastname, phone: phone, password: password }),
+      body: JSON.stringify({ dni: dni, name: name, lastname: lastname, phone: phone, product: productNm, password: password }),
     });
   };
+  */
   const [dni, setDni] = React.useState(0);
   const [name, setName] = React.useState("");
   const [lastname, setLastname] = React.useState("");
@@ -137,7 +146,7 @@ export const Register = () => {
                 <li className=" flex flex-col xs:bg-red-100">
                   <label>Crear contraseña</label>
                   <input
-                    type="text"
+                    type="password"
                     className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
                     onChange={(ev) => {
                       console.log(password);
