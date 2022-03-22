@@ -41,7 +41,7 @@ export default function Register() {
               <legend className="py-28 h-3/4 text-center text-2xl text-gray-500">Registrarme en la sucursal virtual</legend>
               <ul className="grid grid-rows-5 grid-cols-3 gap-2 mx-3 my-0 sm:grid-rows-5 grid-cols-2 md:grid-rows-3 grid-cols-3 lg:grid-rows-3 grid-cols-3 xl:grid-rows-3 grid-cols-3 2xl:grid-rows-3 grid-cols-3">
                 <li className="flex flex-col">
-                  <label className="mr-2 px-1">Nombre completo</label>
+                  <p className="mr-2 px-1">Nombre completo</p>
                   <input
                     type="text"
                     className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
@@ -52,7 +52,7 @@ export default function Register() {
                   />
                 </li>
                 <li className="flex flex-col">
-                  <label className="mr-2 px-1">Apellidos completos</label>
+                  <p className="mr-2 px-1">Apellidos completos</p>
                   <input
                     type="text"
                     className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
@@ -62,7 +62,7 @@ export default function Register() {
                   />
                 </li>
                 <li className=" flex flex-col">
-                  <label className="mx-2 px-1">Número de Identificación</label>
+                  <p className="mx-2 px-1">Número de Identificación</p>
                   <input
                     type="text"
                     className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
@@ -72,7 +72,7 @@ export default function Register() {
                   />
                 </li>
                 <li className=" flex flex-col">
-                  <label className="mx-2 px-1">Teléfono</label>
+                  <p className="mx-2 px-1">Teléfono</p>
                   <input
                     type="text"
                     className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
@@ -82,7 +82,7 @@ export default function Register() {
                   />
                 </li>
                 <li className=" flex flex-col">
-                  <label className="mx-2 px-1">Correo Electrónico</label>
+                  <p className="mx-2 px-1">Correo Electrónico</p>
                   <input
                     type="text"
                     className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
@@ -93,7 +93,7 @@ export default function Register() {
                 </li>
 
                 <li className=" flex flex-col xs:bg-red-100">
-                  <label>Crear contraseña</label>
+                  <p>Crear contraseña</p>
                   <input
                     type="text"
                     className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"

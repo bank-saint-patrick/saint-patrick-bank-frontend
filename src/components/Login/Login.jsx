@@ -14,7 +14,7 @@ export default function Login() {
           className="bg-teal-900 justify-center items-center bg-no-repeat bg-center bg-cover"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
-        <div className="bg-white flex flex-col justify-center px-20">
+        <div className="bg-white flex flex-col justify-center px-10">
           <span className="text-plantation text-4xl text-center font-bold mb-2">Bienvenido a tu</span>
           <span className="text-plantation text-4xl text-center font-light mb-4">banca en línea</span>
           <hr className="my-5" />
