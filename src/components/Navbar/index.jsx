@@ -32,31 +32,31 @@ export default function Login() {
         <div className={`lg:flex flex-grow items-center${navbarOpen ? ' flex' : ' hidden'}`} id="example-navbar-danger">
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="nav-item">
-              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/">
+              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/inicio">
                 <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75" />
                 <span className="ml-2">Inicio</span>
               </a>
             </li>
             <li className="nav-item">
-              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/">
+              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/beneficios">
                 <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75" />
                 <span className="ml-2">Beneficios</span>
               </a>
             </li>
             <li className="nav-item">
-              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/">
+              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/cajeros">
                 <i className="fab fa-twitter text-lg leading-lg text-white opacity-75" />
                 <span className="ml-2">Cajeros</span>
               </a>
             </li>
             <li className="nav-item">
-              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/">
+              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/cuidate">
                 <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
                 <span className="ml-2">Cuidate</span>
               </a>
             </li>
             <li className="nav-item">
-              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/">
+              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/sobre-nosotros">
                 <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
                 <span className="ml-2">Sobre Nosotros</span>
               </a>
