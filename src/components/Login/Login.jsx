@@ -1,12 +1,12 @@
-import React from "react";
-import { Inputs } from "../needs/Inputs";
-import "./login.css";
+import React from 'react';
+import { Inputs } from '../needs/Inputs';
+import './login.css';
 
-// Crear un objeto json con usuarios ficticion
+/* // Crear un objeto json con usuarios ficticion
 const usuarios = [
   {
-    dni: "12345678900987654321",
-    password: "qwerty",
+    dni: '12345678900987654321',
+    password: 'qwerty',
   },
 ];
 
@@ -16,10 +16,10 @@ const loginAcces = (dni, password) => {
   // 2 - validar el password
   // 3 - simular el login
   // 4 - simular la redireccion a otro componente
-};
+}; */
 
 export const Login = () => {
-  // llamaar a la función del login
+/*   // llamaar a la función del login */
 
   return (
     <div className="login">
