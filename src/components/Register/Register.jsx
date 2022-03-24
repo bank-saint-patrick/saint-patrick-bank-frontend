@@ -1,171 +1,125 @@
-import React from "react";
-import { Navbar } from "../Navbar";
-import logo from "../../presets/logo.jpeg";
-// import "./login.css";
+import React from 'react';
+import Inputs from '../needs/Inputs';
+import Navbar from '../Navbar';
+
+const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
 
 // Crear un objeto json con usuarios ficticios
 let data = [
   {
-    dni: "0123445677",
-    name: "Ramona",
-    lastname: "Pérez Mendiola",
-    phone: "(19)3557295",
-    product: "crédito AhorraMax",
-    email: "rapez08@mymail.com",
-    password: "GT56L98m900X2",
+    dni: '0123445677',
+    name: 'Ramona',
+    lastname: 'Pérez Mendiola',
+    phone: '(19)3557295',
+    product: 'crédito AhorraMax',
+    email: 'rapez08@mymail.com',
+    password: 'GT56L98m900X2',
   },
 ];
 
-// Crear una functión para hacer el registro ficticio
-function toDoRegisterFake(dni,name,lastname,phone,product,email,password) {
-  let registerEntry = { dni, name, lastname, phone, product, email, password };
-  data.map(regis => {
-    if (registerEntry !== regis) {
-      data.push(registerEntry);
-    }
-  });
-}
+export default function Register() {
+  const [dni, setDni] = React.useState('');
+  const [firstname, setFristname] = React.useState('');
+  const [lastname, setLastname] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-export const Register = () => {
-  // llamar a la función del registro
-  const submitHandler = (ev) => {
-    ev.preventDefault();
-    toDoRegisterFake(dni, name, lastname, phone, productNm, email, password);
-    console.log(data);
+  const register = (newCustomer) => {
+    data = [...data, newCustomer];
   };
-  /*  fetch("http://localhost:3000/api/v1/register", {
-      method: "POST",
-      headers: {
-        Accept: "aplication/json",
-        "Content-type": "aplication/json",
-      },
-      body: JSON.stringify({ dni: dni, name: name, lastname: lastname, phone: phone, product: productNm, password: password }),
-    });
+
+  const validations = (newCustomer) => {
+    const response = {
+      success: true,
+      errors: [],
+    };
+
+    if (newCustomer.dni.length === 0) {
+      response.errors.push('El campo DNI es obligatorio');
+    }
+    if (newCustomer.firstname.length === 0) {
+      response.errors.push('El campo Nombre es obligatorio');
+    }
+    if (newCustomer.lastname.length === 0) {
+      response.errors.push('El campo Apellido es obligatorio');
+    }
+    if (newCustomer.phone.length === 0) {
+      response.errors.push('El campo Teléfono es obligatorio');
+    }
+    if (newCustomer.email.length === 0) {
+      response.errors.push('El campo Email es obligatorio');
+    }
+    if (newCustomer.password.length === 0) {
+      response.errors.push('El campo Contraseña es obligatorio');
+    }
+
+    if (response.errors.length > 0) {
+      response.success = false;
+    } else {
+      delete response.errors;
+    }
+
+    return response;
   };
-  */
-  const [dni, setDni] = React.useState(0);
-  const [name, setName] = React.useState("");
-  const [lastname, setLastname] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [productNm, setProductNm] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const newCustomer = {
+      dni,
+      firstname,
+      lastname,
+      phone,
+      email,
+      password,
+    };
+    const responseValidation = validations(newCustomer);
+    if (responseValidation.success) {
+      register(newCustomer);
+    } else {
+      alert(responseValidation.errors);
+    }
+  };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper flex-column h-screen">
       <Navbar />
-      <div className="flex min-h-screen bg-gray-200">
-        <div className="grid grid-rows-6 w-screen divide-y-4 divide-solid divide-gray-300 h-96 visible">
-          <div className="grid grid-cols-4 bg-white text-sm px-3 py-2">
-            <div className="flex inline-block mx-4 my-2 col-span-4" id="register_brand">
-              <span className="text-custom-st-patrick-yw py-1">BANCO</span>
-              <span className="text-custom-st-patrick-gn ml-1 mr-2 py-1 font-semibold">SAINT PATRICK</span>
-              <a href="/login" className="ml-1">
-                <img src={logo} alt="logo no encontrado" width="27em" className="pb-1" id="app-logo" />
-              </a>
+      <div className="bg-lime-100 full-height-conditional grid grid-cols-2">
+        <div
+          className="bg-teal-900 justify-center items-center bg-no-repeat bg-center bg-cover"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+        <div className="bg-white flex flex-col justify-center px-10">
+          <span className="text-plantation text-4xl text-center font-bold mb-2">Registrate en</span>
+          <span className="text-plantation text-4xl text-center font-light mb-4">Saint Patrick</span>
+          <hr className="my-5" />
+          <form className="text-center px-20 mb-6" onSubmit={submitHandler}>
+            <div className="flex">
+              <Inputs class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />
+              <Inputs class="flex-col" type="text" label="Nombres" value={firstname} seter={setFristname} placeholder="Ingrese sus nombres" />
             </div>
-          </div>
-          <div className="row-span-5 h-full py-12">
-            <form
-              className="grid grid-rows-2 gap-1 bg-white w-5/6 h-auto shadow-md shadow-slate-400 mx-5 xs:p-20 sm:mx-14 md:mx-20 lg:mx-24"
-              onSubmit={submitHandler}
+            <div className="flex">
+              <Inputs class="flex-col" type="text" label="Apellidos" value={lastname} seter={setLastname} placeholder="Ingrese sus apellidos" />
+              <Inputs class="flex-col" type="text" label="Teléfono" value={phone} seter={setPhone} placeholder="Ingrese sus teléfono" />
+            </div>
+            <div className="flex">
+              <Inputs class="flex-col" type="text" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
+              <Inputs class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
+            </div>
+            <button
+              type="submit"
+              className="boton bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto mt-5 w-3/4 md:w-1/2 p-1 rounded-xl py-3 font-bold"
             >
-              <legend className="py-28 h-3/4 text-center text-2xl text-gray-500">Registrarme en la sucursal virtual</legend>
-              <ul className="grid grid-rows-5 grid-cols-3 gap-2 mx-3 my-0 sm:grid-rows-5 grid-cols-2 md:grid-rows-3 grid-cols-3 lg:grid-rows-3 grid-cols-3 xl:grid-rows-3 grid-cols-3 2xl:grid-rows-3 grid-cols-3">
-                <li className="flex flex-col">
-                  <label htmlFor="fullnameLogup" className="mr-2 px-1">
-                    Nombre completo
-                  </label>
-                  <input
-                    type="text"
-                    id="fullnameLogup"
-                    className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
-                    value={name}
-                    onChange={(ev) => {
-                      console.log(name);
-                      setName(ev.target.value);
-                    }}
-                  />
-                </li>
-                <li className="flex flex-col">
-                  <label className="mr-2 px-1">Apellidos completos</label>
-                  <input
-                    type="text"
-                    className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
-                    onChange={(ev) => {
-                      console.log(lastname);
-                      setLastname(ev.target.value);
-                    }}
-                  />
-                </li>
-                <li className=" flex flex-col">
-                  <label className="mx-2 px-1">Número de Identificación</label>
-                  <input
-                    type="text"
-                    className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
-                    onChange={(ev) => {
-                      console.log(dni);
-                      setDni(ev.target.value);
-                    }}
-                  />
-                </li>
-                <li className=" flex flex-col">
-                  <label className="mx-2 px-1">Teléfono</label>
-                  <input
-                    type="text"
-                    className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
-                    onChange={(ev) => {
-                      console.log(phone);
-                      setPhone(ev.target.value);
-                    }}
-                  />
-                </li>
-                <li className=" flex flex-col">
-                  <label className="mx-2 px-1">Número de producto</label>
-                  <input
-                    type="text"
-                    className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
-                    onChange={(ev) => {
-                      console.log(productNm);
-                      setProductNm(ev.target.value);
-                    }}
-                  />
-                </li>
-                <li className=" flex flex-col">
-                  <label className="mx-2 px-1">Correo Electrónico</label>
-                  <input
-                    type="text"
-                    className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
-                    onChange={(ev) => {
-                      console.log(email);
-                      setEmail(ev.target.value);
-                    }}
-                  />
-                </li>
-
-                <li className=" flex flex-col xs:bg-red-100">
-                  <label>Crear contraseña</label>
-                  <input
-                    type="password"
-                    className="bg-custom-st-patrick-yw h-8 rounded-md w-18 sm:w-38 md:w-56"
-                    onChange={(ev) => {
-                      console.log(password);
-                      setPassword(ev.target.value);
-                    }}
-                  />
-                </li>
-                <li className="py-5 w-80 col-span-2">
-                  <input
-                    type="submit"
-                    className="bg-custom-st-patrick-gn rounded-md w-80 h-9 text-white cursor-pointer"
-                    value="Registrarme"
-                  />
-                </li>
-              </ul>
-            </form>
+              Registrarme
+            </button>
+          </form>
+          <div className="linksActions flex flex-col text-center">
+            <a href="/login" className="text-slate-700 text-sm font-normal mb-5">
+              Ya tengo una cuenta
+            </a>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
