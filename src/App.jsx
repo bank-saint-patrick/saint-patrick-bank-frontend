@@ -7,6 +7,7 @@ import Benefits from './components/website/Benefits';
 import Cashiers from './components/website/Cashiers';
 import TakeCareOfYourself from './components/website/TakeCareOfYourself';
 import AboutUs from './components/website/AboutUs';
+import Desktop from './components/desktop/Desktop';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/cajeros" element={<Cashiers />} />
         <Route path="/cuidate" element={<TakeCareOfYourself />} />
         <Route path="/sobre-nosotros" element={<AboutUs />} />
+        <Route path="/desktop" element={<Desktop />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import Inputs from '../needs/Inputs';
+import Inputs from '../needs/Input';
 import Navbar from '../Navbar';
 
 const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';

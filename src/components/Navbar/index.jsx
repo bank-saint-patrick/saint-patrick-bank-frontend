@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../assets/logo.jpeg';
 import './style.css';
 
 export default function Login() {
-  const [navbarOpen] = React.useState(false);
+  const [navbarOpen] = useState(false);
+  const [logout, setLogout] = useState(false);
+
+  useEffect(() => {
+    const sessionStorage = JSON.parse(localStorage.getItem('session'));
+    if (sessionStorage) {
+      setLogout(true);
+    }
+  }, []);
 
   const handleClickHome = () => {
     window.location.href = '/';
+  };
+
+  const handleClickLogout = () => {
+    localStorage.setItem('session', null);
+    window.location.href = '/login';
   };
 
   return (
@@ -61,6 +74,14 @@ export default function Login() {
                 <span className="ml-2">Sobre Nosotros</span>
               </a>
             </li>
+            {logout && (
+              <li className="nav-item">
+                <button type="button" className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" onClick={() => handleClickLogout()}>
+                  <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
+                  <span className="ml-2">Salir</span>
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </div>
