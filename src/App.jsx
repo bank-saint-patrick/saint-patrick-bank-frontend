@@ -14,10 +14,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/inicio" element={<Home />} />
         <Route path="/beneficios" element={<Benefits />} />
         <Route path="/cajeros" element={<Cashiers />} />
         <Route path="/cuidate" element={<TakeCareOfYourself />} />

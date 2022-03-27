@@ -45,7 +45,7 @@ export default function Login() {
         <div className={`lg:flex flex-grow items-center${navbarOpen ? ' flex' : ' hidden'}`} id="example-navbar-danger">
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="nav-item">
-              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/inicio">
+              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/">
                 <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75" />
                 <span className="ml-2">Inicio</span>
               </a>
@@ -80,6 +80,14 @@ export default function Login() {
                   <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
                   <span className="ml-2">Salir</span>
                 </button>
+              </li>
+            )}
+            {!logout && (
+              <li className="nav-item">
+                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/login">
+                  <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
+                  <span className="ml-2">Acceder a tu cuenta</span>
+                </a>
               </li>
             )}
           </ul>
