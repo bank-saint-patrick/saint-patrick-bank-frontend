@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Inputs from '../needs/Input';
 import Navbar from '../Navbar';
+import Input from '../needs/Input';
 import Desktop from '../desktop/Desktop';
 import './login.css';
 
@@ -100,8 +100,8 @@ export default function Login() {
           <span className="text-plantation text-4xl text-center font-light mb-4">banca en línea</span>
           <hr className="my-5" />
           <form className="text-center px-20 mb-6" onSubmit={submitHandler}>
-            <Inputs class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />
-            <Inputs class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
+            <Input class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />
+            <Input class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
             <button
               type="submit"
               className="boton bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto mt-5 w-3/4 md:w-1/2 p-1 rounded-xl py-3 font-bold"
