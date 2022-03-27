@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import logo from '../../assets/logo.jpeg';
 import './style.css';
 
-export default function Login() {
+export default function Navbar() {
   const [navbarOpen] = useState(false);
   const [logout, setLogout] = useState(false);
 
