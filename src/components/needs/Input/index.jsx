@@ -21,4 +21,4 @@ export default function Inputs(props) {
       </p>
     </div>
   );
-}
+};

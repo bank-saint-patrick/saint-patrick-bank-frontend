@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../assets/logo.jpeg';
 import './style.css';
 
-export default function Login() {
-  const [navbarOpen] = React.useState(false);
+export default function Navbar() {
+  const [navbarOpen] = useState(false);
+  const [logout, setLogout] = useState(false);
+
+  useEffect(() => {
+    const sessionStorage = JSON.parse(localStorage.getItem('session'));
+    if (sessionStorage) {
+      setLogout(true);
+    }
+  }, []);
 
   const handleClickHome = () => {
     window.location.href = '/';
+  };
+
+  const handleClickLogout = () => {
+    localStorage.setItem('session', null);
+    window.location.href = '/login';
   };
 
   return (
@@ -32,7 +45,7 @@ export default function Login() {
         <div className={`lg:flex flex-grow items-center${navbarOpen ? ' flex' : ' hidden'}`} id="example-navbar-danger">
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="nav-item">
-              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/inicio">
+              <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/">
                 <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75" />
                 <span className="ml-2">Inicio</span>
               </a>
@@ -46,7 +59,7 @@ export default function Login() {
             <li className="nav-item">
               <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/cajeros">
                 <i className="fab fa-twitter text-lg leading-lg text-white opacity-75" />
-                <span className="ml-2">Cajeros</span>
+                <span className="ml-2">Sucursales</span>
               </a>
             </li>
             <li className="nav-item">
@@ -61,6 +74,22 @@ export default function Login() {
                 <span className="ml-2">Sobre Nosotros</span>
               </a>
             </li>
+            {logout && (
+              <li className="nav-item">
+                <button type="button" className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" onClick={() => handleClickLogout()}>
+                  <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
+                  <span className="ml-2">Salir</span>
+                </button>
+              </li>
+            )}
+            {!logout && (
+              <li className="nav-item">
+                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/login">
+                  <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
+                  <span className="ml-2">Acceder a tu cuenta</span>
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>
