@@ -53,4 +53,8 @@
 #register_brand {
   font-family: "Hind Vadodara", sans-serif;
 }
+
+#ilustration {
+  background-image: url('./assets/family.jpeg');
+}
 /* end brando */

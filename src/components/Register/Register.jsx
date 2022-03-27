@@ -1,8 +1,6 @@
 import React from 'react';
-import Inputs from '../needs/Input';
 import Navbar from '../Navbar';
-
-const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
+import Input from '../needs/Input';
 
 // Crear un objeto json con usuarios ficticios
 let data = [
@@ -54,6 +52,17 @@ export default function Register() {
       response.errors.push('El campo Contraseña es obligatorio');
     }
 
+    data.filter((customer) => {
+      if (customer.dni === newCustomer.dni) {
+        response.errors.push('El DNI ya existe');
+      }
+      if (customer.email === newCustomer.email) {
+        response.errors.push('El Email ya existe');
+      }
+
+      return false;
+    });
+
     if (response.errors.length > 0) {
       response.success = false;
     } else {
@@ -87,24 +96,28 @@ export default function Register() {
       <div className="bg-lime-100 full-height-conditional grid grid-cols-2">
         <div
           className="bg-teal-900 justify-center items-center bg-no-repeat bg-center bg-cover"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
+          id='ilustration'
         />
         <div className="bg-white flex flex-col justify-center px-10">
-          <span className="text-plantation text-4xl text-center font-bold mb-2">Registrate en</span>
-          <span className="text-plantation text-4xl text-center font-light mb-4">Saint Patrick</span>
+          <span className="text-plantation text-4xl text-center font-bold mb-2">Regístrate en nuestro<br></br>Banco Saint Patrick</span>
           <hr className="my-5" />
-          <form className="text-center px-20 mb-6" onSubmit={submitHandler}>
+          <p className='text-center text-semibold'>A continuación te solicitamos que completes con tus datos los siguientes casilleros.<br></br>
+            ¡Al completarlo hacé click en el botón REGISTRARME!
+          </p>
+          <form className="text-center px-20 mt-6 mb-6" onSubmit={submitHandler}>
             <div className="flex">
-              <Inputs class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />
-              <Inputs class="flex-col" type="text" label="Nombres" value={firstname} seter={setFristname} placeholder="Ingrese sus nombres" />
+              <Input class="flex-col" type="text" label="Nombres" value={firstname} seter={setFristname} placeholder="Ingrese sus nombres" />
+              <Input class="flex-col" type="text" label="Apellidos" value={lastname} seter={setLastname} placeholder="Ingrese sus apellidos" />
+              
+              
             </div>
             <div className="flex">
-              <Inputs class="flex-col" type="text" label="Apellidos" value={lastname} seter={setLastname} placeholder="Ingrese sus apellidos" />
-              <Inputs class="flex-col" type="text" label="Teléfono" value={phone} seter={setPhone} placeholder="Ingrese sus teléfono" />
+              <Input class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />  
+              <Input class="flex-col" type="text" label="Teléfono" value={phone} seter={setPhone} placeholder="Ingrese sus teléfono" />
             </div>
             <div className="flex">
-              <Inputs class="flex-col" type="text" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
-              <Inputs class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
+              <Input class="flex-col" type="text" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
+              <Input class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
             </div>
             <button
               type="submit"

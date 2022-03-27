@@ -59,7 +59,7 @@ export default function Login() {
             <li className="nav-item">
               <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/cajeros">
                 <i className="fab fa-twitter text-lg leading-lg text-white opacity-75" />
-                <span className="ml-2">Cajeros</span>
+                <span className="ml-2">Sucursales</span>
               </a>
             </li>
             <li className="nav-item">
