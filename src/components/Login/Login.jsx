@@ -19,7 +19,7 @@ export default function Login() {
           <span className="text-plantation text-4xl text-center font-light mb-4">banca en línea</span>
           <hr className="my-5" />
           <form className="text-center px-20 mb-6">
-            <Inputs texto="DNI" name="dni" type="number" value="Escriba su DNI aqui" />
+            <Inputs texto="DNI" name="dni" type="text" placeholder="Escriba su DNI aqui" />
             <Inputs texto="Contraseña" name="dni" type="password" value="Escriba su contraseña aqui" />
             <button
               type="submit"
@@ -29,7 +29,7 @@ export default function Login() {
             </button>
           </form>
           <div className="linksActions flex flex-col text-center">
-            <a href="/" className="text-slate-700 text-sm font-normal mb-5">
+            <a href="/" className="text-dingley text-sm font-semibold mb-5 underline decoration-dotted">
               ¿Olvidaste tu contraseña?
             </a>
             <a href="/register" className="text-slate-700 text-sm font-normal">

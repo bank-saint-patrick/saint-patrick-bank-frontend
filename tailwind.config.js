@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       screens: {
         xsm: '350px',
+        absm: '280px'
       },
       colors: {
         desert: '#a76e24',
@@ -11,6 +12,7 @@ module.exports = {
         plantation: '#295C3F',
         dingley: '#6E8751',
         'blue-stone': '#01575A',
+        adult: '#F7F7F7'
       },
     },
   },

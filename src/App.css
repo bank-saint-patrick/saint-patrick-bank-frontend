@@ -57,4 +57,34 @@
 #ilustration {
   background-image: url('./assets/family.jpeg');
 }
+
+#initBody {
+  background-image: url('../src/assets/images/adultos.jpeg');
+}
+
+#adultBg {
+  background-image: url('./assets//images/customer_representation.jpeg');
+  background-size: 48%;
+  height: auto;
+}
+
+#header-img {
+  background-image: url('./assets/images/init-img.jpeg');
+  width: 4.2in;
+  height: 2.567in;
+  padding-top: 0;
+}
+
+@media screen and (max-width: 640px) {
+  #paragraph1 {
+    width: 2.5in;
+    margin-left: 4.5pc;
+    margin-top: 15em;
+  }
+
+  #paragraph2 {
+    font-size: large;
+  }
+}
+
 /* end brando */
