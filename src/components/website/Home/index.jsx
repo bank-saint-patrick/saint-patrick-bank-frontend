@@ -28,12 +28,12 @@ export default function Home() {
               <img src={initImg} alt='imagen de sección sin encontrar' className='mt-2 rounded-lg shadow-lg shadow-zinc-500' />
             </div>
             <div className="w-2/3 text-center ml-0">
-              <h3 className='text-plantation font-bold mt-5 mb-7 text-3xl sm:text-4xl md:text-4xl lg:text-5xl lg:font-semibold xl:text-6xl 2xl:text-6xl 2xl:font-semibold'>BIENVENIDO</h3>
+              <h3 className='text-plantation font-bold mt-5 mb-7 text-3xl sm:text-4xl md:text-4xl lg:text-5xl lg:font-semibold xl:text-5xl 2xl:text-6xl 2xl:font-semibold'>BIENVENIDO</h3>
               <p className='mt-4 text-xl text-gray-800 font-semibold' id='paragraph2'>
                 ¡Te damos la bienvenida a nuestro Banco<br></br>Saint Patrick!<br></br>
                 ¿Quieres que te acompañemos en tu<br></br>primer experiencia?
               </p>
-              <button className='bg-plantation rounded-lg px-5 py-1 shadow-sm shadow-zinc-500 text-xl font-semibold hover:bg-green-900 hover:ring-1 ring-dingley text-white my-7 lg:p-2'>
+              <button className='bg-plantation rounded-lg px-5 py-1 shadow-sm shadow-zinc-500 text-xl font-semibold hover:bg-green-900 hover:ring-1 ring-dingley text-white my-7 lg:px-4 lg:py-1'>
                 SI DESEO ASESORAMIENTO
               </button>
             </div>
