@@ -21,7 +21,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="flex flex-row bg-cream-can mb-5 p-4 h-96 rounded-sm shadow-lg shadow-slate-600 w-full h-9/11 space-x-1.5 sm:w-9/11 sm:space-x-3 md:w-3/4 md:ml-44 lg:w-5/6 lg:h-80 lg:ml-48 xl:w-2/3 xl:h-80 xl:ml-44 2xl:w-1/2 2xl:h-80 2xl:mb-12">
+          <div className="flex flex-row bg-cream-can mb-5 p-4 h-96 rounded-sm shadow-lg shadow-slate-600 w-full h-9/11 space-x-1.5 sm:w-9/11 sm:space-x-3 md:w-3/4 md:ml-44 lg:w-3/4 lg:h-80 lg:ml-48 xl:w-2/3 xl:h-80 xl:ml-44 2xl:w-1/2 2xl:h-80 2xl:mb-12">
             <div className="w-2/4 mr-0">
               <img src={logo} alt="logo no hallado" width="24em" />
               <img src={initImg} alt='imagen de sección sin encontrar' className='mt-2 rounded-lg shadow-md shadow-zinc-500' />
