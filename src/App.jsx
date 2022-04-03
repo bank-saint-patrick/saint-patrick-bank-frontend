@@ -9,6 +9,7 @@ import Cashiers from './components/website/Cashiers';
 import TakeCareOfYourself from './components/website/TakeCareOfYourself';
 import AboutUs from './components/website/AboutUs';
 import './App.css';
+import { NotFound } from './components/NotFound/NotFound';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/cajeros" element={<Cashiers />} />
         <Route path="/cuidate" element={<TakeCareOfYourself />} />
         <Route path="/sobre-nosotros" element={<AboutUs />} />
+        <Route path='/:any' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
