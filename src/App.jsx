@@ -12,25 +12,22 @@ import Desktop from './components/desktop/Desktop';
 import './App.css';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-<<<<<<< HEAD
-        <Route path="/inicio" element={<Home />} />
-        <Route path='/turnos' element={<Turns />} />
-=======
->>>>>>> main
-        <Route path="/beneficios" element={<Benefits />} />
-        <Route path="/cajeros" element={<Cashiers />} />
-        <Route path="/cuidate" element={<TakeCareOfYourself />} />
-        <Route path="/sobre-nosotros" element={<AboutUs />} />
-        <Route path="/desktop" element={<Desktop />} />
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login/*" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/inicio" element={<Home />} />
+                <Route path="/turnos" element={<Turns />} />
+                <Route path="/beneficios" element={<Benefits />} />
+                <Route path="/cajeros" element={<Cashiers />} />
+                <Route path="/cuidate" element={<TakeCareOfYourself />} />
+                <Route path="/sobre-nosotros" element={<AboutUs />} />
+                <Route path="/desktop" element={<Desktop />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
