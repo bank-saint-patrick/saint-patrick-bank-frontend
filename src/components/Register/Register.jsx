@@ -1,8 +1,7 @@
 import React from 'react';
 import Navbar from '../Navbar';
-import Inputs from '../needs/Inputs';
+import Input from '../needs/Input';
 
-// 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
 // Crear un objeto json con usuarios ficticios
 let data = [
   {
@@ -16,45 +15,6 @@ let data = [
   },
 ];
 
-// Crear una functión para hacer el registro ficticio
-
-/* function register(dni,name,lastname,phone,product,email,password) {
-  
-  fetch('http://localhost:3000/api/v1/register', {
-    method: 'POST',
-    headers: {
-      Accept: 'aplication/json',
-      'Content-type': 'aplication/json',
-    },
-    body: {
-      dni,
-      name,
-      lastname,
-      phone,
-      product,
-      email,
-      password,
-    },
-  });
-}
-
-  
-export default function Register() {
-  const [dni, setDni] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [lastname, setLastname] = React.useState('');
-  const [phone, setPhone] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  const submitHandler = (ev) => {
-    ev.preventDefault();
-    let doc = { dni, name, lastname, phone, email, password };
-    if (data.filter(regis => {return doc !== regis})) {
-      register(dni,name,lastname,phone,email,password);
-    };
-  };
-*/
 export default function Register() {
   const [dni, setDni] = React.useState('');
   const [firstname, setFristname] = React.useState('');
@@ -92,6 +52,17 @@ export default function Register() {
       response.errors.push('El campo Contraseña es obligatorio');
     }
 
+    data.filter((customer) => {
+      if (customer.dni === newCustomer.dni) {
+        response.errors.push('El DNI ya existe');
+      }
+      if (customer.email === newCustomer.email) {
+        response.errors.push('El Email ya existe');
+      }
+
+      return false;
+    });
+
     if (response.errors.length > 0) {
       response.success = false;
     } else {
@@ -120,6 +91,7 @@ export default function Register() {
   };
 
   return (
+<<<<<<< HEAD
       <div>
         <Navbar />
         <div className="bg-lime-100 full-height-conditional grid grid-cols-2">
@@ -159,10 +131,50 @@ export default function Register() {
               <a href="/login" className="text-slate-700 text-sm font-normal mb-5">
                 Ya tengo una cuenta
               </a>
+=======
+    <div className="wrapper flex-column h-screen">
+      <Navbar />
+      <div className="bg-lime-100 full-height-conditional grid grid-cols-2">
+        <div
+          className="bg-teal-900 justify-center items-center bg-no-repeat bg-center bg-cover"
+          id='ilustration'
+        />
+        <div className="bg-white flex flex-col justify-center px-10">
+          <span className="text-plantation text-4xl text-center font-bold mb-2">Regístrate en nuestro<br></br>Banco Saint Patrick</span>
+          <hr className="my-5" />
+          <p className='text-center text-semibold'>A continuación te solicitamos que completes con tus datos los siguientes casilleros.<br></br>
+            ¡Al completarlo hacé click en el botón REGISTRARME!
+          </p>
+          <form className="text-center px-20 mt-6 mb-6" onSubmit={submitHandler}>
+            <div className="flex">
+              <Input class="flex-col" type="text" label="Nombres" value={firstname} seter={setFristname} placeholder="Ingrese sus nombres" />
+              <Input class="flex-col" type="text" label="Apellidos" value={lastname} seter={setLastname} placeholder="Ingrese sus apellidos" />
+              
+              
+>>>>>>> main
             </div>
+            <div className="flex">
+              <Input class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />  
+              <Input class="flex-col" type="text" label="Teléfono" value={phone} seter={setPhone} placeholder="Ingrese sus teléfono" />
+            </div>
+            <div className="flex">
+              <Input class="flex-col" type="text" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
+              <Input class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
+            </div>
+            <button
+              type="submit"
+              className="boton bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto mt-5 w-3/4 md:w-1/2 p-1 rounded-xl py-3 font-bold"
+            >
+              Registrarme
+            </button>
+          </form>
+          <div className="linksActions flex flex-col text-center">
+            <a href="/login" className="text-slate-700 text-sm font-normal mb-5">
+              Ya tengo una cuenta
+            </a>
           </div>
         </div>
       </div>
-      
+    </div>
   );
 }
