@@ -1,5 +1,5 @@
 import React from 'react'
-import iconCreditCards from '../../../assets/icon-credit-cards.png'
+import iconCreditCards from '../../../assets/images/icon-credit-cards.png';
 
 export default function Product(props) {
 

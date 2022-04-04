@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { validateSession } from '../../utils/auth';
-import Loading from '../../needs/Loading';
-import Navbar from '../../Navbar';
-import ButtonSupport from '../../needs/ButtonSupport';
-import Product from '../Product';
-import Transaction from '../Transaction';
-import avatar from '../../../assets/avatar.jpeg';
+import Loading from '../../needs/Loading/index';
+import Navbar from '../../Navbar/index';
+import ButtonSupport from '../../needs/ButtonSuports/index';
+import Product from '../Product/index';
+import Transaction from '../Transaction/index';
+import avatar from '../../../assets/images/avatar.jpeg';
 
 // TODO: *** remove this and change for fetching data from API
 const dataProducts = [
