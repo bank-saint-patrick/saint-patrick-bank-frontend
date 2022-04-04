@@ -8,8 +8,9 @@ import Benefits from './components/website/Benefits';
 import Cashiers from './components/website/Cashiers';
 import TakeCareOfYourself from './components/website/TakeCareOfYourself';
 import AboutUs from './components/website/AboutUs';
-import './App.css';
+import Desktop from './components/desktop/Desktop/index';
 import { NotFound } from './components/NotFound/NotFound';
+import './App.css';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/sucursales" element={<Cashiers />} />
         <Route path="/cuidate" element={<TakeCareOfYourself />} />
         <Route path="/sobre-nosotros" element={<AboutUs />} />
+        <Route path="/desktop" element={<Desktop />} />
         <Route path='/:any' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

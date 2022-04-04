@@ -16,45 +16,6 @@ let data = [
   },
 ];
 
-// Crear una functión para hacer el registro ficticio
-
-/* function register(dni,name,lastname,phone,product,email,password) {
-  
-  fetch('http://localhost:3000/api/v1/register', {
-    method: 'POST',
-    headers: {
-      Accept: 'aplication/json',
-      'Content-type': 'aplication/json',
-    },
-    body: {
-      dni,
-      name,
-      lastname,
-      phone,
-      product,
-      email,
-      password,
-    },
-  });
-}
-
-  
-export default function Register() {
-  const [dni, setDni] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [lastname, setLastname] = React.useState('');
-  const [phone, setPhone] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  const submitHandler = (ev) => {
-    ev.preventDefault();
-    let doc = { dni, name, lastname, phone, email, password };
-    if (data.filter(regis => {return doc !== regis})) {
-      register(dni,name,lastname,phone,email,password);
-    };
-  };
-*/
 export default function Register() {
   const [dni, setDni] = React.useState('');
   const [firstname, setFristname] = React.useState('');
