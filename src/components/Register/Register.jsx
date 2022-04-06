@@ -6,21 +6,20 @@ import Input from '../needs/Input';
 let data = [
     {
         dni: '0123445677',
-        name: 'Ramona',
-        lastname: 'Pérez Mendiola',
-        phone: '(19)3557295',
-        product: 'crédito AhorraMax',
+        firstName: 'Ramona',
+        lastName: 'Pérez Mendiola',
         email: 'rapez08@mymail.com',
+        phoneNumber: '(19)3557295',
         password: 'GT56L98m900X2',
     },
 ];
 
 export default function Register() {
     const [dni, setDni] = React.useState('');
-    const [firstname, setFristname] = React.useState('');
+    const [firstname, setFirstname] = React.useState('');
     const [lastname, setLastname] = React.useState('');
-    const [phone, setPhone] = React.useState('');
     const [email, setEmail] = React.useState('');
+    const [phone, setPhone] = React.useState('');
     const [password, setPassword] = React.useState('');
 
     const register = (newCustomer) => {
@@ -74,6 +73,7 @@ export default function Register() {
 
     const submitHandler = (e) => {
         e.preventDefault();
+
         const newCustomer = {
             dni,
             firstname,
@@ -82,7 +82,9 @@ export default function Register() {
             email,
             password,
         };
+
         const responseValidation = validations(newCustomer);
+
         if (responseValidation.success) {
             register(newCustomer);
         } else {
@@ -106,7 +108,7 @@ export default function Register() {
                     </p>
                     <form className="text-center px-20 mt-6 mb-6" onSubmit={submitHandler}>
                         <div className="flex">
-                            <Input class="flex-col" type="text" label="Nombres" value={firstname} seter={setFristname} placeholder="Ingrese sus nombres" />
+                            <Input class="flex-col" type="text" label="Nombres" value={firstname} seter={setFirstname} placeholder="Ingrese sus nombres" />
                             <Input class="flex-col" type="text" label="Apellidos" value={lastname} seter={setLastname} placeholder="Ingrese sus apellidos" />
                         </div>
                         <div className="flex">

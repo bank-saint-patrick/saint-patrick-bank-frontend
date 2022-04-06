@@ -13,6 +13,7 @@ const data = [
         password: 'qwerty123',
     },
 ];
+
 const sessionSuccess = {
     token: 'abcdef123456',
     timestamp: Date.now(),
