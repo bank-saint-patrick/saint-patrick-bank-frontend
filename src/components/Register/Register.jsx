@@ -1,6 +1,9 @@
-import React from 'react';
+import { useState } from 'react';
+
 import Navbar from '../Navbar';
 import Input from '../needs/Input';
+
+import { toast } from 'react-toastify';
 
 // Crear un objeto json con usuarios ficticios
 let data = [
@@ -15,15 +18,15 @@ let data = [
 ];
 
 export default function Register() {
-    const [dni, setDni] = React.useState('');
-    const [firstname, setFirstname] = React.useState('');
-    const [lastname, setLastname] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [phone, setPhone] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [dni, setDni] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
 
     const register = (newCustomer) => {
-        data = [...data, newCustomer];
+        console.log(newCustomer);
     };
 
     const validations = (newCustomer) => {
@@ -41,7 +44,7 @@ export default function Register() {
         if (newCustomer.lastname.length === 0) {
             response.errors.push('El campo Apellido es obligatorio');
         }
-        if (newCustomer.phone.length === 0) {
+        if (newCustomer.phoneNumber.length === 0) {
             response.errors.push('El campo Teléfono es obligatorio');
         }
         if (newCustomer.email.length === 0) {
@@ -78,7 +81,7 @@ export default function Register() {
             dni,
             firstname,
             lastname,
-            phone,
+            phoneNumber,
             email,
             password,
         };
@@ -88,16 +91,18 @@ export default function Register() {
         if (responseValidation.success) {
             register(newCustomer);
         } else {
-            alert(responseValidation.errors);
+            for (let i = 0; i < responseValidation.errors.length; i++) {
+                toast.error(responseValidation.errors[i], { position: 'top-left' });
+            }
         }
     };
 
     return (
-        <div className="wrapper flex-column h-screen">
+        <div className="wrapper flex-column h-[auto] md:h-screen">
             <Navbar />
-            <div className="bg-lime-100 full-height-conditional grid grid-cols-2">
-                <div className="bg-teal-900 justify-center items-center bg-no-repeat bg-center bg-cover" id="ilustration" />
-                <div className="bg-white flex flex-col justify-center px-10">
+            <div className="bg-lime-100 h-full flex flex-col md:flex-row">
+                <div className="flex bg-teal-900 justify-center items-center w-full h-2/4 md:h-full md:w-2/4 bg-no-repeat bg-center bg-cover" id="ilustration" />
+                <div className="bg-white flex flex-col justify-center w-full h-2/4 md:h-full md:w-2/4 px-10 pt-8">
                     <span className="text-plantation text-4xl text-center font-bold mb-2">
                         Regístrate en nuestro<br></br>Banco Saint Patrick
                     </span>
@@ -106,16 +111,16 @@ export default function Register() {
                         A continuación te solicitamos que completes con tus datos los siguientes casilleros.<br></br>
                         ¡Al completarlo hacé click en el botón REGISTRARME!
                     </p>
-                    <form className="text-center px-20 mt-6 mb-6" onSubmit={submitHandler}>
-                        <div className="flex">
+                    <form className="text-center px-0 lg:px-20 mt-6 mb-6" onSubmit={submitHandler}>
+                        <div className="flex flex-col lg:flex-row">
                             <Input class="flex-col" type="text" label="Nombres" value={firstname} seter={setFirstname} placeholder="Ingrese sus nombres" />
                             <Input class="flex-col" type="text" label="Apellidos" value={lastname} seter={setLastname} placeholder="Ingrese sus apellidos" />
                         </div>
-                        <div className="flex">
+                        <div className="flex flex-col lg:flex-row">
                             <Input class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />
-                            <Input class="flex-col" type="text" label="Teléfono" value={phone} seter={setPhone} placeholder="Ingrese sus teléfono" />
+                            <Input class="flex-col" type="text" label="Teléfono" value={phoneNumber} seter={setPhoneNumber} placeholder="Ingrese sus teléfono" />
                         </div>
-                        <div className="flex">
+                        <div className="flex flex-col lg:flex-row">
                             <Input class="flex-col" type="text" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
                             <Input class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
                         </div>

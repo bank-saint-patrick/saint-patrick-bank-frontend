@@ -89,13 +89,14 @@ export default function Login() {
     return (
         <div className="wrapper flex-column h-screen">
             <Navbar />
-            <div className="bg-lime-100 full-height-conditional grid grid-cols-2">
-                <div className="bg-teal-900 justify-center items-center bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${backgroundImage})` }} />
-                <div className="bg-white flex flex-col justify-center px-10">
+            <div className="bg-lime-100 full-height-conditional flex w-full">
+                <div className="hidden md:block md:w-1/2 bg-teal-900 justify-center items-center bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${backgroundImage})` }} />
+
+                <div className="bg-white flex flex-col w-full md:w-1/2 justify-center px-10">
                     <span className="text-plantation text-4xl text-center font-bold mb-2">Bienvenido a tu</span>
                     <span className="text-plantation text-4xl text-center font-light mb-4">banca en línea</span>
                     <hr className="my-5" />
-                    <form className="text-center px-20 mb-6" onSubmit={submitHandler}>
+                    <form className="text-center lg:px-20 mb-6" onSubmit={submitHandler}>
                         <Input class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />
                         <Input class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
                         <button

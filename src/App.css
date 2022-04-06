@@ -1,90 +1,84 @@
 /* start david */
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 /* end david */
 
 /* start brando */
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 #app-logo {
-  margin-left: 3pt;
+    margin-left: 3pt;
 }
 
 .brand {
-  font-family: "Hind Vadodara", sans-serif;
-  margin-left: -45px;
+    font-family: 'Hind Vadodara', sans-serif;
+    margin-left: -45px;
 }
 
 #register_brand {
-  font-family: "Hind Vadodara", sans-serif;
+    font-family: 'Hind Vadodara', sans-serif;
 }
 
 #ilustration {
-  background-image: url('./assets/family.jpeg');
+    background-image: url('./assets/images/adultos.jpeg');
 }
 
 #initBody {
-  background-image: url('../src/assets/images/adultos.jpeg');
-}
-
-#adultBg {
-  background-image: url('./assets//images/customer_representation.jpeg');
-  background-size: 48%;
-  height: auto;
+    background-image: url('../src/assets/images/adultos.jpeg');
 }
 
 #header-img {
-  background-image: url('./assets/images/init-img.jpeg');
-  width: 4.2in;
-  height: 2.567in;
-  padding-top: 0;
+    background-image: url('./assets/images/init-img.jpeg');
+    width: 4.2in;
+    height: 2.567in;
+    padding-top: 0;
 }
 
 @media screen and (max-width: 640px) {
-  #paragraph1 {
-    width: 2.5in;
-    margin-left: 4.5pc;
-    margin-top: 15em;
-  }
+    #paragraph1 {
+        width: 2.5in;
+        margin-left: 4.5pc;
+        margin-top: 15em;
+    }
 
-  #paragraph2 {
-    font-size: large;
-  }
+    #paragraph2 {
+        font-size: large;
+    }
 }
 
 /* end brando */

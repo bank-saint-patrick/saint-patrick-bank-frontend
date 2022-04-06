@@ -58,12 +58,7 @@ export default function Navbar() {
                                 <span className="ml-2">Sucursales</span>
                             </a>
                         </li>
-                        <li className="nav-item">
-                            <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/cuidate">
-                                <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
-                                <span className="ml-2">Cuidate</span>
-                            </a>
-                        </li>
+
                         <li className="nav-item">
                             <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/sobre-nosotros">
                                 <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
