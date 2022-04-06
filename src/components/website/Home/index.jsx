@@ -16,7 +16,7 @@ export default function Home() {
               <p className='col-span-3 ml-96 mt-10 w-auto py-20 text-lg font-bold sm:ml-80 md:ml-72 lg:ml-96 xl:44 2xl:ml-96 2xl:pl-20' id='paragraph1'>
                 Aprende a usar el sistema de banca en línea desde
                 una<br></br>computadora, tablet o celular. ¡Si tienes más dudas<br></br>ponte en contacto con nosotros!
-                <img src="https://img.icons8.com/external-royyan-wijaya-detailed-outline-royyan-wijaya/48/000000/external-arrow-arrow-line-royyan-wijaya-detailed-outline-royyan-wijaya-6.png" alt='arrow not found' className='mt-5 ml-44 pl-80  hover:translate-y-3.5 ease-out duration-75'/>
+                <img src="https://img.icons8.com/external-royyan-wijaya-detailed-outline-royyan-wijaya/48/000000/external-arrow-arrow-line-royyan-wijaya-detailed-outline-royyan-wijaya-6.png" alt='arrow not found' className='mt-5 mr-auto ml-auto hover:translate-y-3.5 ease-out duration-75'/>
               </p>
             </div>
           </div>

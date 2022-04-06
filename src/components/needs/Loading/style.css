@@ -1,15 +1,7 @@
 div.loading {
-<<<<<<< HEAD
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
-=======
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
->>>>>>> 1f281368acc7dfb00a632a26715d5c7626922d82
 }
