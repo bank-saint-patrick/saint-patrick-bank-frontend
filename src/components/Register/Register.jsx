@@ -15,6 +15,7 @@ let data = [
 ];
 
 export default function Register() {
+<<<<<<< HEAD
     const [dni, setDni] = React.useState('');
     const [firstname, setFirstname] = React.useState('');
     const [lastname, setLastname] = React.useState('');
@@ -24,6 +25,23 @@ export default function Register() {
 
     const register = (newCustomer) => {
         data = [...data, newCustomer];
+=======
+  const [dni, setDni] = React.useState('');
+  const [firstname, setFristname] = React.useState('');
+  const [lastname, setLastname] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const register = (newCustomer) => {
+    data = [...data, newCustomer];
+  };
+
+  const validations = (newCustomer) => {
+    const response = {
+      success: true,
+      errors: [],
+>>>>>>> 1f281368acc7dfb00a632a26715d5c7626922d82
     };
 
     const validations = (newCustomer) => {

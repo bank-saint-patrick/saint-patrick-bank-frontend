@@ -7,7 +7,7 @@ export default function Cashiers() {
       <Navbar />
       <div className="bg-lime-100 full-height-conditional grid grid-cols-1">
         <div className="bg-white flex flex-col justify-center px-10">
-          <span className="text-plantation text-4xl text-center font-bold mb-2">Cajeros</span>
+          <span className="text-plantation text-4xl text-center font-bold mb-2">Sucursales</span>
         </div>
       </div>
     </div>
