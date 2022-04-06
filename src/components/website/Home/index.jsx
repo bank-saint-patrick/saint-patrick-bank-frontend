@@ -9,11 +9,11 @@ export default function Home() {
       <Navbar />
       <div className="full-height-conditional grid grid-cols-1 my-3 bg-adult bg-no-repeat" id='adultBg'>
         <section className="container flex flex-col mx-auto items-center">
-          <div className='w-full text-center ml-2 mb-1'>
+          <div className='w-full text-center ml-2 mb-0'>
             <h2 className='text-3xl text-dingley mb-3 pl-3 ml-20'>INICIO BANCARIO</h2>
             <hr className='invisible sm:visible md:visible lg:visible xl:visible'></hr>
             <div className='container grid grid-cols-4 bg-no-repeat'>
-              <p className='col-span-3 ml-80 mt-10 w-auto py-20 text-lg font-bold' id='paragraph1'>
+              <p className='col-span-3 ml-80 mt-10 w-auto py-20 text-lg font-bold md:ml-72 md:mb-36 xl:ml-96 xl:mt-20 xl:pl-24' id='paragraph1'>
                 Aprende a usar el sistema de banca en línea desde
                 una<br></br>computadora, tablet o celular. ¡Si tienes más dudas<br></br>ponte en contacto con nosotros!
                 <img src="https://img.icons8.com/external-royyan-wijaya-detailed-outline-royyan-wijaya/48/000000/external-arrow-arrow-line-royyan-wijaya-detailed-outline-royyan-wijaya-6.png" alt='arrow not found' className='mt-5 ml-44 pl-80  hover:translate-y-3.5 ease-out duration-75'/>
