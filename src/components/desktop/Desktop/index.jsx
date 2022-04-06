@@ -19,7 +19,7 @@ import mrs1 from '../../../assets/images/transactions/mrs1.jpeg';
 import mrs2 from '../../../assets/images/transactions/mrs2.jpeg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightArrowLeft, faHouse, faFolder, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle, faCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightArrowLeft, faHouse, faFolder, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 // TODO: *** remove this and change for fetching data from API
 const dataProducts = [
@@ -91,28 +91,64 @@ const dataTransactions = [
     },
 ];
 
+// TODO: *** remove this and change for fetching data from API
+const dataContacts = [
+    {
+        id: 1,
+        name: 'Juan González',
+        img: sir1,
+        cbu: '0102-0102-0102-0102-0102',
+    },
+    {
+        id: 2,
+        name: 'Pedro Álvarez',
+        img: sir2,
+        cbu: '0102-0102-0102-0102-5438',
+    },
+    {
+        id: 3,
+        name: 'José Cárdenas',
+        img: sir3,
+        cbu: '0102-0102-0102-0102-5438',
+    },
+];
+
 export default function Desktop() {
-    const [loading, setLoading] = useState(true);
+    /* Data */
     const [products, setProducts] = useState([]);
-    const [productSelected, setProductSelected] = useState(0);
+
     const [transactions, setTransactions] = useState([]);
 
+    const [contacts, setContacts] = useState([]);
+
+    /* Utilities */
+    const [productSelected, setProductSelected] = useState(0);
     const [width, setWidth] = useState(window.innerWidth);
     const [menu, setMenu] = useState(false);
+    const [loading, setLoading] = useState(true);
 
+    /* Modals */
     const [modalTransferencia, setModalTransferencia] = useState(false);
+    const [modalContacto, setModalContacto] = useState(false);
 
+    /* Utilitie useEffect */
     useEffect(() => {
         window.onresize = (e) => {
             setWidth(e.target.innerWidth);
         };
         width < 640 ? setMenu(false) : setMenu(true);
+    }, [width]);
 
-        const body = document.getElementsByTagName('body')[0];
+    /* Data Fetching */
 
-        !modalTransferencia && body.classList.remove('overflow-hidden');
-    }, [width, modalTransferencia]);
+    /* Contacts */
+    useEffect(() => {
+        validateSession();
 
+        setContacts(dataContacts);
+    }, []);
+
+    /* Products */
     useEffect(() => {
         validateSession();
 
@@ -126,6 +162,7 @@ export default function Desktop() {
         }, 1000);
     }, []);
 
+    /* Transactions */
     useEffect(() => {
         const result = dataTransactions.filter((transaction) => transaction.product_id === productSelected);
         setTransactions(result);
@@ -209,29 +246,6 @@ export default function Desktop() {
             name: 'Configuración',
             path: '/login/configuracion',
             icon: faGears,
-        },
-    ];
-
-    /* contactos - en proceso - alessandro */
-
-    const contacts = [
-        {
-            id: 1,
-            name: 'Juan González',
-            img: sir1,
-            type: 'Recibido',
-        },
-        {
-            id: 2,
-            name: 'Pedro Álvarez',
-            img: sir2,
-            type: 'Enviado',
-        },
-        {
-            id: 3,
-            name: 'José Cárdenas',
-            img: sir3,
-            type: 'Enviado',
         },
     ];
 
@@ -340,7 +354,7 @@ export default function Desktop() {
                                 element={
                                     <div className="flex flex-col w-full">
                                         <div className="flex flex-col w-full">
-                                            <h2 className="text-xl">Productos</h2>
+                                            <h2 className="text-xl">Tus productos disponibles</h2>
 
                                             <div className="flex flex-col lg:flex-row w-full justify-around align-top my-8">
                                                 {products.map((product) => {
@@ -401,9 +415,8 @@ export default function Desktop() {
                                                 onClick={() => {
                                                     setModalTransferencia(true);
 
-                                                    const body = document.getElementsByTagName('body')[0];
-
-                                                    body.classList.add('overflow-hidden');
+                                                    window.scrollTo(0, 0);
+                                                    document.body.classList.add('overflow-hidden');
                                                 }}
                                                 className="bg-cream-can w-max py-1 px-4 rounded-2xl font-semibold">
                                                 Nueva transferencia
@@ -434,16 +447,23 @@ export default function Desktop() {
                                         <div className="flex flex-col">
                                             <div className="flex w-full justify-between items-center my-8">
                                                 <h3 className="font-semibold text-lg">Contactos Guardados</h3>
-                                                <button className="bg-gray-300 w-max py-1 px-4 rounded-2xl font-semibold">Nuevo Contacto</button>
+                                                <button
+                                                    onClick={() => {
+                                                        setModalContacto(true);
+
+                                                        window.scrollTo(0, 0);
+                                                        document.body.classList.add('overflow-hidden');
+                                                    }}
+                                                    className="bg-gray-300 w-max py-1 px-4 rounded-2xl font-semibold">
+                                                    Nuevo Contacto
+                                                </button>
                                             </div>
 
-                                            <div className="flex flex-col md:flex-row">
+                                            <div className="flex flex-col md:flex-row flex-wrap">
                                                 {contacts.map((contact) => (
                                                     <div key={contact.id} className="flex items-center mr-8 my-4">
                                                         <div className="mr-6 relative">
                                                             <img className="w-10 h-10 object-cover rounded-full" src={contact.img} alt="" />
-
-                                                            <FontAwesomeIcon className={`${contact.type === 'Recibido' ? 'text-green-500' : 'text-red-500'} absolute right-0 bottom-0`} icon={faCircle} />
                                                         </div>
                                                         <b className="text-base text-yellow-500">{contact.name}</b>
                                                     </div>
@@ -457,53 +477,180 @@ export default function Desktop() {
                     </div>
                 </div>
 
-                <div className={modalTransferencia ? 'z-50 w-full h-full grid place-content-center fixed' : 'hidden'}>
-                    {/* form to add a bank transfer */}
-                    <div className="flex flex-col bg-white rounded-lg shadow-lg justify-between items-center">
+                <div className={modalTransferencia ? 'absolute z-50 w-full flex justify-center h-[85%] mt-4' : 'hidden'}>
+                    <div className="flex flex-col bg-white rounded-lg shadow-lg items-center overflow-auto">
                         <div className="flex w-full justify-between">
                             <h3 className="m-8 text-2xl font-semibold border-b-2 border-blue-stone">Nueva Transferencia</h3>
                             <button
                                 onClick={() => {
                                     setModalTransferencia(false);
+                                    document.body.classList.remove('overflow-hidden');
                                 }}
                                 className="m-4 mx-8">
                                 <FontAwesomeIcon className="fa-xl" icon={faTimes} />
                             </button>
                         </div>
 
-                        <div className="flex flex-col m-8">
-                            <select className="my-4" name="desde" id="">
-                                <option value="">Selecciona una cuenta</option>
-                                <option value="">Cuenta 1</option>
-                                <option value="">Cuenta 2</option>
-                            </select>
+                        <form
+                            className="grow"
+                            onSubmit={(e) => {
+                                e.preventDefault();
 
-                            <select className="my-4" name="hacia" id="">
-                                <option value="">Selecciona un beneficiario</option>
-                                <option value="">Beneficiario 1</option>
-                                <option value="">Beneficiario 2</option>
-                            </select>
-                        </div>
+                                const data = Object.fromEntries(new FormData(e.target).entries());
+                                const transaccion = { ...data, transactionTypeID: data.productIDOrigin === 'Cuenta corriente' ? 1 : 2, id: transactions.length + 1 };
 
-                        <div className="flex flex-col w-full justify-between items-center">
-                            <div className="flex flex-col w-full justify-between items-center">
-                                <label htmlFor="monto" className="text-lg font-semibold">
-                                    Monto
-                                </label>
-                                <input type="number" name="monto" id="monto" className="w-full py-1 px-4 rounded-2xl font-semibold" />
-
-                                <div className="flex flex-col w-full justify-between items-center mt-4">
-                                    <label htmlFor="monto" className="text-lg font-semibold">
-                                        Concepto
+                                setTransactions([...transactions, transaccion]);
+                            }}
+                            action="">
+                            <div className="flex flex-col">
+                                <div className="flex flex-col">
+                                    <label className="text-lg font-semibold mt-3 text-center" htmlFor="">
+                                        Cuenta
                                     </label>
-                                    <input type="text" name="concepto" id="concepto" className="w-full py-1 px-4 rounded-2xl font-semibold" />
+
+                                    <select defaultValue={''} required className="p-2 rounded-lg my-4 border-2 border-blue-stone w-full" name="product_id" id="">
+                                        <option disabled value={''}>
+                                            Selecciona una cuenta
+                                        </option>
+                                        {dataProducts.map((product) => {
+                                            return (
+                                                <option key={product.id} value={product.id}>
+                                                    {product.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+
+                                <div className="flex flex-col">
+                                    <label className="text-lg font-semibold mt-3 text-center" htmlFor="">
+                                        Beneficiario
+                                    </label>
+
+                                    <select
+                                        onChange={(e) => {
+                                            if (e.target.value === 'otro') {
+                                                const select = document.querySelector('#productIDDestination');
+                                                const input = document.createElement('input');
+                                                input.setAttribute('type', 'text');
+                                                input.setAttribute('name', 'receptor');
+                                                input.setAttribute('class', 'p-2 rounded-lg my-4 border-2 border-blue-stone w-full');
+                                                input.setAttribute('placeholder', 'Ingresa el CBU / CVU / Alias');
+                                                input.setAttribute('required', '');
+                                                select.parentNode.replaceChild(input, select);
+                                            }
+                                        }}
+                                        required
+                                        defaultValue={''}
+                                        className="p-2 rounded-lg my-4 border-2 border-blue-stone w-full"
+                                        name="productIDDestination"
+                                        id="productIDDestination">
+                                        <option disabled value="">
+                                            Selecciona un beneficiario
+                                        </option>
+                                        {contacts.map((contact) => {
+                                            return (
+                                                <option key={contact.id} value={contact.id}>
+                                                    {contact.name}
+                                                </option>
+                                            );
+                                        })}
+                                        <option value="otro">Otro</option>
+                                    </select>
                                 </div>
                             </div>
-                        </div>
+
+                            <div className="flex flex-col justify-between items-center">
+                                <div className="flex flex-col justify-between items-center">
+                                    <label htmlFor="monto" className="text-lg font-semibold">
+                                        Monto
+                                    </label>
+                                    <input placeholder="$100" required type="number" name="ammount" id="monto" className="w-full py-1 px-4 rounded-2xl font-semibold border-2 border-blue-stone m-4" />
+
+                                    <div className="flex flex-col w-full justify-between items-center mt-4">
+                                        <label htmlFor="monto" className="text-lg font-semibold">
+                                            Concepto
+                                        </label>
+                                        <textarea maxLength={150} placeholder="Descripción breve" required name="concepto" id="concepto" className="resize-none w-full p-4 rounded-2xl font-semibold border-2 border-blue-stone m-4" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-center my-5">
+                                <button className="bg-cream-can w-max py-1 px-4 rounded-2xl font-semibold">Continuar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
-                <div className={modalTransferencia ? 'absolute h-full w-full grid place-content-center bg-black opacity-50' : 'hidden'}></div>
+                <div className={modalContacto ? 'absolute z-50 w-full flex justify-center h-[75%] mt-4' : 'hidden'}>
+                    <div className="flex flex-col bg-white rounded-lg shadow-lg items-center overflow-auto">
+                        <div className="flex w-full justify-between">
+                            <h3 className="m-8 text-2xl font-semibold border-b-2 border-blue-stone">Nuevo Contacto</h3>
+                            <button
+                                onClick={() => {
+                                    setModalContacto(false);
+                                    document.body.classList.remove('overflow-hidden');
+                                }}
+                                className="m-4 mx-8">
+                                <FontAwesomeIcon className="fa-xl" icon={faTimes} />
+                            </button>
+                        </div>
+
+                        <form
+                            className="flex flex-col justify-evenly grow"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+
+                                const data = Object.fromEntries(new FormData(e.target).entries());
+
+                                const reader = new FileReader();
+
+                                reader.readAsDataURL(data.img);
+
+                                reader.onload = (e) => {
+                                    data.img = e.target.result;
+                                    const contact = { ...data, id: contacts.length + 1 };
+                                    setContacts([...contacts, contact]);
+                                };
+                            }}
+                            action="">
+                            <div className="flex flex-col">
+                                <div className="flex flex-col">
+                                    <label className="text-lg font-semibold mt-3 text-center" htmlFor="">
+                                        Nombres completos
+                                    </label>
+
+                                    <input placeholder="Nombres completos" required type="text" name="name" className="w-3/4 mx-auto py-1 px-4 rounded-2xl font-semibold border-2 border-blue-stone mt-4" />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label className="text-lg font-semibold mt-3 text-center" htmlFor="">
+                                    Subir Imagen
+                                </label>
+
+                                <input placeholder="Imagen" required type="file" name="img" className="py-1 px-4 w-3/4 mx-auto rounded-2xl font-semibold m-4" />
+                            </div>
+
+                            <div className="flex flex-col justify-between items-center">
+                                <div className="flex flex-col justify-between items-center">
+                                    <label htmlFor="monto" className="text-lg font-semibold">
+                                        CBU / CVU / Alias
+                                    </label>
+
+                                    <input placeholder="CBU/CVU/Alias" required type="number" name="cbu" className="w-full py-1 px-4 rounded-2xl font-semibold border-2 border-blue-stone m-4" />
+                                </div>
+                            </div>
+
+                            <div className="flex justify-center">
+                                <button className="bg-cream-can w-max py-1 px-4 rounded-2xl font-semibold">Continuar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div className={modalTransferencia || modalContacto ? 'overlay absolute h-full w-full grid place-content-center bg-black opacity-50' : 'hidden'}></div>
             </div>
 
             <ButtonSupport />
