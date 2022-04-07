@@ -23,7 +23,7 @@ export default function Transaction(props) {
           </div>
         </div>
       </td>
-      <td className="py-4 whitespace-nowrap">
+      <td className="px-16 py-4 whitespace-nowrap">
         <div className="text-left">{number}</div>
       </td>
       <td className="py-4 whitespace-nowrap">
