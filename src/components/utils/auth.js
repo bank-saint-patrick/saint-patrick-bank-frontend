@@ -1,10 +1,10 @@
 const validateSession = () => {
-  const session = JSON.parse(localStorage.getItem('session'));
-  if (!session) {
-    window.location.href = '/';
-  }
+    const session = JSON.parse(sessionStorage.getItem('session'));
+    if (!session) {
+        window.location.href = '/';
+    }
 
-  return session;
+    return session;
 };
 
 module.exports = { validateSession };

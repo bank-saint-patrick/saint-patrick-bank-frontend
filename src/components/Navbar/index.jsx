@@ -18,7 +18,7 @@ export default function Navbar() {
     };
 
     const handleClickLogout = () => {
-        localStorage.setItem('session', null);
+        sessionStorage.removeItem('session');
         window.location.href = '/login';
     };
 

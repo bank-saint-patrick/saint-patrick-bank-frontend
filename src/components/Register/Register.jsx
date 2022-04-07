@@ -5,6 +5,8 @@ import Input from '../needs/Input';
 
 import { toast } from 'react-toastify';
 
+import adultos from '../../assets/images/adultos.jpeg';
+
 // Crear un objeto json con usuarios ficticios
 let data = [
     {
@@ -26,7 +28,40 @@ export default function Register() {
     const [password, setPassword] = useState('');
 
     const register = (newCustomer) => {
-        console.log(newCustomer);
+        /* URL registro */
+
+        const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api/Authenticate/register';
+
+        /* Headers para el registro */
+
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Access-Control-Allow-Origin', '*');
+        myHeaders.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+        myHeaders.append('Accept', '*/*');
+
+        /* Data en formato JSON */
+        const raw = JSON.stringify(newCustomer);
+
+        /* Request Options */
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+
+        /* Solicitud POST */
+        fetch(url, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.status === 'Success') {
+                    toast.success('¡Registro exitoso!');
+                } else {
+                    const errorMessage = result.message;
+                    toast.error(`El registro no se pudo realizar: ¡el ${errorMessage}`);
+                }
+            })
+            .catch((error) => toast.error(error.message));
     };
 
     const validations = (newCustomer) => {
@@ -37,21 +72,35 @@ export default function Register() {
 
         if (newCustomer.dni.length === 0) {
             response.errors.push('El campo DNI es obligatorio');
+        } else if (newCustomer.dni.length !== 8) {
+            response.errors.push('El DNI debe tener 8 dígitos');
         }
-        if (newCustomer.firstname.length === 0) {
+        if (newCustomer.firstName.length === 0) {
             response.errors.push('El campo Nombre es obligatorio');
         }
-        if (newCustomer.lastname.length === 0) {
+        if (newCustomer.lastName.length === 0) {
             response.errors.push('El campo Apellido es obligatorio');
         }
         if (newCustomer.phoneNumber.length === 0) {
             response.errors.push('El campo Teléfono es obligatorio');
+        } else if (newCustomer.phoneNumber.length < 8) {
+            response.errors.push('El Teléfono debe tener mínimo 8 dígitos');
         }
         if (newCustomer.email.length === 0) {
             response.errors.push('El campo Email es obligatorio');
         }
         if (newCustomer.password.length === 0) {
             response.errors.push('El campo Contraseña es obligatorio');
+        } else if (newCustomer.password.length < 8) {
+            response.errors.push('La contraseña debe tener al menos 8 caracteres');
+        } else if (!/[A-Z]/.test(newCustomer.password)) {
+            response.errors.push('La contraseña debe tener al menos una letra mayúscula');
+        } else if (!/[a-z]/.test(newCustomer.password)) {
+            response.errors.push('La contraseña debe tener al menos una letra minúscula');
+        } else if (!/[0-9]/.test(newCustomer.password)) {
+            response.errors.push('La contraseña debe tener al menos un número');
+        } else if (!/[^a-zA-Z0-9]/.test(newCustomer.password)) {
+            response.errors.push('La contraseña debe tener al menos un caracter especial');
         }
 
         data.filter((customer) => {
@@ -78,12 +127,12 @@ export default function Register() {
         e.preventDefault();
 
         const newCustomer = {
-            dni,
-            firstname,
-            lastname,
-            phoneNumber,
-            email,
-            password,
+            dni: dni.trim(),
+            firstName: firstname.trim(),
+            lastName: lastname.trim(),
+            email: email.trim(),
+            phoneNumber: phoneNumber.trim(),
+            password: password.trim(),
         };
 
         const responseValidation = validations(newCustomer);
@@ -92,17 +141,17 @@ export default function Register() {
             register(newCustomer);
         } else {
             for (let i = 0; i < responseValidation.errors.length; i++) {
-                toast.error(responseValidation.errors[i], { position: 'top-left' });
+                toast.error(responseValidation.errors[i]);
             }
         }
     };
 
     return (
-        <div className="wrapper flex-column h-[auto] md:h-screen">
+        <div className="wrapper flex-column h-[auto]">
             <Navbar />
             <div className="bg-lime-100 h-full flex flex-col md:flex-row">
-                <div className="flex bg-teal-900 justify-center items-center w-full h-2/4 md:h-full md:w-2/4 bg-no-repeat bg-center bg-cover" id="ilustration" />
-                <div className="bg-white flex flex-col justify-center w-full h-2/4 md:h-full md:w-2/4 px-10 pt-8">
+                <img className="hidden md:flex md:w-1/2 object-cover" src={adultos} alt="" />
+                <div className="bg-white flex flex-col justify-center w-full md:w-2/4 px-10 pt-8">
                     <span className="text-plantation text-4xl text-center font-bold mb-2">
                         Regístrate en nuestro<br></br>Banco Saint Patrick
                     </span>
@@ -117,11 +166,11 @@ export default function Register() {
                             <Input class="flex-col" type="text" label="Apellidos" value={lastname} seter={setLastname} placeholder="Ingrese sus apellidos" />
                         </div>
                         <div className="flex flex-col lg:flex-row">
-                            <Input class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />
-                            <Input class="flex-col" type="text" label="Teléfono" value={phoneNumber} seter={setPhoneNumber} placeholder="Ingrese sus teléfono" />
+                            <Input class="flex-col" type="number" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />
+                            <Input class="flex-col" type="number" label="Teléfono" value={phoneNumber} seter={setPhoneNumber} placeholder="Ingrese sus teléfono" />
                         </div>
-                        <div className="flex flex-col lg:flex-row">
-                            <Input class="flex-col" type="text" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
+                        <div className="flex flex-col lg:flex-row relative">
+                            <Input class="flex-col" type="email" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
                             <Input class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
                         </div>
                         <button

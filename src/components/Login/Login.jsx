@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
+
 import Navbar from '../Navbar';
 import Input from '../needs/Input';
 import Desktop from '../desktop/Desktop';
 import './login.css';
 
+import { toast } from 'react-toastify';
+
 const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
-
-// Crear un objeto json con usuarios ficticios
-const data = [
-    {
-        dni: '271368712',
-        password: 'qwerty123',
-    },
-];
-
-const sessionSuccess = {
-    token: 'abcdef123456',
-    timestamp: Date.now(),
-    expiration: '60',
-};
 
 export default function Login() {
     const [dni, setDni] = useState('');
@@ -26,26 +15,53 @@ export default function Login() {
     const [session, setSession] = useState({});
 
     useEffect(() => {
-        const sessionStorage = JSON.parse(localStorage.getItem('session'));
-        if (sessionStorage) {
+        const sessionStorageGet = JSON.parse(sessionStorage.getItem('session'));
+        if (sessionStorageGet) {
             setSession(sessionStorage);
         }
     }, []);
 
     const login = (user) => {
-        const sessionReceive = data.find((_user) => {
-            if (_user.dni === user.dni && _user.password === user.password) {
-                return true;
-            }
-            return false;
-        });
+        /* URL registro */
 
-        if (!sessionReceive) {
-            alert('Usuario o contraseña incorrectos');
-        } else {
-            localStorage.setItem('session', JSON.stringify(sessionSuccess));
-            setSession(sessionSuccess);
-        }
+        const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api/Authenticate/login';
+
+        /* Headers para el registro */
+
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Access-Control-Allow-Origin', '*');
+        myHeaders.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+        myHeaders.append('Accept', '*/*');
+
+        /* Data en formato JSON */
+        const raw = JSON.stringify(user);
+
+        /* Request Options */
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+
+        /* Solicitud POST */
+        fetch(url, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.token) {
+                    toast.success('¡Inicio de sesión exitoso!');
+                    setSession(result);
+                    const sessionAuth = {
+                        token: result.token,
+                        timestamp: Date.now(),
+                        expiration: '60',
+                    };
+                    sessionStorage.setItem('session', JSON.stringify(sessionAuth));
+                } else {
+                    toast.error(`No se pudo iniciar sesión verifique sus datos`);
+                }
+            })
+            .catch((error) => toast.error(error.message));
     };
 
     const validations = (user) => {
@@ -82,7 +98,7 @@ export default function Login() {
         }
     };
 
-    if (session !== false && typeof session.token !== 'undefined') {
+    if (session.token) {
         return <Desktop />;
     }
 

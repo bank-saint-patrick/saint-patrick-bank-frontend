@@ -2,6 +2,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transactions, setTransactions, products, contacts }) => {
+    const handleTransferSubmit = (e) => {
+        e.preventDefault();
+
+        const data = Object.fromEntries(new FormData(e.target).entries());
+        const transaccion = { ...data, transactionTypeID: 1 };
+
+        console.log(transaccion);
+    };
+
     return (
         <div className={modalTransferencia ? 'absolute z-50 w-full flex justify-center h-[85%] mt-4' : 'hidden'}>
             <div className="flex flex-col bg-white rounded-lg shadow-lg items-center overflow-auto">
@@ -17,17 +26,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
                     </button>
                 </div>
 
-                <form
-                    className="grow"
-                    onSubmit={(e) => {
-                        e.preventDefault();
-
-                        const data = Object.fromEntries(new FormData(e.target).entries());
-                        const transaccion = { ...data, transactionTypeID: 1 };
-
-                        console.log(transaccion);
-                    }}
-                    action="">
+                <form className="grow" onSubmit={handleTransferSubmit} action="">
                     <div className="flex flex-col">
                         <div className="flex flex-col">
                             <label className="text-lg font-semibold mt-3 text-center" htmlFor="">
