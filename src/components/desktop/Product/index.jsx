@@ -17,9 +17,8 @@ export default function Product(props) {
   return (
     <div>
       <div className='flex flex-col justify-content-stretch items-center bg-gray-100 sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row 3xl:flex-row'>
-        
         <div className='w-1/3 sm:w-10/12 md:w-8/12 md:mr-2 lg:w-9/12 xl:w-10/12 2xl:w-full 3xl:w-96'>
-          <div onClick={() => handleClickProduct(id)} className={`${classSelected} rounded border shadow-lg shadow-slate-400 p-4 h-44 transition ease-in-out delay-75 hover:translate-x-1 hover:-translate-y-1.5 justify-self-start mb-4 cursor-pointer`}>
+          <div onClick={() => handleClickProduct(id)} className={`${classSelected} rounded border shadow-lg shadow-slate-400 p-4 h-44 transition ease-in-out delay-75 hover:translate-x-1 hover:-translate-y-1.5 justify-self-start mb-4 cursor-pointer w-48 h-72 sm:w-44 sm:h-72 md:w-48 md:h-48 lg:w-72 lg:h-44 xl:w-80 xl:h-40`}>
             <div className="pb-1 mb-1">
               <span className="font-bold text-gray-500">{name}</span><br />
             </div>

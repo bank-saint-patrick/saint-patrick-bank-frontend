@@ -83,10 +83,10 @@ export default function Desktop() {
   }
 
   return (
-    <div className="wrapper flex-column h-screen">
+    <div className="wrapper flex-column w-screen h-screen">
       <Navbar session />
       <div className="grid grid-cols-1">
-        <div className="container mx-auto flex flex-col mt-3">
+        <div className="container mx-3 flex flex-col mt-3 sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto 2xl:mx-auto">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <h6 className="text-xl font-normal leading-normal mt-0 mb-2 text-emerald-800">
               Tus productos disponibles
@@ -94,14 +94,14 @@ export default function Desktop() {
           </div>
           <div className="flex w-full">
             <div className="flex w-1/6 px-2">
-              <div className="w-full flex flex-col text-sm py-4 px-2 text-gray-500">
+              <div className="w-full flex flex-col text-sm py-4 px-1 text-gray-500">
                 <div className="flex hover:bg-gray-100 py-1 px-2">
-                <div className="w-full">
-                  <img alt="..." src={avatar} className="shadow-lg rounded-full" />
-                  <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold text-blueGray-700">Romina Hadid</h5>
+                  <div className="w-max md:w-11/12 lg:w-10/12 xl:w-2/3 2xl:10/12">
+                    <img alt="..." src={avatar} className="shadow-lg rounded-full" />
+                    <div className="pt-6 text-center">
+                      <h5 className="text-xl font-bold text-blueGray-700">Romina Hadid</h5>
+                    </div>
                   </div>
-                </div>
                 </div>
                 <hr className="my-3 border-gray-300" />
                 <div className="flex text-lg hover:bg-gray-100 hover:cursor-pointer rounded py-1 px-2">
@@ -131,8 +131,8 @@ export default function Desktop() {
                 </div>
               </div>
             </div>
-            <div className="flex w-5/6">
-              <div className="flex w-full bg-gray-100 rounded p-4">
+            <div className="flex w-2/3 ml-36 sm:ml-16 md:ml-14 lg:ml-10 xl:ml-4 2xl:ml-4">
+              <div className="flex flex-col w-full overflow-hidden bg-gray-100 rounded p-4 xsm:overflow-auto xsm:flex-row md:ml-10 lg:ml:5 xl:ml-7 2xl:ml-8">
                 <div className="flex flex-col w-2/6 align-top">
                   {
                     products.map(product => {
@@ -151,7 +151,7 @@ export default function Desktop() {
                   }
                 </div>
                 <div className="flex align-top w-4/6 flex-col ml-3 mt-3 p-3">
-                  <h6 className="text-xl font-normal leading-normal mt-0 mb-2 text-emerald-800">
+                  <h6 className="text-xl font-normal leading-normal mt-0 mb-2 ml-64 text-emerald-800">
                     Transacciones
                   </h6>
                   <table className="table-auto w-full">
