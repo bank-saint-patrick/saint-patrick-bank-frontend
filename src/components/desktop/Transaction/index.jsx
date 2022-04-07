@@ -14,7 +14,7 @@ export default function Transaction(props) {
 
   return (
     <tr>
-      <td className="px-32 py-4 whitespace-nowrap">
+      <td className="px-36 py-4 whitespace-nowrap sm:px-32 md:px-28 md:pr-0 lg:px-28 lg:pr-0 xl:px-24 xl:pr-0 2xl:20">
         <div className="flex items-center">
           <div className="font-medium text-gray-800">
             {receptor}
