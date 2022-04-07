@@ -7,7 +7,7 @@ export default function Product(props) {
   const { id, name, numberProduct, balance, productSelected, setProductSelected } = props
 
   const selected = productSelected === id ? true : false
-  const classSelected = selected ? 'bg-white h-72 max-h-80' : 'bg-gray-100 max-h-72'
+  const classSelected = selected ? 'bg-white h-44 max-h-72 ring-1 ring-dingley' : 'bg-gray-100 max-h-72'
   const textSelected = selected ? 'Producto seleccionado ' : ''
 
   const handleClickProduct = () => {
@@ -17,11 +17,9 @@ export default function Product(props) {
   return (
     <div>
       <div className='flex flex-col justify-content-stretch items-center bg-gray-100 sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row 3xl:flex-row'>
-        <div className='flex flex-col w-1/3 h-screen shadow-xl shadow-slate-400 bg-white absm:w-2/3 xsm:w-2/3 lg:w-48 xl:w-2/12 2xl:1/12'>
-          <h1 className='text-center mt-9'>Hello World</h1>
-        </div>
+        
         <div className='w-1/3 sm:w-10/12 md:w-8/12 md:mr-2 lg:w-9/12 xl:w-10/12 2xl:w-full 3xl:w-96'>
-          <div onClick={() => handleClickProduct(id)} className={`${classSelected} rounded border shadow-lg shadow-slate-400 p-4 transition ease-in-out delay-75 hover:translate-x-1 hover:-translate-y-1.5 justify-self-start mb-4 cursor-pointer`} id="whBox">
+          <div onClick={() => handleClickProduct(id)} className={`${classSelected} rounded border shadow-lg shadow-slate-400 p-4 h-44 transition ease-in-out delay-75 hover:translate-x-1 hover:-translate-y-1.5 justify-self-start mb-4 cursor-pointer`}>
             <div className="pb-1 mb-1">
               <span className="font-bold text-gray-500">{name}</span><br />
             </div>
@@ -41,101 +39,7 @@ export default function Product(props) {
           </div>
         </div>
 
-        <div className='container mx-auto my-5 p-1 w-1/3 overflow-auto bg-white shadow-lg shadow-slate-500 sm:w-9/12 sm:text-sm sm:mx-1 sm:font-semibold sm:h-96 md:w-3/4 md:h-80 md:mx-1 md:table-auto lg:w-7/12 lg:h-96 xl:w-9/12 2xl:w-11/12'>
-          <h5 className='border border-slate-600 text-xl pl-1 text-white bg-desert font-semibold'>Transacciones</h5>
-          <table className='w-full overflow-auto'>
-            <thead>
-              <tr>
-                
-              </tr>
-            </thead>
-
-            <tbody className=''>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Mariela Mendiola</td>
-                <td>63435448</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Mariela Mendiola</td>
-                <td>63435448</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Mariela Mendiola</td>
-                <td>63435448</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Mariela Mendiola</td>
-                <td>63435448</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Mariela Mendiola</td>
-                <td>63435448</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Mariela Mendiola</td>
-                <td>63435448</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm  font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              <tr className='space-x-3 space-y-3.5'>
-                <td>Juan González</td>
-                <td>790730</td>
-                <td className='text-sm font-semibold text-dingley grid grid-rows-2'>723233<span>↓ Recibido</span></td>
-              </tr>
-              
-            </tbody>
-          </table>
-        </div>
-          
+        
       </div>
     </div>
   )
