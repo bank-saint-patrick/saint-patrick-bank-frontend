@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import help from '../../../assets/help.jpeg';
 
 export default function ButtonSupport() {
@@ -16,19 +17,18 @@ export default function ButtonSupport() {
     return (
       <div
         id="menu"
-        className="fondoModal flex w-screen h-screen bg-gray-900 bg-opacity-80 top-0 fixed sticky-0"
+        className="fondoModal flex w-screen h-screen bg-gray-900 bg-opacity-70 top-0 fixed sticky-0"
       >
-        <div className="w-full h-full p-5 sm:w-4/6 sm:h-5/6 flex m-auto justify-center items-center bg-white">
-          <div className="ladoIzq flex w-5/12 h-full">
-            <img
-              className="object-none object-bottom items-bottom"
-              src={help}
-              alt=""
-            />
+        <div className="w-auto h-auto flex m-auto p-5 justify-center items-center bg-white">
+          <div className="ladoIzq w-4/12 hidden md:contents object-bottom items-bottom flex">
+            <img className="object-contain" src={help} alt="" />
           </div>
-          <div className=" ladoDer flex-col w-7/12 h-full">
-            <p className="text-blue-stone uppercase font-bold text-2xl text-center mt-10">
-              Centro de ayuda Banco Saint Patrick
+          <div className=" ladoDer m-4 flex-col w-8/12 h-full">
+            <p className="text-blue-stone uppercase font-semibold text-xl text-center mt-10">
+              Centro de ayuda
+            </p>
+            <p className="text-blue-stone font-bold text-5xl text-center -mt-1">
+              Banco Saint Patrick
             </p>
             <h1 className="text-md text-gray-800 font-semibold text-center p-5">
               En el siguiente botón podrás encontrar las respuestas a las
@@ -37,7 +37,7 @@ export default function ButtonSupport() {
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-cream-can border-2 border-white hover:bg-white hover:border-2 hover:border-cream-can text-white hover:text-gray-700 hover:font-semibold mx-auto m-3 w-100 w-5/6 md:w-3/6 p-1 rounded-lg font-bold"
+                className="bg-cream-can border-2 border-white hover:bg-white hover:border-2 hover:border-cream-can text-white hover:text-gray-700 hover:font-semibold mx-auto m-3 w-100 w-5/6 md:w-3/6 p-2 rounded-lg font-bold"
               >
                 Preguntas Frecuentes
               </button>
@@ -48,32 +48,39 @@ export default function ButtonSupport() {
                 ¿Todavía tienes dudas? No te preocupes en banco Saint Patrick
                 estamos para asesorarte
               </p>
-              <p className="text-md">Indícanos por que medio te gustaria que te contactáramos</p>
+              <p className="text-md">
+                Indícanos por que medio te gustaria que te contactáramos
+              </p>
             </div>
             <div className="text-center">
+              <Link to="/chat">
+                <button
+                  type="button"
+                  className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
+                  onClick={() => handleClickCloseModalSupport()}
+                >
+                  Chat
+                </button>
+              </Link>
+
               <button
-                type="submit"
+                type="button"
                 className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
-              >
-                Chat
-              </button>
-              <button
-                type="submit"
-                className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
+                onClick={() => handleClickCloseModalSupport()}
               >
                 Videollamada
               </button>
               <button
-                type="submit"
+                type="button"
                 className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
               >
                 Llamada
               </button>
             </div>
-            <div className="text-center">
+            <div className="pt-5 text-center">
               <button
                 type="button"
-                className="mt-10 font-bold text-lg text-blue-stone hover:bg-white hover:border-2 hover:border-teal-700"
+                className="p-2 font-bold text-lg text-blue-stone rounded-md hover:bg-blue-stone hover:border-2 hover:border-blue-stone hover:text-white"
                 onClick={() => handleClickCloseModalSupport()}
               >
                 No quiero ayuda, deseo salir

@@ -8,6 +8,7 @@ import Cashiers from './components/website/Cashiers';
 import TakeCareOfYourself from './components/website/TakeCareOfYourself';
 import AboutUs from './components/website/AboutUs';
 import Desktop from './components/desktop/Desktop';
+import Chat from './components/needs/ButtonSupport/Chat';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/cuidate" element={<TakeCareOfYourself />} />
         <Route path="/sobre-nosotros" element={<AboutUs />} />
         <Route path="/desktop" element={<Desktop />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </BrowserRouter>
   );
