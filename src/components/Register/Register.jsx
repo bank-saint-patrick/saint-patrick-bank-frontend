@@ -6,20 +6,9 @@ import Input from '../needs/Input';
 import { toast } from 'react-toastify';
 
 import adultos from '../../assets/images/adultos.jpeg';
+import { useNavigate } from 'react-router-dom';
 
-// Crear un objeto json con usuarios ficticios
-let data = [
-    {
-        dni: '0123445677',
-        firstName: 'Ramona',
-        lastName: 'Pérez Mendiola',
-        email: 'rapez08@mymail.com',
-        phoneNumber: '(19)3557295',
-        password: 'GT56L98m900X2',
-    },
-];
-
-export default function Register() {
+export default function Register({ url }) {
     const [dni, setDni] = useState('');
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
@@ -27,10 +16,12 @@ export default function Register() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigateTo = useNavigate();
+
     const register = (newCustomer) => {
         /* URL registro */
 
-        const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api/Authenticate/register';
+        const urlRegister = '/Authenticate/register';
 
         /* Headers para el registro */
 
@@ -51,11 +42,12 @@ export default function Register() {
         };
 
         /* Solicitud POST */
-        fetch(url, requestOptions)
+        fetch(url + urlRegister, requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 if (result.status === 'Success') {
                     toast.success('¡Registro exitoso!');
+                    navigateTo('/login');
                 } else {
                     const errorMessage = result.message;
                     toast.error(`El registro no se pudo realizar: ¡el ${errorMessage}`);
@@ -102,17 +94,6 @@ export default function Register() {
         } else if (!/[^a-zA-Z0-9]/.test(newCustomer.password)) {
             response.errors.push('La contraseña debe tener al menos un caracter especial');
         }
-
-        data.filter((customer) => {
-            if (customer.dni === newCustomer.dni) {
-                response.errors.push('El DNI ya existe');
-            }
-            if (customer.email === newCustomer.email) {
-                response.errors.push('El Email ya existe');
-            }
-
-            return false;
-        });
 
         if (response.errors.length > 0) {
             response.success = false;

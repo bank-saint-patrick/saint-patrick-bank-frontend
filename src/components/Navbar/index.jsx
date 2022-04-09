@@ -7,8 +7,8 @@ export default function Navbar() {
     const [logout, setLogout] = useState(false);
 
     useEffect(() => {
-        const sessionStorage = JSON.parse(localStorage.getItem('session'));
-        if (sessionStorage) {
+        const sessionStorageGet = JSON.parse(sessionStorage.getItem('session'));
+        if (sessionStorageGet) {
             setLogout(true);
         }
     }, []);

@@ -15,13 +15,15 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+    const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api';
+
     return (
         <>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login/*" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/login/*" element={<Login url={url} />} />
+                    <Route path="/register" element={<Register url={url} />} />
                     <Route path="/inicio" element={<Home />} />
                     <Route path="/turnos" element={<Turns />} />
                     <Route path="/beneficios" element={<Benefits />} />

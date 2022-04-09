@@ -6,10 +6,11 @@ import Desktop from '../desktop/Desktop';
 import './login.css';
 
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
 
-export default function Login() {
+export default function Login({ url }) {
     const [dni, setDni] = useState('');
     const [password, setPassword] = useState('');
     const [session, setSession] = useState({});
@@ -17,14 +18,14 @@ export default function Login() {
     useEffect(() => {
         const sessionStorageGet = JSON.parse(sessionStorage.getItem('session'));
         if (sessionStorageGet) {
-            setSession(sessionStorage);
+            setSession(sessionStorageGet);
         }
     }, []);
 
     const login = (user) => {
         /* URL registro */
 
-        const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api/Authenticate/login';
+        const urlLogin = '/Authenticate/login';
 
         /* Headers para el registro */
 
@@ -45,7 +46,7 @@ export default function Login() {
         };
 
         /* Solicitud POST */
-        fetch(url, requestOptions)
+        fetch(url + urlLogin, requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 if (result.token) {
@@ -54,14 +55,18 @@ export default function Login() {
                     const sessionAuth = {
                         token: result.token,
                         timestamp: Date.now(),
-                        expiration: '60',
+                        expiration: result.expiration,
                     };
                     sessionStorage.setItem('session', JSON.stringify(sessionAuth));
                 } else {
                     toast.error(`No se pudo iniciar sesión verifique sus datos`);
                 }
             })
-            .catch((error) => toast.error(error.message));
+            .catch((error) => {
+                toast.error('Ocurrió un error: ' + error.message);
+            });
+
+        /* Fin de la solicitud POST */
     };
 
     const validations = (user) => {
@@ -118,13 +123,13 @@ export default function Login() {
                         <button
                             type="submit"
                             className="boton bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto mt-5 w-3/4 md:w-1/2 p-1 rounded-xl py-3 font-bold">
-                            Ingresar a tu banca
+                            Iniciar sesión
                         </button>
                     </form>
                     <div className="linksActions flex flex-col text-center">
-                        <a href="/" className="text-slate-700 text-sm font-normal mb-5">
+                        <Link to="/forgot-password" className="text-slate-700 text-sm font-normal mb-5">
                             ¿Olvidaste tu contraseña?
-                        </a>
+                        </Link>
                         <a href="/register" className="text-slate-700 text-sm font-normal">
                             ¿Aun no estás registrado?
                             <span className="text-teal-700 text-base font-semibold"> registrarme</span>

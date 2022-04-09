@@ -6,14 +6,11 @@ import Transaction from './index';
 const TransactionsContainer = ({ transactions, contacts, setModalContacto, setModalTransferencia }) => {
     return (
         <div className="flex align-top w-full flex-col ml-3 mt-3 p-3">
-            <div className="flex items-center mb-4">
-                <FontAwesomeIcon className="fa-lg" icon={faArrowRightArrowLeft} />
-                <h6 className="text-3xl leading-normal text-emerald-800 font-bold px-4">Transferencias</h6>
-            </div>
-
-            <div className="flex w-full justify-between items-center mt-8">
-                <p className="text-lg font-semibold">Historial de transferencias</p>
-
+            <div className="flex items-center mb-4 w-full justify-between">
+                <div className="flex items-center">
+                    <FontAwesomeIcon className="fa-lg" icon={faArrowRightArrowLeft} />
+                    <h6 className="text-3xl leading-normal text-emerald-800 font-bold px-4">Transferencias</h6>
+                </div>
                 <button
                     onClick={() => {
                         setModalTransferencia(true);
@@ -21,7 +18,7 @@ const TransactionsContainer = ({ transactions, contacts, setModalContacto, setMo
                         window.scrollTo(0, 0);
                         document.body.classList.add('overflow-hidden');
                     }}
-                    className="bg-cream-can w-max py-1 px-4 rounded-2xl font-semibold">
+                    className="bg-cream-can w-max mt-2 py-2 px-4 rounded-2xl font-semibold">
                     Nueva transferencia
                 </button>
             </div>

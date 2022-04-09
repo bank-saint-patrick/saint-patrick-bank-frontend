@@ -1,14 +1,51 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
-const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transactions, setTransactions, products, contacts }) => {
+import { useState } from 'react';
+
+const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transactions, setTransactions, products, contacts, token, url }) => {
+    const [loading, setLoading] = useState(false);
+
+    const searchAccount = async (accountNumber) => {
+        setLoading(true);
+        const response = await fetch(`${url}/api/Product/${4}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const data = await response.json();
+
+        if (data.length > 0) {
+            setLoading(false);
+            console.log(data);
+        } else {
+            setLoading(false);
+            toast.error('No se encontró la cuenta');
+        }
+    };
+
+    const sendTransaction = async (transaccion) => {
+        console.log(transaccion);
+        searchAccount(transaccion.productIDDestination);
+    };
+
     const handleTransferSubmit = (e) => {
         e.preventDefault();
 
         const data = Object.fromEntries(new FormData(e.target).entries());
         const transaccion = { ...data, transactionTypeID: 1 };
 
-        console.log(transaccion);
+        const producto = products.find((product) => Number(product.productID) === Number(transaccion.productIDOrigin));
+
+        if (producto.saldoCupo > Number(transaccion.transactionValue)) {
+            sendTransaction(transaccion);
+        } else {
+            toast.error(`El saldo de tu ${producto.productTypeID === 0 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.cardNumber} es insuficiente para realizar la transacción.`);
+        }
     };
 
     return (
@@ -39,8 +76,8 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
                                 </option>
                                 {products.map((product) => {
                                     return (
-                                        <option key={product.id} value={product.numberProduct}>
-                                            {product.name}
+                                        <option key={product.cardNumber} value={product.productID}>
+                                            {product.productTypeID === '1' ? `Cuenta corriente ${product.cardNumber}` : `Cuenta de ahorro ${product.cardNumber} - $${product.saldoCupo}`}
                                         </option>
                                     );
                                 })}
@@ -75,7 +112,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
                                 </option>
                                 {contacts.map((contact) => {
                                     return (
-                                        <option key={contact.id} value={contact.id}>
+                                        <option key={contact.id} value={contact.cbu}>
                                             {contact.name}
                                         </option>
                                     );
@@ -96,13 +133,22 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
                                 <label htmlFor="monto" className="text-lg font-semibold">
                                     Concepto
                                 </label>
-                                <textarea maxLength={150} placeholder="Descripción breve" required name="concepto" id="concepto" className="resize-none w-full p-4 rounded-2xl font-semibold border-2 border-blue-stone m-4" />
+                                <textarea minLength={5} maxLength={150} placeholder="Descripción breve" required name="concept" id="concept" className="resize-none w-full p-4 rounded-2xl font-semibold border-2 border-blue-stone m-4" />
                             </div>
                         </div>
                     </div>
 
                     <div className="flex justify-center my-5">
-                        <button className="bg-cream-can w-max py-1 px-4 rounded-2xl font-semibold">Enviar</button>
+                        <button className="bg-cream-can w-max py-1 px-4 rounded-2xl font-semibold">
+                            {loading ? (
+                                <>
+                                    <FontAwesomeIcon className="fa-xl" icon={faSpinner} spin />
+                                    <span className="ml-2">Procesando...</span>
+                                </>
+                            ) : (
+                                'Enviar'
+                            )}
+                        </button>
                     </div>
                 </form>
             </div>

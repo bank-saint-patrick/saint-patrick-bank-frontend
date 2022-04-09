@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from '../../Navbar';
 
 import aboutUs1 from '../../../assets/images/about-us-1.jpeg';
@@ -103,9 +102,7 @@ export default function AboutUs() {
                                     </div>
                                     <p className="text-base leading-6 mt-6 text-center text-gray-600 sm:w-96 w-full">
                                         Vas a poder solicitar un turno para acercarte a nuestras sucursales el día y horario que tengas disponible para que nuestros. {''}
-                                        <Link to="/#">
-                                            <span className="underline text-desert hover:text-orange-600 mr-1">Asesores guía</span>
-                                        </Link>
+                                        <span className="underline text-desert hover:text-orange-600 mr-1">Asesores guía</span>
                                         te muestren el paso a paso de cada transacción en nuestra área de capacitación.
                                     </p>
                                 </div>
