@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export default function Inputs(props) {
   const {
     label,
@@ -22,4 +21,4 @@ export default function Inputs(props) {
       </p>
     </div>
   );
-};
+}
