@@ -6,7 +6,6 @@ import Desktop from '../desktop/Desktop';
 import './login.css';
 
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
 
 const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
 
@@ -14,6 +13,8 @@ export default function Login({ url }) {
     const [dni, setDni] = useState('');
     const [password, setPassword] = useState('');
     const [session, setSession] = useState({});
+
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const sessionStorageGet = JSON.parse(sessionStorage.getItem('session'));
@@ -23,6 +24,8 @@ export default function Login({ url }) {
     }, []);
 
     const login = (user) => {
+        setLoading(true);
+
         /* URL registro */
 
         const urlLogin = '/Authenticate/login';
@@ -47,7 +50,7 @@ export default function Login({ url }) {
 
         /* Solicitud POST */
         fetch(url + urlLogin, requestOptions)
-            .then((response) => response.json())
+            .then((response) => console.log(response))
             .then((result) => {
                 if (result.token) {
                     toast.success('¡Inicio de sesión exitoso!');
@@ -58,11 +61,14 @@ export default function Login({ url }) {
                         expiration: result.expiration,
                     };
                     sessionStorage.setItem('session', JSON.stringify(sessionAuth));
+                    setLoading(false);
                 } else {
                     toast.error(`No se pudo iniciar sesión verifique sus datos`);
+                    setLoading(false);
                 }
             })
             .catch((error) => {
+                setLoading(false);
                 toast.error('Ocurrió un error: ' + error.message);
             });
 
@@ -123,13 +129,10 @@ export default function Login({ url }) {
                         <button
                             type="submit"
                             className="boton bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto mt-5 w-3/4 md:w-1/2 p-1 rounded-xl py-3 font-bold">
-                            Iniciar sesión
+                            {loading ? 'Comprobando...' : 'Iniciar sesión'}
                         </button>
                     </form>
                     <div className="linksActions flex flex-col text-center">
-                        <Link to="/forgot-password" className="text-slate-700 text-sm font-normal mb-5">
-                            ¿Olvidaste tu contraseña?
-                        </Link>
                         <a href="/register" className="text-slate-700 text-sm font-normal">
                             ¿Aun no estás registrado?
                             <span className="text-teal-700 text-base font-semibold"> registrarme</span>
