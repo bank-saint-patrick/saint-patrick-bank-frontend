@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import help from '../../../assets/help.jpeg';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import soporte from "../../../assets/soporte.jpeg";
 
 export default function ButtonSupport() {
   const [openModalSupport, setOpenModalSupport] = useState(false);
@@ -20,10 +20,14 @@ export default function ButtonSupport() {
         className="fondoModal flex w-screen h-screen bg-gray-900 bg-opacity-70 top-0 fixed sticky-0"
       >
         <div className="w-auto h-auto flex m-auto p-5 justify-center items-center bg-white">
-          <div className="ladoIzq w-4/12 hidden md:contents object-bottom items-bottom flex">
-            <img className="object-contain" src={help} alt="" />
+          <div className="w-5/12 hidden flex md:w-2/5 md:contents object-bottom items-bottom flex">
+            <img
+              className="mx-auto object-fill xl:p-1"
+              src={soporte}
+              alt="people smiling"
+            />
           </div>
-          <div className=" ladoDer m-4 flex-col w-8/12 h-full">
+          <div className=" ladoDer m-4 flex-col w-7/12 md:w-3/5">
             <p className="text-blue-stone uppercase font-semibold text-xl text-center mt-10">
               Centro de ayuda
             </p>
@@ -62,20 +66,24 @@ export default function ButtonSupport() {
                   Chat
                 </button>
               </Link>
-
-              <button
-                type="button"
-                className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
-                onClick={() => handleClickCloseModalSupport()}
-              >
-                Videollamada
-              </button>
-              <button
-                type="button"
-                className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
-              >
-                Llamada
-              </button>
+              <Link to="/videollamada">
+                <button
+                  type="button"
+                  className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
+                  onClick={() => handleClickCloseModalSupport()}
+                >
+                  Videollamada
+                </button>
+              </Link>
+              <Link to="/llamada">
+                <button
+                  type="button"
+                  className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
+                  onClick={() => handleClickCloseModalSupport()}
+                >
+                  Llamada
+                </button>
+              </Link>
             </div>
             <div className="pt-5 text-center">
               <button

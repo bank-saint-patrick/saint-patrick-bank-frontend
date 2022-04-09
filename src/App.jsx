@@ -9,7 +9,11 @@ import TakeCareOfYourself from './components/website/TakeCareOfYourself';
 import AboutUs from './components/website/AboutUs';
 import Desktop from './components/desktop/Desktop';
 import Chat from './components/needs/ButtonSupport/Chat';
+import Call from './components/needs/ButtonSupport/Call';
+import VideoCall from './components/needs/ButtonSupport/Videocall';
 import './App.css';
+
+
 
 function App() {
   return (
@@ -23,7 +27,9 @@ function App() {
         <Route path="/cuidate" element={<TakeCareOfYourself />} />
         <Route path="/sobre-nosotros" element={<AboutUs />} />
         <Route path="/desktop" element={<Desktop />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat" element={<Chat />} />}
+        <Route path="/llamada" element={<Call />} />
+        <Route path="/videollamada" element={<VideoCall />} />
       </Routes>
     </BrowserRouter>
   );
