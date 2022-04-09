@@ -7,30 +7,26 @@ import { useState } from 'react';
 const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transactions, setTransactions, products, contacts, token, url }) => {
     const [loading, setLoading] = useState(false);
 
-    const searchAccount = async (accountNumber) => {
+    const sendTransaction = async (transaction) => {
         setLoading(true);
-        const response = await fetch(`${url}/api/Product/${4}`, {
-            method: 'GET',
+        const response = await fetch(`${url}/Transaction`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
+            body: JSON.stringify(transaction),
         });
 
         const data = await response.json();
 
-        if (data.length > 0) {
+        if (data.length > 0 && data.status !== 'Error') {
             setLoading(false);
             console.log(data);
         } else {
             setLoading(false);
-            toast.error('No se encontró la cuenta');
+            toast.error(data.message);
         }
-    };
-
-    const sendTransaction = async (transaccion) => {
-        console.log(transaccion);
-        searchAccount(transaccion.productIDDestination);
     };
 
     const handleTransferSubmit = (e) => {

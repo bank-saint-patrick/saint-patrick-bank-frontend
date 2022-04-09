@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 
 const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setModalProducto, setModalUpdateProd }) => {
-    console.log(products);
-
     return (
         <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
@@ -47,8 +45,8 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                 {products && products.length > 0 ? (
                     <div className="flex flex-col lg:flex-row w-full justify-around align-top my-8 flex-wrap">
                         {products.map((product) => {
-                            const nameProd = product.productTypeID === 0 ? 'Cuenta corriente' : 'Cuenta ahorro';
-                            return <Product key={product.cardNumber} id={product.cardNumber} name={nameProd} numberProduct={product.cardNumber} balance={product.saldoCupo} productSelected={productSelected} setProductSelected={setProductSelected} />;
+                            const nameProd = product.productTypeID === 1 || product.productTypeID === '1' ? 'Cuenta corriente' : 'Cuenta ahorro';
+                            return <Product key={product.cardNumber} id={product.productID} name={nameProd} numberProduct={product.cardNumber} balance={product.saldoCupo} productSelected={productSelected} setProductSelected={setProductSelected} />;
                         })}
                     </div>
                 ) : (
