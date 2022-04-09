@@ -30,7 +30,7 @@ export default function Login({ url }) {
 
         const urlLogin = '/Authenticate/login';
 
-        /* Headers para el registro */
+        /* Headers para el login */
 
         const myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json');
@@ -50,7 +50,7 @@ export default function Login({ url }) {
 
         /* Solicitud POST */
         fetch(url + urlLogin, requestOptions)
-            .then((response) => console.log(response))
+            .then((response) => response.json())
             .then((result) => {
                 if (result.token) {
                     toast.success('¡Inicio de sesión exitoso!');
@@ -69,7 +69,7 @@ export default function Login({ url }) {
             })
             .catch((error) => {
                 setLoading(false);
-                toast.error('Ocurrió un error: ' + error.message);
+                toast.error('Ocurrió un error: ' + error.message + ', intente nuevamente');
             });
 
         /* Fin de la solicitud POST */
@@ -135,7 +135,7 @@ export default function Login({ url }) {
                     <div className="linksActions flex flex-col text-center">
                         <a href="/register" className="text-slate-700 text-sm font-normal">
                             ¿Aun no estás registrado?
-                            <span className="text-teal-700 text-base font-semibold"> registrarme</span>
+                            <span className="text-teal-700 text-base font-semibold"> Registrarme</span>
                         </a>
                     </div>
                 </div>

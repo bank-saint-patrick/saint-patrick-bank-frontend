@@ -5,9 +5,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faHouse, faArrowRightArrowLeft, faFolder, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
-const SubMenu = () => {
+const SubMenu = ({ url, token }) => {
     const [menu, setMenu] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
+    const [loading, setLoading] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [userImgPerfil, setUserImgPerfil] = useState('');
+
+    /* Perfil fetching */
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            setLoading(true);
+
+            // INICIO DE LA CONEXION CON LA API
+
+            const response = await fetch(`${url}/Profile/GetUser`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = await response.json();
+
+            setUserImgPerfil(data.image);
+            setUserName(data.firstName);
+
+            // FIN DE LA CONEXION CON LA API
+
+            setLoading(false);
+        };
+
+        fetchUserName();
+    }, [token, url]);
 
     /* Utilitie useEffect */
     useEffect(() => {
@@ -99,9 +131,9 @@ const SubMenu = () => {
             <div className="w-full flex flex-col text-sm py-4 px-2 text-gray-500">
                 <div className="flex hover:bg-gray-100 py-1 px-2">
                     <div className="w-full">
-                        <img alt="..." src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg" className="shadow-lg rounded-full" />
+                        <img alt="..." src={loading || userImgPerfil === '' ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil} className="shadow-lg rounded-full" />
                         <div className="pt-6 text-center">
-                            <h5 className="text-xl font-bold text-blueGray-700">Nuevo Usuario</h5>
+                            <h5 className="text-xl font-bold text-blueGray-700">{userName}</h5>
                         </div>
                     </div>
                 </div>

@@ -24,6 +24,7 @@ import ModalContacto from './../Transaction/modalC';
 import Expiration from './../../needs/Expiration/index';
 import ForgotPassword from './../../Login/Forgot';
 import ModalProductos from './../Product/modalP';
+import IndexLogin from './../IndexLogin/index';
 
 // TODO: *** remove this and change for fetching data from API
 const dataContacts = [
@@ -184,13 +185,13 @@ export default function Desktop() {
             <Expiration />
 
             <div className="flex flex-col sm:flex-row">
-                <SubMenu />
+                <SubMenu url={url} token={token} />
 
                 {/* Secciones */}
                 <div className="flex sm:w-2/3 md:w-3/4 lg:w-4/5">
                     <div className="flex w-full bg-gray-100 rounded p-4">
                         <Routes>
-                            <Route path="/inicio" element={<h1 className="text-4xl uppercase w-full h-full flex x items-center justify-center">Inicio</h1>} />
+                            <Route path="/" element={<IndexLogin url={url} token={token} />} />
 
                             <Route
                                 path="/productos"

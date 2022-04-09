@@ -15,6 +15,7 @@ export default function Register({ url }) {
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [strImgPerfil, setStrImgPerfil] = useState('');
 
     const navigateTo = useNavigate();
 
@@ -93,6 +94,8 @@ export default function Register({ url }) {
             response.errors.push('La contraseña debe tener al menos un número');
         } else if (!/[^a-zA-Z0-9]/.test(newCustomer.password)) {
             response.errors.push('La contraseña debe tener al menos un caracter especial');
+        } else if (newCustomer.image === '') {
+            response.errors.push('Haga click de nuevo en registrar');
         }
 
         if (response.errors.length > 0) {
@@ -114,6 +117,7 @@ export default function Register({ url }) {
             email: email.trim(),
             phoneNumber: phoneNumber.trim(),
             password: password.trim(),
+            image: strImgPerfil,
         };
 
         const responseValidation = validations(newCustomer);
@@ -125,6 +129,14 @@ export default function Register({ url }) {
                 toast.error(responseValidation.errors[i]);
             }
         }
+    };
+
+    const handleChangeImgPerfil = (e) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = (event) => {
+            setStrImgPerfil(event.target.result);
+        };
     };
 
     return (
@@ -153,6 +165,20 @@ export default function Register({ url }) {
                         <div className="flex flex-col lg:flex-row relative">
                             <Input class="flex-col" type="email" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
                             <Input class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
+                        </div>
+                        <div className="flex flex-col lg:flex-row relative">
+                            <div className="w-11/12 lg:w-9/12 2xl:w-1/2 mx-auto">
+                                <p className="block p-3">
+                                    <span className="block text-left text-lg font-medium text-slate-700 ">Imagen de Perfil</span>
+                                    <input
+                                        required
+                                        accept="image/*"
+                                        className="mt-4 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-stone focus:outline-none"
+                                        type="file"
+                                        onChange={handleChangeImgPerfil}
+                                    />
+                                </p>
+                            </div>
                         </div>
                         <button
                             type="submit"
