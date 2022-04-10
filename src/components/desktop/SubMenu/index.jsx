@@ -3,13 +3,19 @@ import { NavLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHouse, faArrowRightArrowLeft, faFolder, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowRightArrowLeft, faFolder, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle, faPencilAlt, faSave } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
 const SubMenu = ({ url, token }) => {
     const [menu, setMenu] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
     const [loading, setLoading] = useState(false);
+
+    const [user, setUser] = useState(null);
+    const [editUser, setEditUser] = useState(false);
+
     const [userName, setUserName] = useState('');
+    const [editUserName, setEditUserName] = useState(false);
     const [userImgPerfil, setUserImgPerfil] = useState('');
 
     /* Perfil fetching */
@@ -30,6 +36,7 @@ const SubMenu = ({ url, token }) => {
 
             const data = await response.json();
 
+            setUser(data);
             setUserImgPerfil(data.image);
             setUserName(data.firstName);
 
@@ -48,6 +55,31 @@ const SubMenu = ({ url, token }) => {
         };
         width < 640 ? setMenu(false) : setMenu(true);
     }, [width]);
+
+    /* Update Perfil */
+
+    const updateUser = async (updateUser) => {
+        // INICIO DE LA CONEXION CON LA API
+
+        const response = await fetch(`${url}/Profile/UserUpdate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(updateUser),
+        });
+
+        const data = await response.json();
+
+        // FIN DE LA CONEXION CON LA API
+
+        if (data.status !== 'Error') {
+            toast.success(data.message);
+        } else {
+            toast.error('Error: ' + data.message);
+        }
+    };
 
     /* navegacion - alessandro */
 
@@ -130,10 +162,76 @@ const SubMenu = ({ url, token }) => {
         <div className="flex sm:w-1/3 md:w-1/4 lg:w-1/5 px-2 mx-4">
             <div className="w-full flex flex-col text-sm py-4 px-2 text-gray-500">
                 <div className="flex hover:bg-gray-100 py-1 px-2">
-                    <div className="w-full">
-                        <img alt="..." src={loading || userImgPerfil === '' ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil} className="shadow-lg rounded-full" />
-                        <div className="pt-6 text-center">
-                            <h5 className="text-xl font-bold text-blueGray-700">{userName}</h5>
+                    <div className="w-full flex flex-col justify-center items-center">
+                        <div className="flex">
+                            <img alt="..." src={loading || userImgPerfil === '' ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil} className="shadow-lg rounded-full" />
+                            <FontAwesomeIcon
+                                icon={editUser ? faSave : faPencilAlt}
+                                className="text-blue-stone ml-3 text-xl cursor-pointer"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setEditUser(!editUser);
+                                    if (editUser) {
+                                        updateUser(user);
+                                    }
+                                }}
+                            />
+                        </div>
+
+                        {editUser && (
+                            <>
+                                <label className="cursor-pointer font-bold border-2 border-blue-stone p-2 mt-3" htmlFor="changeImgPerfil">
+                                    Cambiar imágen de perfil
+                                </label>
+                                <input
+                                    hidden
+                                    accept="image/*"
+                                    type="file"
+                                    name="userImgPerfil"
+                                    id="changeImgPerfil"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        const reader = new FileReader();
+                                        reader.readAsDataURL(file);
+                                        reader.onload = (e) => {
+                                            setUser({ ...user, image: e.target.result });
+                                            setUserImgPerfil(e.target.result);
+                                        };
+                                    }}
+                                />
+                            </>
+                        )}
+
+                        <div className="flex items-center pt-6 text-center">
+                            {editUserName ? (
+                                <>
+                                    <input
+                                        className="p-2"
+                                        type="text"
+                                        name="userName"
+                                        id=""
+                                        value={userName}
+                                        onChange={(e) => {
+                                            setUser({ ...user, firstName: e.target.value });
+                                            setUserName(e.target.value.trim());
+                                        }}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <h5 className="text-xl font-bold text-blueGray-700 mr-2">{userName}</h5>
+                                </>
+                            )}
+                            {editUser && (
+                                <FontAwesomeIcon
+                                    icon={editUserName ? faSave : faPencilAlt}
+                                    className="text-blueGray-700 ml-2 text-lg cursor-pointer"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setEditUserName(!editUserName);
+                                    }}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

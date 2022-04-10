@@ -8,7 +8,7 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
     return (
         <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
-                <div className="flex w-full items-center my-8 justify-between">
+                <div className="flex flex-col lg:flex-row w-full items-start lg:items-center my-8 justify-between">
                     <div className="flex items-center w-full">
                         <FontAwesomeIcon icon={faCreditCard} className="text-xl text-blue-stone pt-2" />
                         <h2 className="text-3xl font-bold text-blue-stone mx-4">
@@ -16,29 +16,31 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                         </h2>
                     </div>
 
-                    <div className={products && products.length > 0 ? 'flex' : 'hidden'}>
-                        <button
-                            onClick={() => {
-                                setModalProducto(true);
-                                setModalUpdateProd(false);
-                                window.scrollTo(0, 0);
-                                document.body.classList.add('overflow-hidden');
-                            }}
-                            className="whitespace-nowrap w-full bg-cream-can text-blue-stone text-lg font-semibold py-2 px-4 rounded-lg mx-2">
-                            Nuevo Producto
-                        </button>
-                    </div>
-                    <div className={products && products.length > 0 ? 'flex' : 'hidden'}>
-                        <button
-                            onClick={() => {
-                                setModalProducto(true);
-                                setModalUpdateProd(true);
-                                window.scrollTo(0, 0);
-                                document.body.classList.add('overflow-hidden');
-                            }}
-                            className="whitespace-nowrap w-full bg-blue-stone text-white text-lg font-semibold py-2 px-4 rounded-lg mx-2">
-                            Depositar
-                        </button>
+                    <div className="flex flex-col xsm:flex-row mt-6 lg:mt-0">
+                        <div className={products && products.length > 0 ? 'flex my-2 xsm:my-0' : 'hidden'}>
+                            <button
+                                onClick={() => {
+                                    setModalProducto(true);
+                                    setModalUpdateProd(false);
+                                    window.scrollTo(0, 0);
+                                    document.body.classList.add('overflow-hidden');
+                                }}
+                                className="whitespace-nowrap w-full bg-cream-can text-blue-stone text-lg font-semibold py-2 px-4 rounded-lg mx-2">
+                                Nuevo Producto
+                            </button>
+                        </div>
+                        <div className={products && products.length > 0 ? 'flex my-2 xsm:my-0' : 'hidden'}>
+                            <button
+                                onClick={() => {
+                                    setModalProducto(true);
+                                    setModalUpdateProd(true);
+                                    window.scrollTo(0, 0);
+                                    document.body.classList.add('overflow-hidden');
+                                }}
+                                className="whitespace-nowrap w-full bg-blue-stone text-white text-lg font-semibold py-2 px-4 rounded-lg mx-2">
+                                Depositar
+                            </button>
+                        </div>
                     </div>
                 </div>
 
