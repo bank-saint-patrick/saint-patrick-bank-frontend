@@ -34,9 +34,8 @@ export default function Login({ url }) {
 
         const myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json');
-        myHeaders.append('Access-Control-Allow-Origin', '*');
         myHeaders.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-        myHeaders.append('Accept', '*/*');
+        myHeaders.append('Content-Security-Policy', 'upgrade-insecure-requests');
 
         /* Data en formato JSON */
         const raw = JSON.stringify(user);
