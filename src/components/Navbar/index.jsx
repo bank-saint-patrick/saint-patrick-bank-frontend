@@ -6,6 +6,10 @@ export default function Navbar() {
     const [navbarOpen] = useState(false);
     const [logout, setLogout] = useState(false);
 
+    const url = window.location.href;
+
+    const route = url.split('/')[3];
+
     useEffect(() => {
         const sessionStorageGet = JSON.parse(sessionStorage.getItem('session'));
         if (sessionStorageGet) {
@@ -65,12 +69,19 @@ export default function Navbar() {
                                 <span className="ml-2">Sobre Nosotros</span>
                             </a>
                         </li>
-                        {logout && (
+                        {logout && route === 'login' ? (
                             <li className="nav-item">
                                 <button type="button" className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" onClick={() => handleClickLogout()}>
                                     <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
                                     <span className="ml-2">Salir</span>
                                 </button>
+                            </li>
+                        ) : (
+                            <li className="nav-item">
+                                <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/login">
+                                    <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75" />
+                                    <span className="ml-2">Acceder a tu cuenta</span>
+                                </a>
                             </li>
                         )}
                         {!logout && (

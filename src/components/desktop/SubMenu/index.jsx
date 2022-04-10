@@ -163,7 +163,7 @@ const SubMenu = ({ url, token }) => {
             <div className="w-full flex flex-col text-sm py-4 px-2 text-gray-500">
                 <div className="flex hover:bg-gray-100 py-1 px-2">
                     <div className="w-full flex flex-col justify-center items-center">
-                        <div className="flex w-full h-[475px] lg:h-[205px] lg:w-[220px]">
+                        <div className="flex w-full h-[475px] sm:h-[205px] lg:w-[220px]">
                             <img
                                 alt="..."
                                 src={loading || userImgPerfil === '' ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil}
@@ -209,7 +209,7 @@ const SubMenu = ({ url, token }) => {
 
                         <div className="flex items-center pt-6 text-center">
                             {editUserName ? (
-                                <>
+                                <div className="flex flex-col">
                                     <input
                                         className="p-2"
                                         type="text"
@@ -217,11 +217,17 @@ const SubMenu = ({ url, token }) => {
                                         id=""
                                         value={userName}
                                         onChange={(e) => {
-                                            setUser({ ...user, firstName: e.target.value.trim() });
-                                            setUserName(e.target.value);
+                                            const regex = /^[a-zA-Z\s]*$/;
+                                            if (e.target.value > 0 && e.target.value.length <= 20 && regex.test(e.target.value)) {
+                                                setUser({ ...user, name: e.target.value });
+                                                setUserName(e.target.value);
+                                            } else {
+                                                return false;
+                                            }
                                         }}
                                     />
-                                </>
+                                    <span className="text-gray-600 text-sm">Sólo letras, máximo 20 caracteres</span>
+                                </div>
                             ) : (
                                 <>
                                     <h5 className="text-xl font-bold text-blueGray-700 mr-2">{userName}</h5>
