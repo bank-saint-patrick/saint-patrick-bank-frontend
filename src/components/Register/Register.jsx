@@ -92,8 +92,6 @@ export default function Register({ url }) {
             response.errors.push('La contraseña debe tener al menos un número');
         } else if (!/[^a-zA-Z0-9]/.test(newCustomer.password)) {
             response.errors.push('La contraseña debe tener al menos un caracter especial');
-        } else if (newCustomer.image === '') {
-            response.errors.push('Haga click de nuevo en registrar');
         }
 
         if (response.errors.length > 0) {
