@@ -170,11 +170,11 @@ export default function Register({ url }) {
                                 <p className="block p-3">
                                     <span className="block text-left text-lg font-medium text-slate-700 ">Imagen de Perfil</span>
                                     <input
-                                        required
                                         accept="image/*"
                                         className="mt-4 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-stone focus:outline-none"
                                         type="file"
                                         onChange={handleChangeImgPerfil}
+                                        defaultValue=""
                                     />
                                 </p>
                             </div>
