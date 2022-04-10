@@ -163,14 +163,19 @@ const SubMenu = ({ url, token }) => {
             <div className="w-full flex flex-col text-sm py-4 px-2 text-gray-500">
                 <div className="flex hover:bg-gray-100 py-1 px-2">
                     <div className="w-full flex flex-col justify-center items-center">
-                        <div className="flex">
-                            <img alt="..." src={loading || userImgPerfil === '' ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil} className="shadow-lg rounded-full" />
+                        <div className="flex w-full h-[475px] lg:h-[205px] lg:w-[220px]">
+                            <img
+                                alt="..."
+                                src={loading || userImgPerfil === '' ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil}
+                                className="shadow-lg object-cover rounded-full"
+                            />
                             <FontAwesomeIcon
                                 icon={editUser ? faSave : faPencilAlt}
                                 className="text-blue-stone ml-3 text-xl cursor-pointer"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setEditUser(!editUser);
+                                    setEditUserName(false);
                                     if (editUser) {
                                         updateUser(user);
                                     }
@@ -212,8 +217,8 @@ const SubMenu = ({ url, token }) => {
                                         id=""
                                         value={userName}
                                         onChange={(e) => {
-                                            setUser({ ...user, firstName: e.target.value });
-                                            setUserName(e.target.value.trim());
+                                            setUser({ ...user, firstName: e.target.value.trim() });
+                                            setUserName(e.target.value);
                                         }}
                                     />
                                 </>

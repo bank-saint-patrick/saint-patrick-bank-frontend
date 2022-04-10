@@ -21,7 +21,7 @@ export default function Product(props) {
                 <img className="inline-flex items-center justify-center h-10 mr-2" src={iconCreditCards} alt="" />
                 <div className="ml-8">
                     <span className="font-light text-gray-400">
-                        N° de cuenta: <b className="font-bold text-gray-500">{numberProduct}</b>
+                        N° de tarjeta: <b className="font-bold text-gray-500">{numberProduct}</b>
                     </span>
                     <br />
                     <span className="font-light text-gray-400">
