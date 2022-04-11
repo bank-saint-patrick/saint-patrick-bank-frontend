@@ -4,7 +4,7 @@ import Product from './index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 
-const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setModalProducto, setModalUpdateProd }) => {
+const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setModalProducto, setModalUpdateProd, url, token }) => {
     return (
         <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
@@ -48,7 +48,7 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                     <div className="flex flex-col lg:flex-row w-full justify-around align-top my-8 flex-wrap">
                         {products.map((product) => {
                             const nameProd = product.productTypeID === 2 || product.productTypeID === '2' ? 'Cuenta corriente' : 'Cuenta ahorro';
-                            return <Product key={product.cardNumber} id={product.productID} name={nameProd} numberProduct={product.cardNumber} balance={product.saldoCupo} productSelected={productSelected} setProductSelected={setProductSelected} />;
+                            return <Product key={product.cardNumber} id={product.productID} name={nameProd} numberProduct={product.productID} balance={product.saldoCupo} productSelected={productSelected} setProductSelected={setProductSelected} />;
                         })}
                     </div>
                 ) : (
@@ -67,23 +67,29 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
             </div>
 
             <div className="flex flex-col w-full px-8">
-                <h3 className="text-xl font-bold underline text-blue-stone">Historial de Transacciones</h3>
+                <h3 className="text-xl font-semibold underline text-blue-stone">
+                    Historial de Transacciones: <b className="font-bold text-indigo-700">{transactions.length}</b> en total
+                </h3>
 
                 <section className=" w-full mt-8">
-                    <article className="text-sm ">
+                    <article className="text-sm">
                         {transactions.map((transaction) => {
-                            return (
+                            const showTransaction = productSelected ? transaction.productIDDestination === productSelected || transaction.productIDOrigin === productSelected : true;
+                            return showTransaction ? (
                                 <Transaction
-                                    key={transaction.id}
-                                    id={transaction.id}
-                                    type={transaction.type}
-                                    receptor={transaction.receptor}
-                                    number={transaction.number}
-                                    timestamp={transaction.timestamp}
-                                    ammount={transaction.ammount}
-                                    img={transaction.img}
+                                    key={transaction.transactionID}
+                                    url={url}
+                                    token={token}
+                                    id={transaction.transactionID}
+                                    type={transaction.transactionTypeID}
+                                    sender={transaction.productIDOrigin}
+                                    receptor={transaction.productIDDestination}
+                                    number={transaction.productIDDestination}
+                                    timestamp={transaction.transactionDate}
+                                    ammount={transaction.transactionValue}
+                                    // img={transaction.img}
                                 />
-                            );
+                            ) : null;
                         })}
                     </article>
                 </section>

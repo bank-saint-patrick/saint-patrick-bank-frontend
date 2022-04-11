@@ -16,11 +16,11 @@ export default function ButtonSupport() {
     if (openModalSupport) {
         return (
             <div id="menu" className="fondoModal z-50 flex w-screen h-screen bg-gray-900 bg-opacity-70 top-0 fixed sticky-0">
-                <div className="w-auto h-auto flex m-auto p-5 justify-center items-center bg-white">
+                <div className="w-auto h-auto flex flex-col md:flex-row m-auto p-5 justify-center items-center bg-white">
                     <div className="w-5/12 flex md:w-2/5 md:contents object-bottom items-bottom">
-                        <img className="mx-auto object-fill xl:p-1" src={soporte} alt="people smiling" />
+                        <img className="mx-auto object-fill xl:p-1 hidden md:flex" src={soporte} alt="people smiling" />
                     </div>
-                    <div className=" ladoDer m-4 flex-col w-7/12 md:w-3/5">
+                    <div className=" ladoDer m-4 flex-col w-full md:w-7/12 lg:w-3/5">
                         <p className="text-blue-stone uppercase font-semibold text-xl text-center mt-10">Centro de ayuda</p>
                         <p className="text-blue-stone font-bold text-5xl text-center -mt-1">Banco Saint Patrick</p>
                         <h1 className="text-md text-gray-800 font-semibold text-center p-5">En el siguiente botón podrás encontrar las respuestas a las preguntas mas frecuentes de nuestros usuarios</h1>

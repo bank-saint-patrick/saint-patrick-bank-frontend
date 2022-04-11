@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { useState } from 'react';
 
-const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transactions, setTransactions, products, contacts, token, url }) => {
+const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTransactions, products, contacts, token, url }) => {
     const [loading, setLoading] = useState(false);
 
     const sendTransaction = async (transaction) => {
@@ -22,9 +22,10 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
 
         const data = await response.json();
 
-        if (data.length > 0 && data.status !== 'Error') {
+        if (data.status === 'Success') {
+            setTransactions(transaction);
             setLoading(false);
-            console.log(data);
+            toast.success(data.message);
         } else {
             setLoading(false);
             toast.error(data.message);
@@ -35,14 +36,14 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
         e.preventDefault();
 
         const data = Object.fromEntries(new FormData(e.target).entries());
-        const transaccion = { ...data, transactionTypeID: 1, transactionID: 0, transactionTypeName: 'Transferencia', transactionDate: '' };
+        const transaccion = { ...data, transactionTypeID: 1, transactionID: 0, transactionTypeName: 'Transferencia', transactionDate: new Date().toISOString().split('T')[0] };
 
         const producto = products.find((product) => Number(product.productID) === Number(transaccion.productIDOrigin));
 
         if (producto.saldoCupo > Number(transaccion.transactionValue)) {
             sendTransaction(transaccion);
         } else {
-            toast.error(`El saldo de tu ${producto.productTypeID === 2 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.cardNumber} es insuficiente para realizar la transacción.`);
+            toast.error(`El saldo de tu ${producto.productTypeID === 2 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.productID} es insuficiente para realizar la transacción.`);
         }
     };
 
@@ -76,8 +77,8 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
                                     return (
                                         <option key={product.cardNumber} value={product.productID}>
                                             {product.productTypeID === '2' || product.productTypeID === 2
-                                                ? `Cuenta corriente ${product.cardNumber} - $${product.saldoCupo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
-                                                : `Cuenta de ahorro ${product.cardNumber} - $${product.saldoCupo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+                                                ? `Cuenta corriente ${product.productID} - $${product.saldoCupo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+                                                : `Cuenta de ahorro ${product.productID} - $${product.saldoCupo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
                                         </option>
                                     );
                                 })}

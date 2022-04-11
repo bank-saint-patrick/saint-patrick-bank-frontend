@@ -1,12 +1,13 @@
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import Transaction from './index';
 
-const TransactionsContainer = ({ transactions, contacts, setModalContacto, setModalTransferencia }) => {
+const TransactionsContainer = ({ transactions, url, token, contacts, setModalContacto, setModalTransferencia }) => {
+    console.log(contacts);
+
     return (
         <div className="flex align-top w-full flex-col ml-3 mt-3 p-3">
-            <div className="flex items-center mb-4 w-full justify-between">
+            <div className="flex flex-col md:flex-row items-center mb-4 w-full justify-between">
                 <div className="flex items-center">
                     <FontAwesomeIcon className="fa-lg" icon={faArrowRightArrowLeft} />
                     <h6 className="text-3xl leading-normal text-emerald-800 font-bold px-4">Transferencias</h6>
@@ -26,20 +27,29 @@ const TransactionsContainer = ({ transactions, contacts, setModalContacto, setMo
             {/* Transferencias */}
 
             <section className=" w-full mt-8">
-                <article className="text-sm">
+                <h2 className="m-0 text-lg font-semibold">Últimas 3 transferencias </h2>
+                <article className="text-sm mx-4">
                     {transactions.map((transaction) => {
-                        return (
-                            <Transaction
-                                key={transaction.id}
-                                id={transaction.id}
-                                type={transaction.type}
-                                receptor={transaction.receptor}
-                                number={transaction.number}
-                                timestamp={transaction.timestamp}
-                                ammount={transaction.ammount}
-                                img={transaction.img}
-                            />
-                        );
+                        // show only 3 transactions
+                        if (transactions.indexOf(transaction) < 3) {
+                            return (
+                                <Transaction
+                                    key={transaction.transactionID}
+                                    url={url}
+                                    token={token}
+                                    id={transaction.transactionID}
+                                    type={transaction.transactionTypeID}
+                                    sender={transaction.productIDOrigin}
+                                    receptor={transaction.productIDDestination}
+                                    number={transaction.productIDDestination}
+                                    timestamp={transaction.transactionDate}
+                                    ammount={transaction.transactionValue}
+                                    // img={transaction.img}
+                                />
+                            );
+                        } else {
+                            return null;
+                        }
                     })}
                 </article>
             </section>
@@ -48,32 +58,32 @@ const TransactionsContainer = ({ transactions, contacts, setModalContacto, setMo
 
             {/* Contactos */}
 
-            <div className="flex flex-col">
-                <div className="flex w-full justify-between items-center my-8">
-                    <h3 className="font-semibold text-lg">Contactos Guardados</h3>
-                    <button
-                        onClick={() => {
-                            setModalContacto(true);
+            <div className="flex w-full justify-between items-center my-8">
+                <h3 className="font-semibold text-lg">Contactos Guardados</h3>
+                <button
+                    onClick={() => {
+                        setModalContacto(true);
 
-                            window.scrollTo(0, 0);
-                            document.body.classList.add('overflow-hidden');
-                        }}
-                        className="bg-gray-300 w-max py-1 px-4 rounded-2xl font-semibold">
-                        Nuevo Contacto
-                    </button>
-                </div>
+                        window.scrollTo(0, 0);
+                        document.body.classList.add('overflow-hidden');
+                    }}
+                    className="bg-gray-300 w-max py-1 px-4 rounded-2xl font-semibold">
+                    Nuevo Contacto
+                </button>
+            </div>
+            {/* <div className="flex flex-col">
 
                 <div className="flex flex-col md:flex-row flex-wrap">
                     {contacts.map((contact) => (
                         <div key={contact.id} className="flex items-center mr-8 my-4">
                             <div className="mr-6 relative">
-                                <img className="w-10 h-10 object-cover rounded-full" src={contact.img} alt="" />
+                                <img className="w-10 h-10 object-cover rounded-full" src={contact.img.length > 0 ? contact.img : 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg'} alt="" />
                             </div>
                             <b className="text-base text-yellow-500">{contact.name}</b>
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

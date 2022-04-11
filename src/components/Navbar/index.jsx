@@ -80,7 +80,7 @@ export default function Navbar() {
                     </ul>
                 </div>
 
-                <div className={`${navbarOpen ? 'flex' : 'hidden'} lg:hidden bg-blue-stone absolute z-50 top-10 right-0 w-full sm:w-1/2`}>
+                <div className={`${navbarOpen ? 'flex' : 'hidden'} lg:hidden bg-blue-stone absolute z-50 top-[60px] right-0 w-full sm:w-1/2`}>
                     <ul className="w-full">
                         <li className="nav-item w-full">
                             <a className="p-3 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/">

@@ -6,15 +6,6 @@ import Loading from '../../needs/Loading';
 import Navbar from '../../Navbar';
 import ButtonSupport from '../../needs/ButtonSupport';
 
-/* alessandro's work begins */
-
-import sir1 from '../../../assets/images/transactions/sir1.jpeg';
-import sir2 from '../../../assets/images/transactions/sir2.jpeg';
-import sir3 from '../../../assets/images/transactions/sir3.jpeg';
-
-// import mrs1 from '../../../assets/images/transactions/mrs1.jpeg';
-// import mrs2 from '../../../assets/images/transactions/mrs2.jpeg';
-
 import SubMenu from './../SubMenu/index';
 import ProductsContainer from './../Product/container';
 import TransactionsContainer from '../Transaction/container';
@@ -25,28 +16,6 @@ import Expiration from './../../needs/Expiration/index';
 import ForgotPassword from './../../Login/Forgot';
 import ModalProductos from './../Product/modalP';
 import IndexLogin from './../IndexLogin/index';
-
-// TODO: *** remove this and change for fetching data from API
-const dataContacts = [
-    {
-        id: 1,
-        name: 'Juan González',
-        img: sir1,
-        cbu: '01020102010201020102',
-    },
-    {
-        id: 2,
-        name: 'Pedro Álvarez',
-        img: sir2,
-        cbu: '01020102010201025438',
-    },
-    {
-        id: 3,
-        name: 'José Cárdenas',
-        img: sir3,
-        cbu: '01020102010201025438',
-    },
-];
 
 // * URL de la API
 
@@ -84,8 +53,28 @@ export default function Desktop() {
     useEffect(() => {
         validateSession();
 
-        setContacts(dataContacts);
-    }, []);
+        const fetchContacts = async () => {
+            // INICIO DE LA CONEXION CON LA API
+
+            const response = await fetch(`${url}/UserContact/GetContactByUser`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = await response.json();
+
+            console.log(data);
+
+            // FIN DE LA CONEXION CON LA API
+
+            setLoading(false);
+        };
+
+        fetchContacts();
+    }, [token]);
 
     /* Products */
     useEffect(() => {
@@ -149,12 +138,12 @@ export default function Desktop() {
     useEffect(() => {
         validateSession();
 
-        const fetchTransactions = async () => {
+        const fetchTransactions = async (transactionId) => {
             setLoading(true);
 
             // INICIO DE LA CONEXION CON LA API
 
-            const response = await fetch(`${url}/Product/GetAllProductsByUser`, {
+            const response = await fetch(`${url}/Product/${transactionId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -164,15 +153,21 @@ export default function Desktop() {
 
             const data = await response.json();
 
-            console.log(data.transactions);
-
             // FIN DE LA CONEXION CON LA API
 
             setLoading(false);
+
+            return data.transactions;
         };
 
-        fetchTransactions();
-    }, [token]);
+        const transactionsFetching = products.map(async (product) => {
+            return await fetchTransactions(product.productID);
+        });
+
+        Promise.all(transactionsFetching).then((transactions) => {
+            setTransactions(transactions.flat());
+        });
+    }, [token, products]);
 
     if (loading) {
         return <Loading />;
@@ -198,6 +193,8 @@ export default function Desktop() {
                                 element={
                                     <>
                                         <ProductsContainer
+                                            token={token}
+                                            url={url}
                                             setModalUpdateProd={setModalUpdateProd}
                                             productsType={productsType}
                                             products={products}
@@ -216,7 +213,7 @@ export default function Desktop() {
                                 path="/transferencias"
                                 element={
                                     <>
-                                        <TransactionsContainer transactions={transactions} contacts={contacts} setModalTransferencia={setModalTransferencia} setModalContacto={setModalContacto} />
+                                        <TransactionsContainer url={url} token={token} transactions={transactions} contacts={contacts} setModalTransferencia={setModalTransferencia} setModalContacto={setModalContacto} />
                                     </>
                                 }
                             />
@@ -226,9 +223,9 @@ export default function Desktop() {
                 </div>
 
                 {/* Formularios */}
-                <ModalTransferencia url={url} token={token} modalTransferencia={modalTransferencia} setModalTransferencia={setModalTransferencia} transactions={transactions} setTransactions={setTransactions} products={products} contacts={contacts} />
+                <ModalTransferencia url={url} token={token} modalTransferencia={modalTransferencia} setModalTransferencia={setModalTransferencia} setTransactions={setTransactions} products={products} contacts={contacts} />
 
-                <ModalContacto modalContacto={modalContacto} setModalContacto={setModalContacto} contacts={contacts} setContacts={setContacts} />
+                <ModalContacto token={token} url={url} modalContacto={modalContacto} setModalContacto={setModalContacto} contacts={contacts} setContacts={setContacts} />
 
                 <ModalProductos modalUpdateProd={modalUpdateProd} url={url} token={token} productsType={productsType} modalProducto={modalProducto} setModalProducto={setModalProducto} products={products} setProducts={setProducts} />
 
