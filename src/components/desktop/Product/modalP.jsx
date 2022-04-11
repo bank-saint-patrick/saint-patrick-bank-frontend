@@ -208,7 +208,7 @@ const ModalProductos = ({ productsType, url, token, modalProducto, setModalProdu
                                     {products.map((prod) => {
                                         return (
                                             <option key={prod.cardNumber} value={prod.productID}>
-                                                {`${prod.productTypeID === 1 || prod.productTypeID === '1' ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${prod.cardNumber} - $${prod.saldoCupo}`}
+                                                {`${prod.productTypeID === 2 || prod.productTypeID === '2' ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${prod.cardNumber} - $${prod.saldoCupo}`}
                                             </option>
                                         );
                                     })}

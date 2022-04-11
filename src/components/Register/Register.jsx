@@ -28,7 +28,6 @@ export default function Register({ url }) {
 
         const myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json');
-        myHeaders.append('Access-Control-Allow-Origin', '*');
         myHeaders.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
         myHeaders.append('Cache-Control', 'no-cache');
         myHeaders.append('Cache-control', 'no-store');

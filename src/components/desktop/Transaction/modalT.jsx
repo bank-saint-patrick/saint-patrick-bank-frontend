@@ -8,6 +8,8 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
     const [loading, setLoading] = useState(false);
 
     const sendTransaction = async (transaction) => {
+        console.log(JSON.stringify(transaction));
+
         setLoading(true);
         const response = await fetch(`${url}/Transaction`, {
             method: 'POST',
@@ -33,14 +35,14 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
         e.preventDefault();
 
         const data = Object.fromEntries(new FormData(e.target).entries());
-        const transaccion = { ...data, transactionTypeID: 1 };
+        const transaccion = { ...data, transactionTypeID: 1, transactionID: 0, transactionTypeName: 'Transferencia', transactionDate: '' };
 
         const producto = products.find((product) => Number(product.productID) === Number(transaccion.productIDOrigin));
 
         if (producto.saldoCupo > Number(transaccion.transactionValue)) {
             sendTransaction(transaccion);
         } else {
-            toast.error(`El saldo de tu ${producto.productTypeID === 0 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.cardNumber} es insuficiente para realizar la transacción.`);
+            toast.error(`El saldo de tu ${producto.productTypeID === 2 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.cardNumber} es insuficiente para realizar la transacción.`);
         }
     };
 
@@ -73,7 +75,9 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
                                 {products.map((product) => {
                                     return (
                                         <option key={product.cardNumber} value={product.productID}>
-                                            {product.productTypeID === '1' ? `Cuenta corriente ${product.cardNumber}` : `Cuenta de ahorro ${product.cardNumber} - $${product.saldoCupo}`}
+                                            {product.productTypeID === '2' || product.productTypeID === 2
+                                                ? `Cuenta corriente ${product.cardNumber} - $${product.saldoCupo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+                                                : `Cuenta de ahorro ${product.cardNumber} - $${product.saldoCupo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
                                         </option>
                                     );
                                 })}
@@ -123,7 +127,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
                             <label htmlFor="monto" className="text-lg font-semibold">
                                 Monto
                             </label>
-                            <input placeholder="$100" required type="number" name="transactionValue" id="monto" className="w-full py-1 px-4 rounded-2xl font-semibold border-2 border-blue-stone m-4" />
+                            <input placeholder="100" required type="number" name="transactionValue" id="monto" className="w-full py-1 px-4 rounded-2xl font-semibold border-2 border-blue-stone m-4" />
 
                             <div className="flex flex-col w-full justify-between items-center mt-4">
                                 <label htmlFor="monto" className="text-lg font-semibold">
