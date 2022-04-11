@@ -28,7 +28,10 @@ export default function Register({ url }) {
 
         const myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Access-Control-Allow-Origin', '*');
         myHeaders.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+        myHeaders.append('Cache-Control', 'no-cache');
+        myHeaders.append('Cache-control', 'no-store');
 
         /* Data en formato JSON */
         const raw = JSON.stringify(newCustomer);
@@ -131,7 +134,12 @@ export default function Register({ url }) {
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = (event) => {
-            setStrImgPerfil(event.target.result);
+            if (e.target.files[0].type.match('image.*') && e.target.files[0].size < 1000000) {
+                setStrImgPerfil(event.target.result);
+            } else {
+                toast.error('El archivo debe ser una imagen y debe tener un tamaño menor a 1MB');
+                e.target.value = '';
+            }
         };
     };
 
