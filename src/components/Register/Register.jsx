@@ -5,6 +5,7 @@ import Input from '../needs/Input';
 
 import { toast } from 'react-toastify';
 
+<<<<<<< HEAD
 import adultos from '../../assets/images/adultos.jpeg';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +19,15 @@ export default function Register({ url }) {
     const [strImgPerfil, setStrImgPerfil] = useState('');
 
     const navigateTo = useNavigate();
+=======
+export default function Register() {
+    const [dni, setDni] = React.useState('');
+    const [firstname, setFirstname] = React.useState('');
+    const [lastname, setLastname] = React.useState('');
+    const [phone, setPhone] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+>>>>>>> 2cd9366d5b48d2a44f99afa87999c54f1d14905e
 
     const register = (newCustomer) => {
         /* URL registro */

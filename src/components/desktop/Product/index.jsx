@@ -1,9 +1,10 @@
-import React from 'react';
-import iconCreditCards from '../../../assets/icon-credit-cards.png';
+import React from 'react'
+import iconCreditCards from '../../../assets/images/icon-credit-cards.png';
+
 
 export default function Product(props) {
-    const { id, name, numberProduct, balance, productSelected, setProductSelected } = props;
 
+<<<<<<< HEAD
     const selected = productSelected === numberProduct ? true : false;
     const classSelected = selected ? 'h-40 max-h-40' : 'bg-gray-100 h-40 max-h-40';
     const textSelected = selected ? 'Producto seleccionado ' : '';
@@ -16,9 +17,30 @@ export default function Product(props) {
         <div onClick={() => handleClickProduct(numberProduct)} className={`bg-white ${classSelected} rounded border shadow-xl p-4 mb-4 cursor-pointer`}>
             <div className="flex justify-between w-full pb-2 mb-2">
                 <span className="font-bold text-lg text-gray-500">{name}</span>
+=======
+  const { id, name, numberProduct, balance, productSelected, setProductSelected } = props
+
+  const selected = productSelected === id ? true : false
+  const classSelected = selected ? 'bg-white h-44 max-h-72 ring-1 ring-dingley' : 'bg-gray-100 max-h-72'
+  const textSelected = selected ? 'Producto seleccionado ' : ''
+
+  const handleClickProduct = () => {
+    setProductSelected(id)
+  }
+
+  return (
+    <div>
+      <div className='flex flex-col justify-content-stretch items-center bg-gray-100 sm:flex-row md:flex-row lg:flex-row xl:flex-row 2xl:flex-row 3xl:flex-row'>
+        <div className='w-1/3 sm:w-10/12 md:w-8/12 md:mr-2 lg:w-9/12 xl:w-10/12 2xl:w-full 3xl:w-96'>
+          <div onClick={() => handleClickProduct(id)} className={`${classSelected} rounded border shadow-lg shadow-slate-400 p-4 h-44 transition ease-in-out delay-75 hover:translate-x-1 hover:-translate-y-1.5 justify-self-start mb-4 cursor-pointer w-48 h-56 sm:w-64 sm:h-48 md:w-64 md:h-48 lg:w-72 lg:h-44 xl:w-80 xl:h-40`}>
+            <div className="pb-1 mb-1">
+              <span className="font-bold text-gray-500">{name}</span><br />
+>>>>>>> 2cd9366d5b48d2a44f99afa87999c54f1d14905e
             </div>
             <div className="flex justify-between items-center">
+              <div className='grid gid-cols-2 space-y-7'>
                 <img className="inline-flex items-center justify-center h-10 mr-2" src={iconCreditCards} alt="" />
+<<<<<<< HEAD
                 <div className="ml-8">
                     <span className="font-light text-gray-400">
                         N° de tarjeta: <b className="font-bold text-gray-500">{numberProduct}</b>
@@ -30,8 +52,23 @@ export default function Product(props) {
                     <br />
                     <span className="font-bold text-xl text-green-500 flex justify-end">Saldo ${balance}</span>
                 </div>
+=======
+              </div>
+
+              <div className='mt-3'>
+                <span className="font-light text-gray-400">{numberProduct}</span><br />
+                <span className="font-bold text-xl text-green-500 flex justify-end">Saldo {balance}</span>
+              </div>
+>>>>>>> 2cd9366d5b48d2a44f99afa87999c54f1d14905e
             </div>
-            <div className="text-right mt-2">{selected ? <span className="font-light text-sm bg-gray-100 rounded p-1 px-2 text-gray-500">{textSelected}</span> : ''}</div>
+            <div className="text-right mt-0">
+              {(selected) ? <span className="font-light text-sm bg-gray-100 rounded p-1 px-2 text-gray-500">{textSelected}</span> : ''}
+            </div>
+          </div>
         </div>
-    );
+
+        
+      </div>
+    </div>
+  )
 }

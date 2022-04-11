@@ -5,6 +5,7 @@ import aboutUs1 from '../../../assets/images/about-us-1.jpeg';
 import aboutUs2 from '../../../assets/images/about-us-2.jpeg';
 
 export default function AboutUs() {
+<<<<<<< HEAD
     return (
         <div className="wrapper flex-column h-screen">
             <Navbar />
@@ -118,6 +119,43 @@ export default function AboutUs() {
                     <div className="w-full text-center text-xl font-semibold text-blue-stone bg-cream-can mt-8 p-8">Te acompañamos en éste desafío, anímate a aprender con nosotros!</div>
                 </div>
             </div>
+=======
+  return (
+    <div className="wrapper flex-column h-screen">
+      <Navbar />
+      <div className="container mx-auto mt-5 full-height-conditional w-auto">
+        <div className='grid grid-cols-1 text-left xsm:ml-7 lg:ml-5'>
+          <h4 className='bg-gray-100 shadow-md shadow-zinc-300 text-3xl text-dingley font-semibold'>Sobre Nosotros</h4>
+          <p className='text-lg mt-9 mb-4'>
+            Banco Saint Patrick es una plataforma web de educación financiera creada con la finalidad de promover la inclusión finan-<br></br>ciera
+            y digital de los adultos mayores en el país.
+          </p>
+          <p className='text-lg my-3'>
+            Nuestro objetivo es brindar herramientas que permitan facilitar el acceso de aprendizaje de los productos<br></br>
+            y servicios bancarios a través de un lenguaje claro y herramientas dinámicas.
+          </p>
+          <p  className='text-lg my-3'>
+            Nuestro compromiso es cuidarte en todo momento. Queremos que te sientas acompañado, comprendido, escuchado y que<br></br>
+            puedas tomar contacto con una persona real para responder tus dudas y consultas de forma personalizada en todo momen-<br></br>to.
+          </p>
+          <p className='text-lg my-3'>
+            Además vas a poder seleccionar por qué medio preferís que un asesor te contacte si necesitas nuestra ayuda.
+          </p>
+          <p className='text-lg my-3'> 
+            Si con los tutoriales y nuestro sector de soporte en línea todavía te quedan dudas sobre cómo se<br></br>
+            utiliza nuestra plataforma. ¡No te preocupes!
+          </p>
+          <p className='text-lg my-3'>
+            Vas a poder solicitar un turno para acercarte a nuestras sucursales el día y horario que tengas<br></br>
+            disponible para que nuestros Asesores guía te muestren el paso a paso<br></br>
+          </p>
+          <p  className='text-lg my-3'>
+            de cada transacción en nuestra área de capacitación.
+          </p>
+>>>>>>> 2cd9366d5b48d2a44f99afa87999c54f1d14905e
         </div>
-    );
+        <span className='mt-7 text-2xl text-cream-can font-semibold  xsm:ml-7 lg:ml-5'>Te acompañamos en éste desafío, anímate a aprender con nosotros!</span>
+      </div>
+    </div>
+  );
 }

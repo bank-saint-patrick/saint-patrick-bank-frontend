@@ -28,8 +28,6 @@ export const Turns = () => {
                     </tbody>
                 </table>
             </div>
-            
-
         </div>
     )
 };
