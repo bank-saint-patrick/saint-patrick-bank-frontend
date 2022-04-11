@@ -68,7 +68,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, transac
                                 Producto
                             </label>
 
-                            <select defaultValue={''} required className="p-2 rounded-lg my-4 border-2 border-blue-stone w-full" name="productIDOrigin" id="">
+                            <select defaultValue={''} required className="p-2 rounded-lg my-4 border-2 border-blue-stone w-full" name="productIDOrigin" id="origen">
                                 <option disabled value={''}>
                                     Selecciona una cuenta
                                 </option>
