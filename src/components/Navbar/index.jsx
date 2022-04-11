@@ -54,7 +54,7 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="p-3 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/cajeros">
+                            <a className="p-3 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/sucursales">
                                 <span className="ml-2">Sucursales</span>
                             </a>
                         </li>
@@ -93,7 +93,7 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li className="nav-item w-full">
-                            <a className="p-3 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/cajeros">
+                            <a className="p-3 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="/sucursales">
                                 <span className="ml-2">Sucursales</span>
                             </a>
                         </li>

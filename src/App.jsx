@@ -13,6 +13,7 @@ import Desktop from './components/desktop/Desktop';
 import Chat from './components/needs/ButtonSupport/chat';
 import Call from './components/needs/ButtonSupport/Call';
 import VideoCall from './components/needs/ButtonSupport/Videocall';
+import ButtonSupport from './components/needs/ButtonSupport/index';
 
 import './App.css';
 
@@ -25,6 +26,7 @@ function App() {
     return (
         <>
             <BrowserRouter>
+                <ButtonSupport />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login/*" element={<Login url={url} />} />
@@ -32,7 +34,7 @@ function App() {
                     <Route path="/inicio" element={<Home />} />
                     <Route path="/turnos" element={<Turns />} />
                     <Route path="/beneficios" element={<Benefits />} />
-                    <Route path="/cajeros" element={<Cashiers />} />
+                    <Route path="/sucursales" element={<Cashiers />} />
                     <Route path="/cuidate" element={<TakeCareOfYourself />} />
                     <Route path="/sobre-nosotros" element={<AboutUs />} />
                     <Route path="/desktop" element={<Desktop />} />

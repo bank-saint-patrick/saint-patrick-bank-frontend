@@ -15,7 +15,7 @@ export default function ButtonSupport() {
 
     if (openModalSupport) {
         return (
-            <div id="menu" className="fondoModal flex w-screen h-screen bg-gray-900 bg-opacity-70 top-0 fixed sticky-0">
+            <div id="menu" className="fondoModal z-50 flex w-screen h-screen bg-gray-900 bg-opacity-70 top-0 fixed sticky-0">
                 <div className="w-auto h-auto flex m-auto p-5 justify-center items-center bg-white">
                     <div className="w-5/12 flex md:w-2/5 md:contents object-bottom items-bottom">
                         <img className="mx-auto object-fill xl:p-1" src={soporte} alt="people smiling" />
