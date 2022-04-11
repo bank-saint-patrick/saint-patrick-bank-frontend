@@ -9,6 +9,11 @@ import Cashiers from './components/website/Cashiers';
 import TakeCareOfYourself from './components/website/TakeCareOfYourself';
 import AboutUs from './components/website/AboutUs';
 import Desktop from './components/desktop/Desktop';
+
+import Chat from './components/needs/ButtonSupport/chat';
+import Call from './components/needs/ButtonSupport/Call';
+import VideoCall from './components/needs/ButtonSupport/Videocall';
+
 import './App.css';
 
 import { ToastContainer } from 'react-toastify';
@@ -31,6 +36,9 @@ function App() {
                     <Route path="/cuidate" element={<TakeCareOfYourself />} />
                     <Route path="/sobre-nosotros" element={<AboutUs />} />
                     <Route path="/desktop" element={<Desktop />} />
+                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/llamada" element={<Call />} />
+                    <Route path="/videollamada" element={<VideoCall />} />
                     <Route
                         path="*"
                         element={
