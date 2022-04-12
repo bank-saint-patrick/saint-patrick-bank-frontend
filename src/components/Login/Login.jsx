@@ -8,8 +8,9 @@ import './login.css';
 import { toast } from 'react-toastify';
 
 const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
+const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api';
 
-export default function Login({ url }) {
+export default function Login() {
     const [dni, setDni] = useState('');
     const [password, setPassword] = useState('');
     const [session, setSession] = useState({});
@@ -21,34 +22,6 @@ export default function Login({ url }) {
         if (sessionStorageGet) {
             setSession(sessionStorageGet);
         }
-    }, []);
-
-    useEffect(() => {
-        const fetchUserName = async () => {
-            setLoading(true);
-
-            // INICIO DE LA CONEXION CON LA API
-
-            const response = await fetch(`http://3.139.57.252:5100/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Authorization: `Bearer ${token}`,
-                },
-            });
-
-            const data = await response.json();
-
-            console.log(data);
-
-            // setUserName(data.firstName);
-
-            // FIN DE LA CONEXION CON LA API
-
-            setLoading(false);
-        };
-
-        fetchUserName();
     }, []);
 
     const login = (user) => {

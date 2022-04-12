@@ -6,6 +6,17 @@ import { useState } from 'react';
 
 const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTransactions, products, contacts, token, url }) => {
     const [loading, setLoading] = useState(false);
+    const [tokenConfirm, setTokenConfirm] = useState('');
+    const [enabled, setEnabled] = useState(false);
+
+    // generates a random 4-digit token that changes every 30 seconds
+    const generateToken = () => {
+        let confirmToken = '';
+        for (let i = 0; i < 4; i++) {
+            confirmToken += Math.floor(Math.random() * 10);
+        }
+        setTokenConfirm(confirmToken);
+    };
 
     const sendTransaction = async (transaction) => {
         console.log(JSON.stringify(transaction));
@@ -40,12 +51,20 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
 
         const producto = products.find((product) => Number(product.productID) === Number(transaccion.productIDOrigin));
 
-        if (producto.saldoCupo > Number(transaccion.transactionValue)) {
+        if (producto.saldoCupo > Number(data.transactionValue)) {
             sendTransaction(transaccion);
         } else {
             toast.error(`El saldo de tu ${producto.productTypeID === 2 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.productID} es insuficiente para realizar la transacción.`);
         }
     };
+
+    if (tokenConfirm.length === 0) {
+        generateToken();
+    }
+
+    setTimeout(() => {
+        generateToken();
+    }, 30000);
 
     return (
         <div className={modalTransferencia ? 'absolute z-50 w-full flex justify-center h-[85%] mt-4' : 'hidden'}>
@@ -56,6 +75,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
                         onClick={() => {
                             setModalTransferencia(false);
                             document.body.classList.remove('overflow-hidden');
+                            generateToken();
                         }}
                         className="m-4 mx-8">
                         <FontAwesomeIcon className="fa-xl" icon={faTimes} />
@@ -95,7 +115,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
                                     if (e.target.value === 'otro') {
                                         const select = document.querySelector('#productIDDestination');
                                         const input = document.createElement('input');
-                                        input.setAttribute('type', 'text');
+                                        input.setAttribute('type', 'number');
                                         input.setAttribute('name', 'productIDDestination');
                                         input.setAttribute('class', 'p-2 rounded-lg my-4 border-2 border-blue-stone w-full');
                                         input.setAttribute('placeholder', 'Ingresa el CBU / CVU / Alias');
@@ -111,10 +131,10 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
                                 <option disabled value="">
                                     Selecciona un beneficiario
                                 </option>
-                                {contacts.map((contact) => {
+                                {contacts.map((contact, index) => {
                                     return (
-                                        <option key={contact.id} value={contact.cbu}>
-                                            {contact.name}
+                                        <option key={index + 1} value={contact.contactProductId}>
+                                            {contact.contactName + ' | nro° de cuenta: ' + contact.contactProductId}
                                         </option>
                                     );
                                 })}
@@ -139,17 +159,52 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
                         </div>
                     </div>
 
+                    <div className="flex flex-col justify-between items-center">
+                        <label htmlFor="monto" className="text-lg font-semibold">
+                            Token de confirmación
+                        </label>
+                        <b className="text-indigo-700">
+                            <span className="text-xl font-semibold">{tokenConfirm ? tokenConfirm : 'Generando...'}</span>
+                        </b>
+                        <input
+                            onChange={(e) => {
+                                if (tokenConfirm.length === 4) {
+                                    if (e.target.value === tokenConfirm) {
+                                        setEnabled(true);
+                                    } else {
+                                        setEnabled(false);
+                                    }
+                                }
+                            }}
+                            placeholder="Ingrese el token"
+                            required
+                            type="number"
+                            id="confirm"
+                            className="w-full py-1 px-4 rounded-2xl font-semibold border-2 border-blue-stone m-4"
+                        />
+                    </div>
+
                     <div className="flex justify-center my-5">
-                        <button className="bg-cream-can w-max py-1 px-4 rounded-2xl font-semibold">
+                        <label className={`${enabled ? 'bg-cream-can' : 'bg-gray-500 text-gray-300'} w-max py-1 px-4 rounded-2xl font-semibold`} htmlFor="submitForm">
                             {loading ? (
                                 <>
                                     <FontAwesomeIcon className="fa-xl" icon={faSpinner} spin />
                                     <span className="ml-2">Procesando...</span>
                                 </>
                             ) : (
-                                'Enviar'
+                                'Continuar'
                             )}
-                        </button>
+                        </label>
+                        <input
+                            {...(enabled
+                                ? {
+                                      disabled: false,
+                                  }
+                                : { disabled: true })}
+                            hidden
+                            id="submitForm"
+                            type="submit"
+                            className="hidden"></input>
                     </div>
                 </form>
             </div>

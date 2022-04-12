@@ -16,6 +16,7 @@ import Expiration from './../../needs/Expiration/index';
 import ForgotPassword from './../../Login/Forgot';
 import ModalProductos from './../Product/modalP';
 import IndexLogin from './../IndexLogin/index';
+import { toast } from 'react-toastify';
 
 // * URL de la API
 
@@ -47,6 +48,10 @@ export default function Desktop() {
     const [modalProducto, setModalProducto] = useState(false);
     const [modalUpdateProd, setModalUpdateProd] = useState(false);
 
+    /* User */
+
+    const [userData, setUserData] = useState({});
+
     // ? Data Fetching GET
 
     /* Contacts */
@@ -66,7 +71,11 @@ export default function Desktop() {
 
             const data = await response.json();
 
-            console.log(data);
+            if (data.status !== 'Error') {
+                setContacts(data);
+            } else {
+                toast.error('Error:' + data.message);
+            }
 
             // FIN DE LA CONEXION CON LA API
 
@@ -180,7 +189,7 @@ export default function Desktop() {
             <Expiration />
 
             <div className="flex flex-col sm:flex-row">
-                <SubMenu url={url} token={token} />
+                <SubMenu setUserData={setUserData} url={url} token={token} />
 
                 {/* Secciones */}
                 <div className="flex sm:w-2/3 md:w-3/4 lg:w-4/5">
@@ -225,7 +234,7 @@ export default function Desktop() {
                 {/* Formularios */}
                 <ModalTransferencia url={url} token={token} modalTransferencia={modalTransferencia} setModalTransferencia={setModalTransferencia} setTransactions={setTransactions} products={products} contacts={contacts} />
 
-                <ModalContacto token={token} url={url} modalContacto={modalContacto} setModalContacto={setModalContacto} contacts={contacts} setContacts={setContacts} />
+                <ModalContacto userData={userData} token={token} url={url} modalContacto={modalContacto} setModalContacto={setModalContacto} contacts={contacts} setContacts={setContacts} />
 
                 <ModalProductos modalUpdateProd={modalUpdateProd} url={url} token={token} productsType={productsType} modalProducto={modalProducto} setModalProducto={setModalProducto} products={products} setProducts={setProducts} />
 

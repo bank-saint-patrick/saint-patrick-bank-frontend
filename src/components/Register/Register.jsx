@@ -8,7 +8,9 @@ import { toast } from 'react-toastify';
 import adultos from '../../assets/images/adultos.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-export default function Register({ url }) {
+const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api';
+
+export default function Register() {
     const [dni, setDni] = useState('');
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');

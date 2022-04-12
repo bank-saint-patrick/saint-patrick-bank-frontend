@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faArrowRightArrowLeft, faFolder, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle, faPencilAlt, faSave } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 
-const SubMenu = ({ url, token }) => {
+const SubMenu = ({ url, token, setUserData }) => {
     const [menu, setMenu] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
     const [loading, setLoading] = useState(false);
@@ -37,6 +37,7 @@ const SubMenu = ({ url, token }) => {
             const data = await response.json();
 
             setUser(data);
+            setUserData(data);
             setUserImgPerfil(data.image);
             setUserName(data.firstName);
 
@@ -46,7 +47,7 @@ const SubMenu = ({ url, token }) => {
         };
 
         fetchUserName();
-    }, [token, url]);
+    }, [token, url, setUserData]);
 
     /* Utilitie useEffect */
     useEffect(() => {
