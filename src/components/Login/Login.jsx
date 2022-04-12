@@ -23,6 +23,34 @@ export default function Login({ url }) {
         }
     }, []);
 
+    useEffect(() => {
+        const fetchUserName = async () => {
+            setLoading(true);
+
+            // INICIO DE LA CONEXION CON LA API
+
+            const response = await fetch(`http://3.139.57.252:5100/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = await response.json();
+
+            console.log(data);
+
+            // setUserName(data.firstName);
+
+            // FIN DE LA CONEXION CON LA API
+
+            setLoading(false);
+        };
+
+        fetchUserName();
+    }, []);
+
     const login = (user) => {
         setLoading(true);
 

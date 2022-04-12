@@ -74,7 +74,7 @@ export default function ButtonSupport() {
     }
 
     return (
-        <div className="fixed bottom-0 w-full z-50">
+        <div className="fixed bottom-0 right-0 z-50">
             <button type="button" className="bottom-0 mb-5 mr-5 float-right px-5 py-2 bg-cream-can text-black text-sm font-bold tracking-wide rounded-full focus:outline-none" onClick={() => handleClickOpenModalSupport()}>
                 ¿Necesitas ayuda?
             </button>

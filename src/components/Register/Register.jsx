@@ -15,6 +15,7 @@ export default function Register({ url }) {
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [strImgPerfil, setStrImgPerfil] = useState('');
 
     const navigateTo = useNavigate();
@@ -58,6 +59,8 @@ export default function Register({ url }) {
     };
 
     const validations = (newCustomer) => {
+        console.log(newCustomer);
+
         const response = {
             success: true,
             errors: [],
@@ -95,6 +98,11 @@ export default function Register({ url }) {
         } else if (!/[^a-zA-Z0-9]/.test(newCustomer.password)) {
             response.errors.push('La contraseña debe tener al menos un caracter especial');
         }
+        if (newCustomer.confirmPassword.length === 0) {
+            response.errors.push('El campo Confirmar Contraseña es obligatorio');
+        } else if (newCustomer.confirmPassword !== newCustomer.password) {
+            response.errors.push('Las contraseñas no coinciden');
+        }
 
         if (response.errors.length > 0) {
             response.success = false;
@@ -115,6 +123,7 @@ export default function Register({ url }) {
             email: email.trim(),
             phoneNumber: phoneNumber.trim(),
             password: password.trim(),
+            confirmPassword: confirmPassword.trim(),
             image: strImgPerfil,
         };
 
@@ -168,6 +177,9 @@ export default function Register({ url }) {
                         <div className="flex flex-col lg:flex-row relative">
                             <Input class="flex-col" type="email" label="Email" value={email} seter={setEmail} placeholder="Ingrese sus email" />
                             <Input class="flex-col" type="password" label="Contraseña" value={password} seter={setPassword} placeholder="Ingrese su contraseña" />
+                        </div>
+                        <div className="flex flex-col lg:flex-row relative">
+                            <Input class="flex-col" type="password" label="Confirmar Contraseña" value={confirmPassword} seter={setConfirmPassword} placeholder="Confirme su contraseña" />
                         </div>
                         <div className="flex flex-col lg:flex-row relative">
                             <div className="w-11/12 lg:w-9/12 2xl:w-1/2 mx-auto">
