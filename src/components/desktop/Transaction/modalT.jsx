@@ -34,9 +34,10 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
         const data = await response.json();
 
         if (data.status === 'Success') {
-            setTransactions(transaction);
             setLoading(false);
             toast.success(data.message);
+            setModalTransferencia(false);
+            window.location.reload();
         } else {
             setLoading(false);
             toast.error(data.message);
@@ -134,7 +135,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
                                 {contacts.map((contact, index) => {
                                     return (
                                         <option key={index + 1} value={contact.contactProductId}>
-                                            {contact.contactName + ' | nro° de cuenta: ' + contact.contactProductId}
+                                            {contact.contactProductId ? contact.contactName + ' | nro° de cuenta: ' + contact.contactProductId : contact.contactName}
                                         </option>
                                     );
                                 })}

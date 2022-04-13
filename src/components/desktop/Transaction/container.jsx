@@ -2,7 +2,9 @@ import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Transaction from './index';
 
-const TransactionsContainer = ({ transactions, url, token, contacts, setModalContacto, setModalTransferencia, setModalBorrarContacto }) => {
+const TransactionsContainer = ({ transactions, url, token, contacts, setModalContacto, setModalTransferencia, setModalBorrarContacto, products }) => {
+    console.log(transactions);
+
     return (
         <div className="flex align-top w-full flex-col ml-3 mt-3 p-3">
             <div className="flex flex-col md:flex-row items-center mb-4 w-full justify-between">
@@ -28,7 +30,27 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                 <h2 className="m-0 text-lg font-semibold">Últimas 3 transferencias </h2>
                 <article className="text-sm mx-4">
                     {transactions.map((transaction) => {
-                        // show only 3 transactions
+                        const contactReceptor = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDDestination));
+
+                        const contactSender = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDOrigin));
+
+                        const productSender = products.find((product) => product.productID === Number(transaction.productIDOrigin));
+
+                        const date = new Date(transaction.transactionDate);
+                        const dateFormatted = date.toLocaleDateString('es-ES', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                        });
+
+                        const time = date.toLocaleTimeString('en-US', {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true,
+                        });
+
+                        const productDestination = products.find((product) => product.productID === transaction.productIDDestination);
+
                         if (transactions.indexOf(transaction) < 3) {
                             return (
                                 <Transaction
@@ -36,13 +58,29 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                                     url={url}
                                     token={token}
                                     id={transaction.transactionID}
-                                    type={transaction.transactionTypeID}
-                                    sender={transaction.productIDOrigin}
-                                    receptor={transaction.productIDDestination}
+                                    type={productDestination ? 'Recibido' : 'Enviado'}
+                                    sender={
+                                        contactSender
+                                            ? contactSender.contactName + ' - ' + contactSender.contactProductId
+                                            : productSender
+                                            ? productSender.productTypeID === 1
+                                                ? 'Cuenta ahorro - ' + transaction.productIDOrigin
+                                                : 'Cuenta corriente - ' + transaction.productIDOrigin
+                                            : 'Cuenta desconocida - ' + transaction.productIDOrigin
+                                    }
+                                    receptor={
+                                        contactReceptor
+                                            ? contactReceptor.contactName + ' - ' + contactReceptor.contactProductId
+                                            : productSender
+                                            ? productSender.productTypeID === 1
+                                                ? 'Cuenta ahorro - ' + transaction.productIDDestination
+                                                : 'Cuenta corriente - ' + transaction.productIDDestination
+                                            : 'Cuenta desconocida - ' + transaction.productIDDestination
+                                    }
                                     number={transaction.productIDDestination}
-                                    timestamp={transaction.transactionDate}
+                                    timestamp={dateFormatted && time ? dateFormatted + ' ' + time : 'Fecha desconocida'}
                                     ammount={transaction.transactionValue}
-                                    // img={transaction.img}
+                                    img={contactReceptor ? contactReceptor.image : ''}
                                 />
                             );
                         } else {
@@ -71,10 +109,10 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                     </button>
                     <button
                         onClick={() => {
-                            // setModalBorrarContacto(true);
-                            alert('En progreso...');
-                            // window.scrollTo(0, 0);
-                            // document.body.classList.add('overflow-hidden');
+                            setModalBorrarContacto(true);
+
+                            window.scrollTo(0, 0);
+                            document.body.classList.add('overflow-hidden');
                         }}
                         className="bg-red-400 ml-2 w-max py-1 px-4 rounded-2xl font-semibold">
                         Borrar Contacto

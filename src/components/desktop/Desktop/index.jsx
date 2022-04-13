@@ -17,6 +17,7 @@ import ForgotPassword from './../../Login/Forgot';
 import ModalProductos from './../Product/modalP';
 import IndexLogin from './../IndexLogin/index';
 import { toast } from 'react-toastify';
+import ModalBorrarContacto from './../Transaction/modalBorrarC';
 
 // * URL de la API
 
@@ -45,6 +46,7 @@ export default function Desktop() {
     /* Modals */
     const [modalTransferencia, setModalTransferencia] = useState(false);
     const [modalContacto, setModalContacto] = useState(false);
+    const [modalBorrarContacto, setModalBorrarContacto] = useState(false);
     const [modalProducto, setModalProducto] = useState(false);
     const [modalUpdateProd, setModalUpdateProd] = useState(false);
 
@@ -202,6 +204,7 @@ export default function Desktop() {
                                 element={
                                     <>
                                         <ProductsContainer
+                                            contacts={contacts}
                                             token={token}
                                             url={url}
                                             setModalUpdateProd={setModalUpdateProd}
@@ -222,7 +225,16 @@ export default function Desktop() {
                                 path="/transferencias"
                                 element={
                                     <>
-                                        <TransactionsContainer url={url} token={token} transactions={transactions} contacts={contacts} setModalTransferencia={setModalTransferencia} setModalContacto={setModalContacto} />
+                                        <TransactionsContainer
+                                            products={products}
+                                            url={url}
+                                            token={token}
+                                            transactions={transactions}
+                                            contacts={contacts}
+                                            setModalTransferencia={setModalTransferencia}
+                                            setModalContacto={setModalContacto}
+                                            setModalBorrarContacto={setModalBorrarContacto}
+                                        />
                                     </>
                                 }
                             />
@@ -236,9 +248,11 @@ export default function Desktop() {
 
                 <ModalContacto userData={userData} token={token} url={url} modalContacto={modalContacto} setModalContacto={setModalContacto} contacts={contacts} setContacts={setContacts} />
 
+                <ModalBorrarContacto userData={userData} token={token} url={url} modalBorrarContacto={modalBorrarContacto} setModalBorrarContacto={setModalBorrarContacto} contacts={contacts} setContacts={setContacts} />
+
                 <ModalProductos modalUpdateProd={modalUpdateProd} url={url} token={token} productsType={productsType} modalProducto={modalProducto} setModalProducto={setModalProducto} products={products} setProducts={setProducts} />
 
-                <div className={modalTransferencia || modalContacto || modalProducto ? 'overlay absolute h-full w-full grid place-content-center bg-black opacity-50' : 'hidden'}></div>
+                <div className={modalTransferencia || modalContacto || modalProducto || modalBorrarContacto ? 'overlay absolute h-full w-full grid place-content-center bg-black opacity-50' : 'hidden'}></div>
             </div>
 
             <ButtonSupport />

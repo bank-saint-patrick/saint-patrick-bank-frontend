@@ -4,7 +4,7 @@ import Product from './index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 
-const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setModalProducto, setModalUpdateProd, url, token }) => {
+const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setModalProducto, setModalUpdateProd, url, token, contacts }) => {
     return (
         <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
@@ -75,19 +75,57 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                     <article className="text-sm">
                         {transactions.map((transaction) => {
                             const showTransaction = productSelected ? transaction.productIDDestination === productSelected || transaction.productIDOrigin === productSelected : true;
+
+                            const contactReceptor = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDDestination));
+
+                            const contactSender = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDOrigin));
+
+                            const productSender = products.find((product) => product.productID === Number(transaction.productIDOrigin));
+
+                            const date = new Date(transaction.transactionDate);
+                            const dateFormatted = date.toLocaleDateString('es-ES', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                            });
+
+                            const time = date.toLocaleTimeString('en-US', {
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                hour12: true,
+                            });
+
+                            const productDestination = products.find((product) => product.productID === transaction.productIDDestination);
+
                             return showTransaction ? (
                                 <Transaction
                                     key={transaction.transactionID}
                                     url={url}
                                     token={token}
                                     id={transaction.transactionID}
-                                    type={transaction.transactionTypeID}
-                                    sender={transaction.productIDOrigin}
-                                    receptor={transaction.productIDDestination}
+                                    type={productDestination ? 'Recibido' : 'Enviado'}
+                                    sender={
+                                        contactSender
+                                            ? contactSender.contactName + ' - ' + contactSender.contactProductId
+                                            : productSender
+                                            ? productSender.productTypeID === 1
+                                                ? 'Cuenta ahorro - ' + transaction.productIDOrigin
+                                                : 'Cuenta corriente - ' + transaction.productIDOrigin
+                                            : 'Cuenta desconocida - ' + transaction.productIDOrigin
+                                    }
+                                    receptor={
+                                        contactReceptor
+                                            ? contactReceptor.contactName + ' - ' + contactReceptor.contactProductId
+                                            : productSender
+                                            ? productSender.productTypeID === 1
+                                                ? 'Cuenta ahorro - ' + transaction.productIDDestination
+                                                : 'Cuenta corriente - ' + transaction.productIDDestination
+                                            : 'Cuenta desconocida - ' + transaction.productIDDestination
+                                    }
                                     number={transaction.productIDDestination}
-                                    timestamp={transaction.transactionDate}
+                                    timestamp={dateFormatted && time ? dateFormatted + ' ' + time : 'Fecha desconocida'}
                                     ammount={transaction.transactionValue}
-                                    // img={transaction.img}
+                                    img={contactReceptor ? contactReceptor.image : ''}
                                 />
                             ) : null;
                         })}
