@@ -49,8 +49,8 @@ export default function Cashiers() {
                                         </section>
 
                                         <section className="flex flex-col lg:flex-row w-full">
-                                            <article className="my-4 w-full h-full sm:h-1/2 lg:my-0 lg:h-full lg:w-1/2 overflow-auto">{width > 768 ? <InfoLG /> : <CarouselContainer />}</article>
-                                            <article className="flex-col border-2 border-cream-can my-4 px-8 hidden sm:flex w-full h-1/2 lg:my-0 lg:h-full lg:w-1/2 lg:p-0">
+                                            <article className="my-4 w-full h-full sm:h-1/2 lg:my-0 lg:h-full lg:w-1/2 overflow-auto">{width > 680 ? <InfoLG /> : <CarouselContainer />}</article>
+                                            <article className="flex-col border-2 border-cream-can my-4 px-8 flex w-full h-full sm:h-1/2 lg:my-0 lg:h-full lg:w-1/2 lg:p-0">
                                                 <section className="h-full md:h-1/2 lg:border-b-2 lg:border-cream-can">
                                                     <Form />
                                                 </section>

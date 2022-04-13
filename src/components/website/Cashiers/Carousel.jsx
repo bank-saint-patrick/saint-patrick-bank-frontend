@@ -1,14 +1,15 @@
-import React from 'react';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
+import turnos from '../../../assets/images/sucursales/turnos.png';
+import acompa from '../../../assets/images/sucursales/acompa.png';
+import capacitaciones from '../../../assets/images/sucursales/capacitaciones.png';
+import personas from '../../../assets/images/sucursales/personas.png';
+import instalaciones from '../../../assets/images/sucursales/instalaciones.png';
 
-import turnos from '../../../assets/images/sucursales/turnos.jpeg';
-import acompa from '../../../assets/images/sucursales/acompa.jpeg';
-import capacitaciones from '../../../assets/images/sucursales/capacitaciones.jpeg';
-import personas from '../../../assets/images/sucursales/personas.jpeg';
-import instalaciones from '../../../assets/images/sucursales/instalaciones.jpeg';
+import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import Swipe from 'react-easy-swipe';
 
-const slides = [
+const CarouselData = [
     {
         image: turnos,
         title: 'Turnos',
@@ -40,139 +41,80 @@ const slides = [
             'Nuestras oficinas están pensadas para tu confort y seguridad. Tenemos cada sector señalizado para su fácil ubicación. Contamos con rampas, instalaciones y servicios teniendo en cuenta todos los aspectos de accesibilidad para personas con discapacidad o movilidad reducida.',
     },
 ];
+class Carousel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentSlide: 0,
+            paused: false,
+        };
+    }
 
-const Index = () => {
-    return (
-        <div className="2xl:mx-auto 2xl:container w-full flex justify-center">
-            <div className="2xl:px-20 px-6 w-full">
-                {/* Carousel for Small-Sized Screen */}
-                <CarouselProvider className="relative block sm:hidden" naturalSlideWidth={100} isIntrinsicHeight={true} totalSlides={5} visibleSlides={1} step={1} infinite={true}>
-                    <div className="js-flickity flex justify-center items-center">
-                        <ButtonBack
-                            role="button"
-                            aria-label="slide backward"
-                            className="hidden xsm:flex w-12 h-12 md:w-14 md:h-14 rounded-full md:flex justify-center items-center bg-white border border-gray-300 hover:bg-gray-400 absolute z-30 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
-                            id="prev">
-                            <svg width={8} height={14} viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 1L1 7L7 13" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </ButtonBack>
-                        <Slider>
-                            {slides.map((slide, index) => (
-                                <Slide key={slide.title} index={index}>
-                                    <div className="border-2 gallery-cell lg:mr-7 mr-6 lg:w-1/2 sm:w-96 w-full h-full">
-                                        <div className="relative w-full h-1/2 lg:block hidden">
-                                            <img src={slide.image} alt="sitting area" className="object-center object-cover w-full h-1/2" />
-                                            <div className="flex flex-col items-center h-1/2 justify-center">
-                                                <h1 className="text-xl xsm:text-3xl leading-5 lg:text-2xl lg:leading-normal font-medium my-4">{slide.title}</h1>
-                                            </div>
-                                        </div>
-                                        <div className="relative w-full h-full lg:hidden bg-cream-can">
-                                            <img src={slide.image} alt="sitting area" className="object-center object-cover w-full h-1/2" />
-                                            <div className="flex flex-col items-center h-1/2 justify-center">
-                                                <h1 className="text-xl xsm:text-3xl leading-5 lg:text-2xl lg:leading-normal font-medium my-4">{slide.title}</h1>
-                                            </div>
-                                        </div>
+    nextSlide = () => {
+        let newSlide = this.state.currentSlide === CarouselData.length - 1 ? 0 : this.state.currentSlide + 1;
+        this.setState({ currentSlide: newSlide });
+    };
+
+    prevSlide = () => {
+        let newSlide = this.state.currentSlide === 0 ? CarouselData.length - 1 : this.state.currentSlide - 1;
+        this.setState({ currentSlide: newSlide });
+    };
+
+    setCurrentSlide = (index) => {
+        this.setState({ currentSlide: index });
+    };
+
+    render() {
+        return (
+            <div className="mt-8">
+                <div className="h-72 flex overflow-hidden relative">
+                    <button onClick={this.prevSlide} className="absolute left-0 text-3xl inset-y-1/2 text-blue-stone cursor-pointer">
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                    </button>
+
+                    <Swipe className="w-full" onSwipeLeft={this.nextSlide} onSwipeRight={this.prevSlide}>
+                        {CarouselData.map((slide, index) => {
+                            return (
+                                <div key={index} className={index === this.state.currentSlide ? 'flex flex-col w-full h-3/4' : 'hidden'}>
+                                    <img
+                                        src={slide.image}
+                                        alt="This is a carousel slide"
+                                        className={'mx-auto w-3/4 xsm:w-1/3 h-full object-contain xsm:object-cover p-4 bg-cream-can rounded-full'}
+                                        onMouseEnter={() => {
+                                            this.setState({ paused: true });
+                                        }}
+                                        onMouseLeave={() => {
+                                            this.setState({ paused: false });
+                                        }}
+                                    />
+                                    <div className="flex flex-col justify-center w-4/5 mx-auto items-center h-2/3">
+                                        <h2 className="text-3xl">{slide.title}</h2>
                                     </div>
-                                </Slide>
-                            ))}
-                        </Slider>
-                        <ButtonNext
-                            role="button"
-                            aria-label="slide forward"
-                            className="hidden xsm:flex w-12 h-12 md:w-14 md:h-14 rounded-full md:flex justify-center items-center bg-white border border-gray-300 hover:bg-gray-400 absolute z-30 right-0 mr-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
-                            id="next">
-                            <svg width={8} height={14} viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L7 7L1 13" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </ButtonNext>
-                    </div>
-                </CarouselProvider>
+                                </div>
+                            );
+                        })}
+                    </Swipe>
 
-                {/* Carousel for MD, LG, XL... */}
-                <CarouselProvider className="relative hidden sm:block" style={{ margin: '0 25px' }} naturalSlideWidth={100} isIntrinsicHeight={true} totalSlides={5} visibleSlides={1} step={1} infinite={true} currentSlide={1}>
-                    <div className="js-flickity flex justify-center items-center">
-                        <ButtonBack
-                            role="button"
-                            aria-label="slide backward"
-                            className="w-12 h-12 md:w-14 md:h-14 rounded-full flex justify-center items-center bg-white border border-gray-300 hover:bg-gray-400 absolute z-30 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
-                            id="prev">
-                            <svg width={8} height={14} viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 1L1 7L7 13" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </ButtonBack>
-                        <Slider className="carousel__sliderLarge">
-                            {slides.map((slide, index) => (
-                                <Slide key={slide.title} style={{ width: '50%', margin: '0 5px' }} className="carousel__inner-slideLarge border-2 mx-2" index={index}>
-                                    <div className="gallery-cell w-full h-full" style={{ paddingRight: '0' }}>
-                                        <div className="relative w-full h-full lg:flex lg:flex-col hidden">
-                                            <img src={slide.image} alt="sitting area" className="object-center object-cover my-3 mx-auto h-1/4" />
-                                            <div className="w-full h-3/4 flex flex-col items-center justify-evenly">
-                                                <h1 className="text-xl text-blue-stone leading-5 lg:text-2xl lg:leading-normal font-medium">{slide.title}</h1>
-                                                <p className="font-medium rounded-md p-4 h-full mt-12 overflow-auto">{slide.description}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="relative w-full h-full flex flex-col lg:hidden">
-                                            <img src={slide.image} alt="sitting area" className="object-center my-3 mx-auto w-full object-contain h-1/2" />
-                                            <div className="w-full h-1/2 flex flex-col items-center justify-start">
-                                                <h1 className="pb-4 text-xl text-blue-stone leading-5 lg:text-2xl lg:leading-normal font-medium">{slide.title}</h1>
-                                                <p className="p-4 h-3/4 overflow-auto">{slide.description}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Slide>
-                            ))}
-                        </Slider>
-                        <ButtonNext
-                            role="button"
-                            aria-label="slide forward"
-                            className="w-12 h-12 md:w-14 md:h-14 rounded-full flex justify-center items-center bg-white border border-gray-300 hover:bg-gray-400 absolute z-30 right-0 mr-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
-                            id="next">
-                            <svg width={8} height={14} viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L7 7L1 13" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </ButtonNext>
+                    <div className="absolute w-full flex justify-center bottom-0">
+                        {CarouselData.map((element, index) => {
+                            return (
+                                <div
+                                    className={index === this.state.currentSlide ? 'h-2 w-2 bg-blue-stone rounded-full mx-2 mb-2 cursor-pointer' : 'h-2 w-2 bg-gray-200 rounded-full mx-2 mb-2 cursor-pointer'}
+                                    key={index}
+                                    onClick={() => {
+                                        this.setCurrentSlide(index);
+                                    }}></div>
+                            );
+                        })}
                     </div>
-                </CarouselProvider>
+
+                    <button onClick={this.nextSlide} className="absolute right-0 text-3xl inset-y-1/2 text-blue-stone cursor-pointer">
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </button>
+                </div>
             </div>
+        );
+    }
+}
 
-            <style>
-                {`
-                    .gallery-cell {
-                        height: 386px;
-                        padding-right:15px;
-                    }
-                    @media (min-width: 300px) and (max-width: 420px) {
-                        .gallery-cell {
-                            height: 286px !important;
-                            
-                        }
-                    }
-                    
-                    @media (max-width: 640px) {
-                        .gallery-cell {
-                            padding-right:0;
-                        }
-                    }
-
-                    .carousel__sliderLarge {
-                        padding-left: 20%;
-                        padding-right: 20%;
-                    }
-
-                    /* gives us the illusion of spaces between the slides */
-                    .carousel__inner-slideLarge {
-                        width: calc(100% - 20px);
-                        height: calc(100% - 20px);
-                        left: 10px;
-                        top: 10px;
-                        
-                    }
-                `}
-            </style>
-        </div>
-    );
-};
-
-export default Index;
+export default Carousel;
