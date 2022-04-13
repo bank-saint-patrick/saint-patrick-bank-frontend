@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const ModalProductos = ({ productsType, url, token, modalProducto, setModalProducto, products, setProducts, modalUpdateProd }) => {
     const [cardNumber, setCardNumber] = useState('');
@@ -233,4 +233,4 @@ const ModalProductos = ({ productsType, url, token, modalProducto, setModalProdu
     );
 };
 
-export default ModalProductos;
+export default React.memo(ModalProductos);

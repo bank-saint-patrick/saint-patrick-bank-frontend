@@ -19,8 +19,6 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
     };
 
     const sendTransaction = async (transaction) => {
-        console.log(JSON.stringify(transaction));
-
         setLoading(true);
         const response = await fetch(`${url}/Transaction`, {
             method: 'POST',
@@ -48,12 +46,13 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
         e.preventDefault();
 
         const data = Object.fromEntries(new FormData(e.target).entries());
-        const transaccion = { ...data, transactionTypeID: 1, transactionID: 0, transactionTypeName: 'Transferencia', transactionDate: new Date().toISOString().split('T')[0] };
+        const transaccion = { ...data, transactionTypeID: 1, transactionID: 0, transactionTypeName: 'Transferencia', transactionDate: new Date().toLocaleString() };
 
         const producto = products.find((product) => Number(product.productID) === Number(transaccion.productIDOrigin));
 
-        if (producto.saldoCupo > Number(data.transactionValue)) {
+        if (producto.saldoCupo > Number(data.transactionValue) && Number(data.transactionValue) > 0) {
             sendTransaction(transaccion);
+            e.target.reset();
         } else {
             toast.error(`El saldo de tu ${producto.productTypeID === 2 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.productID} es insuficiente para realizar la transacción.`);
         }
@@ -65,7 +64,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
 
     setTimeout(() => {
         generateToken();
-    }, 30000);
+    }, 15000);
 
     return (
         <div className={modalTransferencia ? 'absolute z-50 w-full flex justify-center h-[85%] mt-4' : 'hidden'}>
@@ -117,6 +116,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
                                         const select = document.querySelector('#productIDDestination');
                                         const input = document.createElement('input');
                                         input.setAttribute('type', 'number');
+                                        input.setAttribute('pattern', '^[1-9]{1}[0-9]*$');
                                         input.setAttribute('name', 'productIDDestination');
                                         input.setAttribute('class', 'p-2 rounded-lg my-4 border-2 border-blue-stone w-full');
                                         input.setAttribute('placeholder', 'Ingresa el CBU / CVU / Alias');
@@ -186,7 +186,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
                     </div>
 
                     <div className="flex justify-center my-5">
-                        <label className={`${enabled ? 'bg-cream-can' : 'bg-gray-500 text-gray-300'} w-max py-1 px-4 rounded-2xl font-semibold`} htmlFor="submitForm">
+                        <label className={`${enabled ? 'bg-cream-can' : 'bg-gray-500 text-gray-300'} w-max py-1 px-4 rounded-2xl font-semibold cursor-pointer`} htmlFor="submitForm">
                             {loading ? (
                                 <>
                                     <FontAwesomeIcon className="fa-xl" icon={faSpinner} spin />

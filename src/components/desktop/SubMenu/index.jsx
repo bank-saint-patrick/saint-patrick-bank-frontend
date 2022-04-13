@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHouse, faArrowRightArrowLeft, faFolder, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle, faPencilAlt, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowRightArrowLeft, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle, faPencilAlt, faSave } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 
 const SubMenu = ({ url, token, setUserData }) => {
@@ -39,7 +39,7 @@ const SubMenu = ({ url, token, setUserData }) => {
             setUser(data);
             setUserData(data);
             setUserImgPerfil(data.image);
-            setUserName(data.firstName);
+            setUserName(data.firstName !== data.lastName ? `${data.firstName} ${data.lastName}` : data.firstName);
 
             // FIN DE LA CONEXION CON LA API
 
@@ -88,23 +88,17 @@ const SubMenu = ({ url, token, setUserData }) => {
         {
             id: 1,
             name: 'Inicio',
-            path: '/inicio',
+            path: '/login/',
             icon: faHouse,
         },
         {
             id: 2,
             name: 'Mis productos',
             path: '/login/productos',
-            icon: faFolder,
-        },
-        {
-            id: 3,
-            name: 'Tarjetas',
-            path: '/login/tarjetas',
             icon: faCreditCard,
         },
         {
-            id: 4,
+            id: 3,
             name: 'Transferencias',
             path: '/login/transferencias',
             icon: faArrowRightArrowLeft,
@@ -315,10 +309,6 @@ const SubMenu = ({ url, token, setUserData }) => {
 
                     <hr className="my-3 border-gray-300" />
 
-                    <div className="flex text-lg my-2 hover:bg-gray-100 hover:cursor-pointer rounded py-1 px-2">
-                        <div className="underline">¿Necesitas Ayuda?</div>
-                    </div>
-
                     <div
                         onClick={() => {
                             sessionStorage.removeItem('session');
@@ -334,4 +324,4 @@ const SubMenu = ({ url, token, setUserData }) => {
     );
 };
 
-export default SubMenu;
+export default React.memo(SubMenu);

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { useState } from 'react';
 
-const ModalBorrarContacto = ({ token, url, modalBorrarContacto, setModalBorrarContacto, contacts, setContacts, userData }) => {
+const ModalBorrarContacto = ({ token, url, modalBorrarContacto, setModalBorrarContacto, contacts, setContacts }) => {
     const [loading, setLoading] = useState(false);
     const [contactToDelete, setContactToDelete] = useState(null);
 
@@ -39,6 +39,7 @@ const ModalBorrarContacto = ({ token, url, modalBorrarContacto, setModalBorrarCo
 
         if (data.confirmDelete === contactToDelete.contactName) {
             sendContact(contactToDelete.userContactID);
+            e.target.reset();
         } else {
             toast.error('Confirmación incorrecta');
             setContactToDelete(null);

@@ -42,8 +42,7 @@ export default function Cashiers() {
                                 element={
                                     <>
                                         <section className="flex flex-col sm:flex-row items-center bg-cream-can rounded-md my-8">
-                                            <span className="rounded-full text-xl font-extrabold border-2 border-blue-stone text-blue-stone px-4 py-2 my-8 mx-4">1</span>
-                                            <p className="pb-8 px-8 sm:py-12 lg:py-2 text-xl text-center">
+                                            <p className="pb-8 px-8 sm:py-16 lg:py-8 text-xl text-center">
                                                 <b>Busca y selecciona la sucursal que prefieras</b>, si tienes alguna consulta o simplemente quieres ser atendido por un asesor <b>¡Te esperamos!</b>
                                             </p>
                                         </section>
@@ -68,8 +67,7 @@ export default function Cashiers() {
                                 element={
                                     <>
                                         <section className="flex flex-col sm:flex-row items-center bg-cream-can rounded-md my-8">
-                                            <span className="rounded-full text-xl font-extrabold border-2 border-blue-stone text-blue-stone px-4 py-2 my-8 mx-4">2</span>
-                                            <p className="pb-8 sm:py-12 lg:py-2 text-xl text-center">
+                                            <p className="pb-8 sm:py-16 lg:py-8 text-xl text-center">
                                                 <b>Busca y selecciona la sucursal que prefieras</b>, si tienes alguna consulta o simplemente quieres ser atendido por un asesor <b>¡Te esperamos!</b>
                                             </p>
                                         </section>

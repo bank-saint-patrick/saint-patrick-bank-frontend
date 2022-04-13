@@ -24,10 +24,9 @@ const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api';
 
 // ? COMPONENTE
 
-export default function Desktop() {
+const Desktop = () => {
     // * TOKEN
-
-    const token = JSON.parse(sessionStorage.getItem('session')).token;
+    const token = sessionStorage.getItem('session') ? JSON.parse(sessionStorage.getItem('session')).token : '';
 
     /* Data */
     const [products, setProducts] = useState([]);
@@ -35,7 +34,7 @@ export default function Desktop() {
     const [productsType, setProductsType] = useState([]);
 
     const [transactions, setTransactions] = useState([]);
-    const [completeTransactions, setCompleteTransactions] = useState([]);
+    // const [completeTransactions, setCompleteTransactions] = useState([]);
 
     const [contacts, setContacts] = useState([]);
 
@@ -54,6 +53,29 @@ export default function Desktop() {
     const [userData, setUserData] = useState({});
 
     // ? Data Fetching GET
+
+    /* UserData */
+    useEffect(() => {
+        const fetchUserName = async () => {
+            // INICIO DE LA CONEXION CON LA API
+
+            const response = await fetch(`${url}/Profile/GetUser`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = await response.json();
+
+            setUserData(data);
+
+            // FIN DE LA CONEXION CON LA API
+        };
+
+        fetchUserName();
+    }, [token]);
 
     /* Contacts */
     useEffect(() => {
@@ -163,43 +185,7 @@ export default function Desktop() {
         Promise.all(transactionsFetching).then((transactions) => {
             setTransactions(transactions.flat());
         });
-    }, [token, products]);
-
-    /* Transactions received */
-
-    const idProducts = products.map((product) => {
-        return product.productID;
-    });
-
-    const transDiff = transactions.find((transaction) => {
-        return !idProducts.includes(transaction.productIDDestination);
-    });
-
-    useEffect(() => {
-        validateSession();
-
-        const fetchTransactions = async (transactionId) => {
-            // INICIO DE LA CONEXION CON LA API
-
-            const response = await fetch(`${url}/Transaction/${transactionId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            const data = await response.json();
-
-            // FIN DE LA CONEXION CON LA API
-
-            setCompleteTransactions([...transactions, ...data]);
-        };
-
-        if (transDiff) {
-            fetchTransactions(transDiff.productIDDestination);
-        }
-    }, [token, transDiff, transactions]);
+    }, [products, token]);
 
     return (
         <div className="wrapper flex-column h-screen">
@@ -214,7 +200,7 @@ export default function Desktop() {
                 <div className="flex sm:w-2/3 md:w-3/4 lg:w-4/5">
                     <div className="flex w-full bg-gray-100 rounded p-4">
                         <Routes>
-                            <Route path="/" element={<IndexLogin url={url} token={token} />} />
+                            <Route path="/" element={<IndexLogin setModalProducto={setModalProducto} setModalTransferencia={setModalTransferencia} userData={userData} />} />
 
                             <Route
                                 path="/productos"
@@ -229,7 +215,7 @@ export default function Desktop() {
                                         setProducts={setProducts}
                                         productSelected={productSelected}
                                         setProductSelected={setProductSelected}
-                                        transactions={completeTransactions}
+                                        transactions={transactions}
                                         modalProducto={modalProducto}
                                         setModalProducto={setModalProducto}
                                     />
@@ -243,7 +229,7 @@ export default function Desktop() {
                                         products={products}
                                         url={url}
                                         token={token}
-                                        transactions={completeTransactions}
+                                        transactions={transactions}
                                         contacts={contacts}
                                         setModalTransferencia={setModalTransferencia}
                                         setModalContacto={setModalContacto}
@@ -251,6 +237,7 @@ export default function Desktop() {
                                     />
                                 }
                             />
+
                             <Route path="/configuracion" element={<ForgotPassword url={url} token={token} />} />
                         </Routes>
                     </div>
@@ -271,4 +258,6 @@ export default function Desktop() {
             <ButtonSupport />
         </div>
     );
-}
+};
+
+export default Desktop;

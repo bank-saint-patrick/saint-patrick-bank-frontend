@@ -24,6 +24,10 @@ const ModalContacto = ({ token, url, modalContacto, setModalContacto, contacts, 
             setContacts([...contacts, contact]);
             toast.success(data.message);
             setLoading(false);
+            setTimeout(() => {
+                setModalContacto(false);
+                window.location.reload();
+            }, 1500);
         } else {
             setLoading(false);
             toast.error('Error:' + data.message);
@@ -35,32 +39,37 @@ const ModalContacto = ({ token, url, modalContacto, setModalContacto, contacts, 
 
         const data = Object.fromEntries(new FormData(e.target).entries());
 
-        const reader = new FileReader();
-        reader.readAsDataURL(data.image);
-        reader.onload = (event) => {
-            if (!data.image === '') {
-                if (data.image.type.match('image.*') && data.image.size < 1000000) {
+        if (Number(data.contactProductID) < 1) {
+            toast.error('El número de producto no es válido');
+            return;
+        } else {
+            const reader = new FileReader();
+            reader.readAsDataURL(data.image);
+            reader.onload = (event) => {
+                if (event.target.result !== 'data:') {
+                    if (data.image.type.match('image.*') && data.image.size < 1000000) {
+                        if (userData) {
+                            data.image = event.target.result;
+                            sendContact({ ...data, idUser: userData.dni });
+                            loading ? toast.info('Cargando...') : setModalContacto(false);
+                        } else {
+                            toast.error('Error: No se pudo obtener el usuario');
+                        }
+                    } else {
+                        toast.error('El archivo debe ser una imagen y debe tener un tamaño menor a 1MB');
+                        e.target.value = '';
+                    }
+                } else {
                     if (userData) {
-                        data.image = event.target.result;
+                        data.image = 'string';
                         sendContact({ ...data, idUser: userData.dni });
                         loading ? toast.info('Cargando...') : setModalContacto(false);
                     } else {
                         toast.error('Error: No se pudo obtener el usuario');
                     }
-                } else {
-                    toast.error('El archivo debe ser una imagen y debe tener un tamaño menor a 1MB');
-                    e.target.value = '';
                 }
-            } else {
-                if (userData) {
-                    data.image = 'string';
-                    sendContact({ ...data, idUser: userData.dni });
-                    loading ? toast.info('Cargando...') : setModalContacto(false);
-                } else {
-                    toast.error('Error: No se pudo obtener el usuario');
-                }
-            }
-        };
+            };
+        }
     };
 
     return (

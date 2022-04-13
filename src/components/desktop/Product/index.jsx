@@ -1,19 +1,19 @@
 import React from 'react';
 import iconCreditCards from '../../../assets/icon-credit-cards.png';
 
-export default function Product(props) {
+const Product = (props) => {
     const { id, name, numberProduct, balance, productSelected, setProductSelected } = props;
 
-    const selected = productSelected === numberProduct ? true : false;
+    const selected = productSelected === id ? true : false;
     const classSelected = selected ? 'h-40 max-h-40' : 'bg-gray-100 h-40 max-h-40';
     const textSelected = selected ? 'Producto seleccionado ' : '';
 
     const handleClickProduct = () => {
-        setProductSelected(numberProduct);
+        setProductSelected(id);
     };
 
     return (
-        <div onClick={() => handleClickProduct(numberProduct)} className={`bg-white ${classSelected} rounded border shadow-xl p-4 mb-4 cursor-pointer`}>
+        <div onClick={() => handleClickProduct()} className={`bg-white ${classSelected} rounded border shadow-xl p-4 mb-4 cursor-pointer`}>
             <div className="flex justify-between w-full pb-2 mb-2">
                 <span className="font-bold text-lg text-gray-500">{name}</span>
             </div>
@@ -34,4 +34,6 @@ export default function Product(props) {
             <div className="text-right mt-2">{selected ? <span className="font-light text-sm bg-gray-100 rounded p-1 px-2 text-gray-500">{textSelected}</span> : ''}</div>
         </div>
     );
-}
+};
+
+export default React.memo(Product);

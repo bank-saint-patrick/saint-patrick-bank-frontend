@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Transaction from './index';
 
 const TransactionsContainer = ({ transactions, url, token, contacts, setModalContacto, setModalTransferencia, setModalBorrarContacto, products }) => {
-    console.log(transactions);
-
     return (
         <div className="flex align-top w-full flex-col ml-3 mt-3 p-3">
             <div className="flex flex-col md:flex-row items-center mb-4 w-full justify-between">
