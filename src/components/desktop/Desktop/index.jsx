@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { validateSession } from '../../utils/auth';
-import Loading from '../../needs/Loading';
 import Navbar from '../../Navbar';
 import ButtonSupport from '../../needs/ButtonSupport';
 
@@ -36,12 +35,12 @@ export default function Desktop() {
     const [productsType, setProductsType] = useState([]);
 
     const [transactions, setTransactions] = useState([]);
+    const [completeTransactions, setCompleteTransactions] = useState([]);
 
     const [contacts, setContacts] = useState([]);
 
     /* Utilities */
     const [productSelected, setProductSelected] = useState(0);
-    const [loading, setLoading] = useState(true);
 
     /* Modals */
     const [modalTransferencia, setModalTransferencia] = useState(false);
@@ -80,8 +79,6 @@ export default function Desktop() {
             }
 
             // FIN DE LA CONEXION CON LA API
-
-            setLoading(false);
         };
 
         fetchContacts();
@@ -92,8 +89,6 @@ export default function Desktop() {
         validateSession();
 
         const fetchProducts = async () => {
-            setLoading(true);
-
             // INICIO DE LA CONEXION CON LA API
 
             const response = await fetch(`${url}/Product/GetAllProductsByUser`, {
@@ -109,8 +104,6 @@ export default function Desktop() {
             setProducts(data);
 
             // FIN DE LA CONEXION CON LA API
-
-            setLoading(false);
         };
 
         fetchProducts();
@@ -121,8 +114,6 @@ export default function Desktop() {
         validateSession();
 
         const fetchProductsType = async () => {
-            setLoading(true);
-
             // INICIO DE LA CONEXION CON LA API
 
             const response = await fetch(`${url}/ProductType`, {
@@ -138,8 +129,6 @@ export default function Desktop() {
             setProductsType(data);
 
             // FIN DE LA CONEXION CON LA API
-
-            setLoading(false);
         };
 
         fetchProductsType();
@@ -150,11 +139,9 @@ export default function Desktop() {
         validateSession();
 
         const fetchTransactions = async (transactionId) => {
-            setLoading(true);
-
             // INICIO DE LA CONEXION CON LA API
 
-            const response = await fetch(`${url}/Product/${transactionId}`, {
+            const response = await fetch(`${url}/Transaction/${transactionId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -166,9 +153,7 @@ export default function Desktop() {
 
             // FIN DE LA CONEXION CON LA API
 
-            setLoading(false);
-
-            return data.transactions;
+            return data;
         };
 
         const transactionsFetching = products.map(async (product) => {
@@ -180,9 +165,41 @@ export default function Desktop() {
         });
     }, [token, products]);
 
-    if (loading) {
-        return <Loading />;
-    }
+    /* Transactions received */
+
+    const idProducts = products.map((product) => {
+        return product.productID;
+    });
+
+    const transDiff = transactions.find((transaction) => {
+        return !idProducts.includes(transaction.productIDDestination);
+    });
+
+    useEffect(() => {
+        validateSession();
+
+        const fetchTransactions = async (transactionId) => {
+            // INICIO DE LA CONEXION CON LA API
+
+            const response = await fetch(`${url}/Transaction/${transactionId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = await response.json();
+
+            // FIN DE LA CONEXION CON LA API
+
+            setCompleteTransactions([...transactions, ...data]);
+        };
+
+        if (transDiff) {
+            fetchTransactions(transDiff.productIDDestination);
+        }
+    }, [token, transDiff, transactions]);
 
     return (
         <div className="wrapper flex-column h-screen">
@@ -202,40 +219,36 @@ export default function Desktop() {
                             <Route
                                 path="/productos"
                                 element={
-                                    <>
-                                        <ProductsContainer
-                                            contacts={contacts}
-                                            token={token}
-                                            url={url}
-                                            setModalUpdateProd={setModalUpdateProd}
-                                            productsType={productsType}
-                                            products={products}
-                                            setProducts={setProducts}
-                                            productSelected={productSelected}
-                                            setProductSelected={setProductSelected}
-                                            transactions={transactions}
-                                            modalProducto={modalProducto}
-                                            setModalProducto={setModalProducto}
-                                        />
-                                    </>
+                                    <ProductsContainer
+                                        contacts={contacts}
+                                        token={token}
+                                        url={url}
+                                        setModalUpdateProd={setModalUpdateProd}
+                                        productsType={productsType}
+                                        products={products}
+                                        setProducts={setProducts}
+                                        productSelected={productSelected}
+                                        setProductSelected={setProductSelected}
+                                        transactions={completeTransactions}
+                                        modalProducto={modalProducto}
+                                        setModalProducto={setModalProducto}
+                                    />
                                 }
                             />
 
                             <Route
                                 path="/transferencias"
                                 element={
-                                    <>
-                                        <TransactionsContainer
-                                            products={products}
-                                            url={url}
-                                            token={token}
-                                            transactions={transactions}
-                                            contacts={contacts}
-                                            setModalTransferencia={setModalTransferencia}
-                                            setModalContacto={setModalContacto}
-                                            setModalBorrarContacto={setModalBorrarContacto}
-                                        />
-                                    </>
+                                    <TransactionsContainer
+                                        products={products}
+                                        url={url}
+                                        token={token}
+                                        transactions={completeTransactions}
+                                        contacts={contacts}
+                                        setModalTransferencia={setModalTransferencia}
+                                        setModalContacto={setModalContacto}
+                                        setModalBorrarContacto={setModalBorrarContacto}
+                                    />
                                 }
                             />
                             <Route path="/configuracion" element={<ForgotPassword url={url} token={token} />} />

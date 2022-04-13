@@ -1,10 +1,12 @@
+import React from 'react';
+
 import Transaction from './../Transaction/index';
 import Product from './index';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 
-const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setModalProducto, setModalUpdateProd, url, token, contacts }) => {
+const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setTransactions, setModalProducto, setModalUpdateProd, url, token, contacts }) => {
     return (
         <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
@@ -82,17 +84,13 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
 
                             const productSender = products.find((product) => product.productID === Number(transaction.productIDOrigin));
 
+                            const productReceptor = products.find((product) => product.productID === Number(transaction.productIDDestination));
+
                             const date = new Date(transaction.transactionDate);
                             const dateFormatted = date.toLocaleDateString('es-ES', {
                                 day: 'numeric',
                                 month: 'long',
                                 year: 'numeric',
-                            });
-
-                            const time = date.toLocaleTimeString('en-US', {
-                                hour: 'numeric',
-                                minute: 'numeric',
-                                hour12: true,
                             });
 
                             const productDestination = products.find((product) => product.productID === transaction.productIDDestination);
@@ -116,14 +114,14 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                                     receptor={
                                         contactReceptor
                                             ? contactReceptor.contactName + ' - ' + contactReceptor.contactProductId
-                                            : productSender
-                                            ? productSender.productTypeID === 1
+                                            : productReceptor
+                                            ? productReceptor.productTypeID === 1
                                                 ? 'Cuenta ahorro - ' + transaction.productIDDestination
                                                 : 'Cuenta corriente - ' + transaction.productIDDestination
                                             : 'Cuenta desconocida - ' + transaction.productIDDestination
                                     }
                                     number={transaction.productIDDestination}
-                                    timestamp={dateFormatted && time ? dateFormatted + ' ' + time : 'Fecha desconocida'}
+                                    timestamp={dateFormatted ? dateFormatted : 'Fecha desconocida'}
                                     ammount={transaction.transactionValue}
                                     img={contactReceptor ? contactReceptor.image : ''}
                                 />
@@ -136,4 +134,4 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
     );
 };
 
-export default ProductsContainer;
+export default React.memo(ProductsContainer);
