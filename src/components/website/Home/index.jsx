@@ -25,7 +25,7 @@ export default function Home() {
                     </p>
                     <Link to="/login">
                         <button tabIndex="0" className="bg-cream-can p-4 rounded-lg text-xl font-semibold hover:bg-green-900 hover:text-cream-can hover:ring-1 ring-dingley text-blue-stone my-7 lg:px-4 lg:py-3">
-                            SÍ, DESEO ASESORAMIENTO
+                            INGRESAR A LA BANCA ONLINE
                         </button>
                     </Link>
                 </div>

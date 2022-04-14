@@ -183,7 +183,11 @@ const Desktop = () => {
         });
 
         Promise.all(transactionsFetching).then((transactions) => {
-            setTransactions(transactions.flat());
+            if (transactions.length > 0) {
+                setTransactions(transactions.flat().sort((a, b) => b.transactionID - a.transactionID));
+            } else {
+                setTransactions([]);
+            }
         });
     }, [products, token]);
 

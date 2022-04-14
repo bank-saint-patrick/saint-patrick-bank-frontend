@@ -2,9 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTransactions, products, contacts, token, url }) => {
+const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, products, contacts, token, url }) => {
     const [loading, setLoading] = useState(false);
     const [tokenConfirm, setTokenConfirm] = useState('');
     const [enabled, setEnabled] = useState(false);
@@ -38,23 +38,33 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
             window.location.reload();
         } else {
             setLoading(false);
-            toast.error(data.message);
+            if (data.title) {
+                toast.error(data.title);
+            } else {
+                toast.error(data.message);
+            }
         }
     };
 
     const handleTransferSubmit = (e) => {
         e.preventDefault();
 
+        const date = new Date();
+        const dateString = date.toISOString();
+
         const data = Object.fromEntries(new FormData(e.target).entries());
-        const transaccion = { ...data, transactionTypeID: 1, transactionID: 0, transactionTypeName: 'Transferencia', transactionDate: new Date().toLocaleString() };
+        const transaccion = { ...data, transactionTypeID: 1, transactionID: 0, transactionTypeName: 'Transferencia', transactionDate: `${dateString}` };
 
         const producto = products.find((product) => Number(product.productID) === Number(transaccion.productIDOrigin));
 
         if (producto.saldoCupo > Number(data.transactionValue) && Number(data.transactionValue) > 0) {
             sendTransaction(transaccion);
             e.target.reset();
+            setModalTransferencia(false);
         } else {
-            toast.error(`El saldo de tu ${producto.productTypeID === 2 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.productID} es insuficiente para realizar la transacción.`);
+            toast.error(`El saldo de tu ${producto.productTypeID === 2 ? 'Cuenta corriente' : 'Cuenta ahorro'} - ${producto.productID} es insuficiente para realizar la transacción. O ingresaste un monto inválido.`, {
+                duration: 8000,
+            });
         }
     };
 
@@ -213,4 +223,4 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setTran
     );
 };
 
-export default ModalTransferencia;
+export default React.memo(ModalTransferencia);

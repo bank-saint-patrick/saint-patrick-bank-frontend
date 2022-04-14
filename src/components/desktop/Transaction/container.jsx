@@ -39,10 +39,17 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                         const productReceptor = products.find((product) => product.productID === Number(transaction.productIDDestination));
 
                         const date = new Date(transaction.transactionDate);
+
                         const dateFormatted = date.toLocaleDateString('es-ES', {
                             day: 'numeric',
                             month: 'long',
                             year: 'numeric',
+                        });
+
+                        const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
+                        const timeZoneFormatted = new Date(date.getTime() - timeZoneOffset).toLocaleTimeString('es-ES', {
+                            hour: 'numeric',
+                            minute: 'numeric',
                         });
 
                         const productDestination = products.find((product) => product.productID === transaction.productIDDestination);
@@ -74,7 +81,7 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                                             : 'Cuenta desconocida - ' + transaction.productIDDestination
                                     }
                                     number={transaction.productIDDestination}
-                                    timestamp={dateFormatted ? dateFormatted : 'Fecha desconocida'}
+                                    timestamp={dateFormatted ? dateFormatted + ', ' + timeZoneFormatted : 'Fecha desconocida'}
                                     ammount={transaction.transactionValue}
                                     img={contactReceptor ? contactReceptor.image : ''}
                                 />

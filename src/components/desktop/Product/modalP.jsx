@@ -106,8 +106,7 @@ const ModalProductos = ({ productsType, url, token, modalProducto, setModalProdu
     const handleSetCardNumber = (e) => {
         const { value } = e.target;
 
-        // generate random number for card number
-        const cardNumber = Math.floor(Math.random() * (9999999999999 - 100000000000) + 100000000000);
+        const cardNumber = Math.floor(Math.random() * (999999999999 - 10000000000) + 10000000000);
 
         if (value === 1) {
             setCardNumber(cardNumber.toString());
