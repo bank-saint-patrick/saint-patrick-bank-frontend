@@ -61,8 +61,6 @@ export default function Register() {
     };
 
     const validations = (newCustomer) => {
-        console.log(newCustomer);
-
         const response = {
             success: true,
             errors: [],

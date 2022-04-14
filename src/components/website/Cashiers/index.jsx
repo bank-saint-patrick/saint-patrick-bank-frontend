@@ -11,9 +11,16 @@ import sucursales from '../../../assets/images/sucursales/sucursales.jpg';
 import sucursalInterior from '../../../assets/images/sucursales/sucursal-interior.jpeg';
 
 import InfoLG from './InfoLG';
+import Calendario from './Calendario';
 
 export default function Cashiers() {
     const [width, setWidth] = useState(window.innerWidth);
+
+    const [direction, setDirection] = useState({
+        calle: '',
+        localidad: '',
+        provincia: '',
+    });
 
     const handleResize = () => {
         setWidth(window.innerWidth);
@@ -51,7 +58,7 @@ export default function Cashiers() {
                                             <article className="my-4 w-full h-full sm:h-1/2 lg:my-0 lg:h-full lg:w-1/2 overflow-auto">{width > 680 ? <InfoLG /> : <CarouselContainer />}</article>
                                             <article className="flex-col border-2 border-cream-can my-4 px-8 flex w-full h-full sm:h-1/2 lg:my-0 lg:h-full lg:w-1/2 lg:p-0">
                                                 <section className="h-full md:h-1/2 lg:border-b-2 lg:border-cream-can">
-                                                    <Form />
+                                                    <Form setDirection={setDirection} />
                                                 </section>
                                                 <section className="hidden md:flex h-1/2 py-6 lg:py-0">
                                                     <Mapa />
@@ -67,10 +74,11 @@ export default function Cashiers() {
                                 element={
                                     <>
                                         <section className="flex flex-col sm:flex-row items-center bg-cream-can rounded-md my-8">
-                                            <p className="pb-8 sm:py-16 lg:py-8 text-xl text-center">
-                                                <b>Busca y selecciona la sucursal que prefieras</b>, si tienes alguna consulta o simplemente quieres ser atendido por un asesor <b>¡Te esperamos!</b>
+                                            <p className="pb-8 pl-8 sm:py-16 lg:py-8 text-xl text-center">
+                                                <b>Selecciona la fecha que prefieras</b>, si tienes alguna consulta o simplemente quieres ser atendido por un asesor <b>¡Te esperamos!</b>
                                             </p>
                                         </section>
+                                        <Calendario direction={direction} />
                                     </>
                                 }
                             />

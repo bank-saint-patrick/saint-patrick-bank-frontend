@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const Form = () => {
+const Form = ({ setDirection }) => {
     const navigateTo = useNavigate();
 
     const handleSubmitMap = (e) => {
@@ -8,7 +8,7 @@ const Form = () => {
 
         const data = Object.fromEntries(new FormData(e.target).entries());
 
-        console.log(data);
+        setDirection(data);
 
         navigateTo('/sucursales/calendario');
 

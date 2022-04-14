@@ -8,6 +8,7 @@ import './login.css';
 import { toast } from 'react-toastify';
 
 const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
+
 const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api';
 
 export default function Login() {
