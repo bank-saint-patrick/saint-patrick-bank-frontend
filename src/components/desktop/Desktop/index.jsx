@@ -20,7 +20,7 @@ import ModalBorrarContacto from './../Transaction/modalBorrarC';
 
 // * URL de la API
 
-const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api';
+const url = 'http://201.185.152.203:81/api';
 
 // ? COMPONENTE
 

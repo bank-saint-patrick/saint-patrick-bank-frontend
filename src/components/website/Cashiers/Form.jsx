@@ -20,7 +20,7 @@ const Form = ({ setDirection }) => {
 
     return (
         <form onSubmit={handleSubmitMap} className="h-full flex flex-col items-center justify-center">
-            <h2 className="text-2xl font-bold underline my-8">¡Empieza tu búsqueda!</h2>
+            <h2 className="text-2xl font-bold underline my-8">¡Comienza tu búsqueda!</h2>
             <div className="flex flex-col sm:flex-row w-full grow items-center">
                 <div className="mb-6 w-full sm:w-1/2 px-4">
                     <label htmlFor="calle" className="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">

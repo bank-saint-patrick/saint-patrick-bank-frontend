@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import chat from '../../../assets/Chat.png';
-import logo from '../../../assets/logo.jpeg';
+import logo from '../../../assets/logo.png';
 import Navbar from '../../Navbar';
 
 export default function Chat() {

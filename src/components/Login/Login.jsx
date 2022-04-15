@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
 
-const url = 'http://ec2-3-139-57-252.us-east-2.compute.amazonaws.com:5000/api';
+const url = 'http://201.185.152.203:81/api';
 
 export default function Login() {
     const [dni, setDni] = useState('');
@@ -123,7 +123,7 @@ export default function Login() {
 
                 <div className="bg-white flex flex-col w-full md:w-1/2 justify-center px-10">
                     <span className="text-plantation text-4xl text-center font-bold mb-2">Bienvenido a tu</span>
-                    <span className="text-plantation text-4xl text-center font-light mb-4">banca en línea</span>
+                    <span className="text-plantation text-4xl text-center font-light mb-4">Banca en Línea</span>
                     <hr className="my-5" />
                     <form className="text-center lg:px-20 mb-6" onSubmit={submitHandler}>
                         <Input class="flex-col" type="text" label="DNI" value={dni} seter={setDni} placeholder="Ingrese su DNI" />

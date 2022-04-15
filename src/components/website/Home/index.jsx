@@ -21,7 +21,7 @@ export default function Home() {
                         Te acompañamos en todo momento
                     </h1>
                     <p tabIndex="0" className="text-lg text-gray-800 font-semibold mb-8">
-                        Aprende a usar el sistema de banca en línea desde una computadora, tablet o celular. ¡Si tienes más dudas ponte en contacto con nosotros!
+                        Aprende a usar el sistema de banca en línea desde una computadora, tablet o celular. ¡Si tienes más dudas contáctanos!
                     </p>
                     <Link to="/login">
                         <button tabIndex="0" className="bg-cream-can p-4 rounded-lg text-xl font-semibold hover:bg-green-900 hover:text-cream-can hover:ring-1 ring-dingley text-blue-stone my-7 lg:px-4 lg:py-3">

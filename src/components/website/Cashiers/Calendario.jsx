@@ -56,7 +56,7 @@ export default function Calendario({ direction }) {
                 </section>
             </div>
             <div className="flex items-center border-t border-indigo-800">
-                <h2 className="text-xl underline whitespace-nowrap text-center font-bold">Sucursal asignada:</h2>
+                <h2 className="text-xl underline whitespace-nowrap text-center font-bold">Sucursal más cercana:</h2>
                 <section className="w-full py-12 flex items-center justify-around">
                     <p className="text-xl font-semibold">
                         Banco Saint Patrick <b className="font-bold text-indigo-500 border-b-2 border-indigo-500">{direction.localidad ? direction.localidad + ' Norte' : 'Central'}</b>
