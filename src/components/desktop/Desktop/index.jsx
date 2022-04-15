@@ -19,8 +19,7 @@ import { toast } from 'react-toastify';
 import ModalBorrarContacto from './../Transaction/modalBorrarC';
 
 // * URL de la API
-
-const url = 'http://201.185.152.203:81/api';
+const url = `${process.env.REACT_APP_API_URL}/api`;
 
 // ? COMPONENTE
 

@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 import adultos from '../../assets/images/adultos.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-const url = 'http://201.185.152.203:81/api';
+const url = `${process.env.REACT_APP_API_URL}/api`;
+
 
 export default function Register() {
     const [dni, setDni] = useState('');
