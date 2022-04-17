@@ -138,9 +138,9 @@ export default function Register() {
     };
 
     return (
-        <div className="wrapper flex-column h-[auto]">
+        <div className="flex flex-col">
             <Navbar />
-            <div className="bg-lime-100 h-full flex flex-col md:flex-row">
+            <div className={window.innerHeight > 768 ? 'bg-lime-100 flex flex-col md:flex-row full-height-conditional' : 'bg-lime-100 flex flex-col md:flex-row h-full'}>
                 <img className="hidden md:flex md:w-1/2 object-cover" src={adultos} alt="" />
                 <div className="bg-white flex flex-col justify-center w-full md:w-2/4 px-10 pt-8">
                     <span className="text-plantation text-4xl text-center font-bold mb-2">

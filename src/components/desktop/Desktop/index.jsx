@@ -162,7 +162,7 @@ const Desktop = () => {
         const fetchTransactions = async (transactionId) => {
             // INICIO DE LA CONEXION CON LA API
 
-            const response = await fetch(`${url}/Transaction/${transactionId}`, {
+            const response = await fetch(`${url}/Transaction/GetTransferByProducId/${transactionId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ const Desktop = () => {
 
         Promise.all(transactionsFetching).then((transactions) => {
             if (transactions.length > 0) {
-                setTransactions(transactions.flat().sort((a, b) => b.transactionID - a.transactionID));
+                setTransactions(transactions.flat().sort((a, b) => b.transferID - a.transferID));
             } else {
                 setTransactions([]);
             }
@@ -191,12 +191,12 @@ const Desktop = () => {
     }, [products, token]);
 
     return (
-        <div className="wrapper flex-column h-screen">
+        <div className={window.innerHeight > 768 ? 'flex flex-col h-screen' : ''}>
             <Navbar session />
 
             <Expiration />
 
-            <div className="flex flex-col sm:flex-row">
+            <div className="flex flex-col sm:flex-row h-full">
                 <SubMenu setUserData={setUserData} url={url} token={token} />
 
                 {/* Secciones */}

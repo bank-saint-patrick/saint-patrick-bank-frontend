@@ -100,32 +100,31 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                                 minute: 'numeric',
                             });
 
-                            const productDestination = products.find((product) => product.productID === transaction.productIDDestination);
-
                             return showTransaction ? (
                                 <Transaction
-                                    key={transaction.transactionID}
+                                    key={transaction.transferID}
                                     url={url}
                                     token={token}
-                                    id={transaction.transactionID}
-                                    type={productDestination ? 'Recibido' : 'Enviado'}
+                                    id={transaction.transferID}
+                                    type={transaction.tipo}
+                                    concepto={transaction.concepto}
                                     sender={
                                         contactSender
                                             ? contactSender.contactName + ' - ' + contactSender.contactProductId
                                             : productSender
                                             ? productSender.productTypeID === 1
-                                                ? 'Cuenta ahorro - ' + transaction.productIDOrigin
-                                                : 'Cuenta corriente - ' + transaction.productIDOrigin
-                                            : 'Cuenta desconocida - ' + transaction.productIDOrigin
+                                                ? 'Cuenta ahorro - n° ' + transaction.productIDOrigin
+                                                : 'Cuenta corriente - n° ' + transaction.productIDOrigin
+                                            : 'Cuenta desconocida - n° ' + transaction.productIDOrigin
                                     }
                                     receptor={
                                         contactReceptor
                                             ? contactReceptor.contactName + ' - ' + contactReceptor.contactProductId
                                             : productReceptor
                                             ? productReceptor.productTypeID === 1
-                                                ? 'Cuenta ahorro - ' + transaction.productIDDestination
-                                                : 'Cuenta corriente - ' + transaction.productIDDestination
-                                            : 'Cuenta desconocida - ' + transaction.productIDDestination
+                                                ? 'Cuenta ahorro - n° ' + transaction.productIDDestination
+                                                : 'Cuenta corriente - n° ' + transaction.productIDDestination
+                                            : 'Cuenta desconocida - n° ' + transaction.productIDDestination
                                     }
                                     number={transaction.productIDDestination}
                                     timestamp={dateFormatted ? dateFormatted + ', ' + timeZoneFormatted : 'Fecha desconocida'}

@@ -8,12 +8,12 @@ export default function Home() {
         <div className="wrapper flex-column w-screen h-screen sm:overflow-x-hidden">
             <Navbar />
 
-            <div className="pt-28 xl:pt-32 lg:flex items-center relative z-10 container mx-auto">
-                <div className="w-full lg:w-1/2 h-full lg:pr-10 xl:pr-0">
+            <div className="flex justify-center h-[89%] items-center relative z-10 container mx-auto">
+                <div className="flex justify-center items-center w-full lg:w-1/2 h-full lg:pr-10 xl:pr-0">
                     <img tabIndex="0" aria-label="people smiling" className="mx-auto pb-10 lg:p-10" src={indexImg} alt="people smiling" />
                 </div>
 
-                <div role="contentinfo" className="w-full lg:w-1/2 lg:mx-8 px-8 h-full">
+                <div role="contentinfo" className="flex flex-col justify-center w-full lg:w-1/2 lg:mx-8 px-8 h-full">
                     <p tabIndex="0" className="text-blue-stone uppercase font-bold text-xl mb-4">
                         Inicio Bancario
                     </p>

@@ -7,7 +7,7 @@ import { faCreditCard, faMoneyBill, faPencilAlt } from '@fortawesome/free-solid-
 
 const IndexLogin = ({ userData, setModalTransferencia, setModalProducto }) => {
     return (
-        <div className="w-full h-2/3 flex flex-col justify-around items-center">
+        <div className="w-full h-full flex flex-col justify-around items-center">
             <h1 className="text-3xl text-center mt-8">
                 ¡Bienvenido <b>{userData.firstName}</b> <b>{userData.lastName !== userData.firstName ? userData.lastName : ''}</b>!
             </h1>

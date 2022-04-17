@@ -28,69 +28,72 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
 
             <section className=" w-full mt-8">
                 <h2 className="m-0 text-lg font-semibold">Últimas 3 transferencias </h2>
-                <article className="text-sm mx-4">
-                    {transactions.map((transaction) => {
-                        const contactReceptor = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDDestination));
+                {transactions.length > 0 ? (
+                    <article className="text-sm mx-4">
+                        {transactions.map((transaction) => {
+                            const contactReceptor = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDDestination));
 
-                        const contactSender = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDOrigin));
+                            const contactSender = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDOrigin));
 
-                        const productSender = products.find((product) => product.productID === Number(transaction.productIDOrigin));
+                            const productSender = products.find((product) => product.productID === Number(transaction.productIDOrigin));
 
-                        const productReceptor = products.find((product) => product.productID === Number(transaction.productIDDestination));
+                            const productReceptor = products.find((product) => product.productID === Number(transaction.productIDDestination));
 
-                        const date = new Date(transaction.transactionDate);
+                            const date = new Date(transaction.transactionDate);
 
-                        const dateFormatted = date.toLocaleDateString('es-ES', {
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric',
-                        });
+                            const dateFormatted = date.toLocaleDateString('es-ES', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                            });
 
-                        const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
-                        const timeZoneFormatted = new Date(date.getTime() - timeZoneOffset).toLocaleTimeString('es-ES', {
-                            hour: 'numeric',
-                            minute: 'numeric',
-                        });
+                            const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
+                            const timeZoneFormatted = new Date(date.getTime() - timeZoneOffset).toLocaleTimeString('es-ES', {
+                                hour: 'numeric',
+                                minute: 'numeric',
+                            });
 
-                        const productDestination = products.find((product) => product.productID === transaction.productIDDestination);
-
-                        if (transactions.indexOf(transaction) < 3) {
-                            return (
-                                <Transaction
-                                    key={transaction.transactionID}
-                                    url={url}
-                                    token={token}
-                                    id={transaction.transactionID}
-                                    type={productDestination ? 'Recibido' : 'Enviado'}
-                                    sender={
-                                        contactSender
-                                            ? contactSender.contactName + ' - ' + contactSender.contactProductId
-                                            : productSender
-                                            ? productSender.productTypeID === 1
-                                                ? 'Cuenta ahorro - ' + transaction.productIDOrigin
-                                                : 'Cuenta corriente - ' + transaction.productIDOrigin
-                                            : 'Cuenta desconocida - ' + transaction.productIDOrigin
-                                    }
-                                    receptor={
-                                        contactReceptor
-                                            ? contactReceptor.contactName + ' - ' + contactReceptor.contactProductId
-                                            : productReceptor
-                                            ? productReceptor.productTypeID === 1
-                                                ? 'Cuenta ahorro - ' + transaction.productIDDestination
-                                                : 'Cuenta corriente - ' + transaction.productIDDestination
-                                            : 'Cuenta desconocida - ' + transaction.productIDDestination
-                                    }
-                                    number={transaction.productIDDestination}
-                                    timestamp={dateFormatted ? dateFormatted + ', ' + timeZoneFormatted : 'Fecha desconocida'}
-                                    ammount={transaction.transactionValue}
-                                    img={contactReceptor ? contactReceptor.image : ''}
-                                />
-                            );
-                        } else {
-                            return null;
-                        }
-                    })}
-                </article>
+                            if (transactions.indexOf(transaction) < 3) {
+                                return (
+                                    <Transaction
+                                        key={transaction.transferID}
+                                        url={url}
+                                        token={token}
+                                        id={transaction.transferID}
+                                        type={transaction.tipo}
+                                        concepto={transaction.concepto}
+                                        sender={
+                                            contactSender
+                                                ? contactSender.contactName + ' - ' + contactSender.contactProductId
+                                                : productSender
+                                                ? productSender.productTypeID === 1
+                                                    ? 'Cuenta ahorro - n° ' + transaction.productIDOrigin
+                                                    : 'Cuenta corriente - n° ' + transaction.productIDOrigin
+                                                : 'Cuenta desconocida - n° ' + transaction.productIDOrigin
+                                        }
+                                        receptor={
+                                            contactReceptor
+                                                ? contactReceptor.contactName + ' - ' + contactReceptor.contactProductId
+                                                : productReceptor
+                                                ? productReceptor.productTypeID === 1
+                                                    ? 'Cuenta ahorro - n° ' + transaction.productIDDestination
+                                                    : 'Cuenta corriente - n° ' + transaction.productIDDestination
+                                                : 'Cuenta desconocida - n° ' + transaction.productIDDestination
+                                        }
+                                        number={transaction.productIDDestination}
+                                        timestamp={dateFormatted ? dateFormatted + ', ' + timeZoneFormatted : 'Fecha desconocida'}
+                                        ammount={transaction.transactionValue}
+                                        img={contactReceptor ? contactReceptor.image : ''}
+                                    />
+                                );
+                            } else {
+                                return null;
+                            }
+                        })}
+                    </article>
+                ) : (
+                    <p className="text-center text-lg font-bold m-8 underline text-emerald-800">No hay transferencias registradas</p>
+                )}
             </section>
 
             <hr />
@@ -123,22 +126,26 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                 </div>
             </div>
             <div className="flex flex-col">
-                <div className="flex flex-col md:flex-row flex-wrap">
-                    {contacts.map((contact, index) => {
-                        return (
-                            <div key={index + 1} className="flex items-center mr-8 my-4">
-                                <div className="mr-6 relative">
-                                    <img
-                                        className="w-10 h-10 object-cover rounded-full"
-                                        src={contact.image.length > 0 && contact.image.includes('data') ? contact.image : 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg'}
-                                        alt=""
-                                    />
+                {contacts.length > 0 ? (
+                    <div className="flex flex-col md:flex-row flex-wrap">
+                        {contacts.map((contact, index) => {
+                            return (
+                                <div key={index + 1} className="flex items-center mr-8 my-4">
+                                    <div className="mr-6 relative">
+                                        <img
+                                            className="w-10 h-10 object-cover rounded-full"
+                                            src={contact.image.length > 0 && contact.image.includes('data') ? contact.image : 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg'}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <b className="text-base text-yellow-500">{contact.contactName}</b>
                                 </div>
-                                <b className="text-base text-yellow-500">{contact.contactName}</b>
-                            </div>
-                        );
-                    })}
-                </div>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <p className="text-center text-lg font-bold m-8 underline text-emerald-800">No hay contactos registrados</p>
+                )}
             </div>
         </div>
     );

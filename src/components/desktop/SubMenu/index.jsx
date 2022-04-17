@@ -156,11 +156,11 @@ const SubMenu = ({ url, token, setUserData }) => {
     ];
 
     return (
-        <div className="flex sm:w-1/3 md:w-1/4 lg:w-1/5 px-2 mx-4">
-            <div className="w-full flex flex-col text-sm py-4 px-2 text-gray-500">
+        <div className="flex sm:w-1/3 md:w-1/4 lg:w-1/5 px-2 mx-4 pt-5">
+            <div className="w-full flex flex-col text-sm py-4 px-2 h-full justify-around text-gray-500">
                 <div className="flex hover:bg-gray-100 py-1 px-2">
                     <div className="w-full flex flex-col justify-center items-center">
-                        <div className="flex w-full h-[475px] sm:h-[205px] lg:w-[220px]">
+                        <div className="flex w-full h-[475px] sm:h-[205px] lg:w-[220px] pr-5">
                             <img
                                 alt="..."
                                 src={loading || !userImgPerfil.includes('data:image') ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil}
