@@ -19,8 +19,7 @@ import { toast } from 'react-toastify';
 import ModalBorrarContacto from './../Transaction/modalBorrarC';
 
 // * URL de la API
-
-const url = 'http://saintpatrick.ydns.eu:5000/api';
+const url = `${process.env.REACT_APP_API_URL}/api`;
 
 // ? COMPONENTE
 

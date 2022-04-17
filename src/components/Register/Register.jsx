@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import adultos from '../../assets/images/adultos.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-const url = 'http://saintpatrick.ydns.eu:5000/api';
+const url = `${process.env.REACT_APP_API_URL}/api`;
 
 export default function Register() {
     const [dni, setDni] = useState('');
