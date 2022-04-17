@@ -34,14 +34,14 @@ const benefits = [
     {
         id: 4,
         title: 'Cuidado personal',
-        description: 'Descuento en cuidado personal y mucho más!',
+        description: 'Descuento en cuidado personal y artículos de belleza.',
         img: salud,
         percentage: '15%',
     },
     {
         id: 5,
         title: 'Indumentaria',
-        description: 'Descuento en indumentaria y mucho más!',
+        description: 'Descuento en indumentaria deportiva. Calidad y confort.',
         img: ejercicio,
         percentage: '20%',
     },
@@ -61,7 +61,7 @@ export default function Benefits() {
         <div className="wrapper flex flex-col h-screen">
             <Navbar />
             <h3 className="text-4xl font-bold text-center p-8">
-                Obtén <b className="bg-cream-can rounded-md px-2 inline-block pb-1">increíbles beneficios</b>
+                Obtén <b className="bg-cream-can text-3xl rounded-md px-2 inline-block pb-1 uppercase">increíbles beneficios</b>
             </h3>
 
             <div className="flex flex-col-reverse">
