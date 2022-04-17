@@ -161,7 +161,7 @@ const SubMenu = ({ url, token, setUserData }) => {
                         <div className="flex w-full h-[475px] sm:h-[205px] lg:w-[220px]">
                             <img
                                 alt="..."
-                                src={loading || userImgPerfil === '' ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil}
+                                src={loading || !userImgPerfil.includes('data:image') ? 'https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg' : userImgPerfil}
                                 className="shadow-lg object-cover rounded-full"
                             />
                             <FontAwesomeIcon

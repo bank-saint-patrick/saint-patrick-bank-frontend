@@ -10,8 +10,8 @@ export default function Videocall() {
     return (
         <div className="wrapper flex-column w-screen h-screen sm:overflow-x-hidden">
             <Navbar />
-            <div className="py-10 xl:pt-20 lg:flex items-center justify-center relative z-10 container mx-auto">
-                <div className="w-full my-8 lg:my-0 lg:w-1/2 h-full">
+            <div className="h-full flex flex-col justify-around py-10 xl:pt-20 lg:flex items-center lg:justify-center relative z-10 container mx-auto">
+                <div className="w-full mb-8 lg:my-0 lg:w-1/2">
                     <div role="contentinfo" className="w-full lg:w-3/4 lg:mx-8 px-8 h-full">
                         <h1 tabIndex="0" className="text-blue-stone text-4xl lg:text-5xl font-black mb-8">
                             Videollamada
@@ -28,7 +28,7 @@ export default function Videocall() {
                     </div>
                 </div>
 
-                <div className="w-full flex flex-col bg-slate-800 border-4 border-teal lg:w-1/2 lg:mx-8 h-full rounded-t-md">
+                <div className="w-full flex flex-col border-4 border-teal lg:w-1/2 lg:mx-8 rounded-t-md">
                     <img className="mx-auto object-fill w-full" src={asesoria} alt="people smiling" />
                 </div>
             </div>

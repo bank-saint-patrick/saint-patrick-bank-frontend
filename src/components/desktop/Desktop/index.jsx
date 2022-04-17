@@ -20,7 +20,7 @@ import ModalBorrarContacto from './../Transaction/modalBorrarC';
 
 // * URL de la API
 
-const url = 'http://201.185.152.203:81/api';
+const url = 'http://saintpatrick.ydns.eu:5000/api';
 
 // ? COMPONENTE
 

@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const backgroundImage = 'https://www.bbva.com/wp-content/uploads/2020/02/pareja-1920x1180.jpg';
 
-const url = 'http://201.185.152.203:81/api';
+const url = 'http://saintpatrick.ydns.eu:5000/api';
 
 export default function Login() {
     const [dni, setDni] = useState('');

@@ -11,7 +11,7 @@ export default function Chat() {
     return (
         <div className="wrapper flex-column w-screen h-screen sm:overflow-x-hidden">
             <Navbar />
-            <div className="lg:h-[90vh] pt-5 flex flex-col lg:flex-row items-center justify-center relative z-10 container mx-auto">
+            <div className="h-full lg:h-[90vh] pt-5 flex flex-col lg:flex-row items-center justify-center relative z-10 container mx-auto">
                 <div className="w-1/3 xsm:w-1/2 h-full mx-20">
                     <img aria-label="people smiling" className=" h-full top-0 left-0 mx-auto object-contain lg:p-10" src={chat} alt="people smiling" />
                 </div>

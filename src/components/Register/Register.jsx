@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import adultos from '../../assets/images/adultos.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-const url = 'http://201.185.152.203:81/api';
+const url = 'http://saintpatrick.ydns.eu:5000/api';
 
 export default function Register() {
     const [dni, setDni] = useState('');
@@ -18,7 +18,6 @@ export default function Register() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [strImgPerfil, setStrImgPerfil] = useState('');
 
     const navigateTo = useNavigate();
 
@@ -124,7 +123,7 @@ export default function Register() {
             phoneNumber: phoneNumber.trim(),
             password: password.trim(),
             confirmPassword: confirmPassword.trim(),
-            image: strImgPerfil,
+            image: 'string',
         };
 
         const responseValidation = validations(newCustomer);
@@ -136,19 +135,6 @@ export default function Register() {
                 toast.error(responseValidation.errors[i]);
             }
         }
-    };
-
-    const handleChangeImgPerfil = (e) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
-        reader.onload = (event) => {
-            if (e.target.files[0].type.match('image.*') && e.target.files[0].size < 1000000) {
-                setStrImgPerfil(event.target.result);
-            } else {
-                toast.error('El archivo debe ser una imagen y debe tener un tamaño menor a 1MB');
-                e.target.value = '';
-            }
-        };
     };
 
     return (
@@ -181,20 +167,7 @@ export default function Register() {
                         <div className="flex flex-col lg:flex-row relative">
                             <Input class="flex-col" type="password" label="Confirmar Contraseña" value={confirmPassword} seter={setConfirmPassword} placeholder="Confirme su contraseña" />
                         </div>
-                        <div className="flex flex-col lg:flex-row relative">
-                            <div className="w-11/12 lg:w-9/12 2xl:w-1/2 mx-auto">
-                                <p className="block p-3">
-                                    <span className="block text-left text-lg font-medium text-slate-700 ">Imagen de Perfil</span>
-                                    <input
-                                        accept="image/*"
-                                        className="mt-4 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-stone focus:outline-none"
-                                        type="file"
-                                        onChange={handleChangeImgPerfil}
-                                        defaultValue=""
-                                    />
-                                </p>
-                            </div>
-                        </div>
+
                         <button
                             type="submit"
                             className="boton bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto mt-5 w-3/4 md:w-1/2 p-1 rounded-xl py-3 font-bold">
