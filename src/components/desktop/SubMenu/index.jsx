@@ -3,13 +3,14 @@ import { NavLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHouse, faArrowRightArrowLeft, faCreditCard, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle, faPencilAlt, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faArrowRightArrowLeft, faCreditCard, faTimes, faPaste, faMoneyBill, faShield, faFileLines, faComments, faMoon, faGears, faUserCircle, faPencilAlt, faSave } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 
 const SubMenu = ({ url, token, setUserData }) => {
     const [menu, setMenu] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
     const [loading, setLoading] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(false);
 
     const [user, setUser] = useState(null);
     const [editUser, setEditUser] = useState(false);
@@ -77,6 +78,7 @@ const SubMenu = ({ url, token, setUserData }) => {
 
         if (data.status !== 'Error') {
             toast.success(data.message);
+            window.location.reload();
         } else {
             toast.error('Error: ' + data.message);
         }
@@ -210,33 +212,35 @@ const SubMenu = ({ url, token, setUserData }) => {
                                         type="text"
                                         name="userName"
                                         id=""
-                                        value={userName}
+                                        placeholder={userName}
                                         onChange={(e) => {
-                                            const regex = /^[a-zA-Z\s]*$/;
-                                            if (e.target.value > 0 && e.target.value.length <= 20 && regex.test(e.target.value)) {
-                                                setUser({ ...user, name: e.target.value });
+                                            const regex = /^[a-zA-Z ]+$/;
+                                            if (regex.test(e.target.value)) {
+                                                setUser({ ...user, firstName: e.target.value });
                                                 setUserName(e.target.value);
+                                                setIsCorrect(true);
                                             } else {
-                                                return false;
+                                                setIsCorrect(false);
                                             }
                                         }}
                                     />
-                                    <span className="text-gray-600 text-sm">Sólo letras, máximo 20 caracteres</span>
+                                    <span className={`${isCorrect ? 'text-green-600' : 'text-red-600'} p-2  text-sm`}>Sólo letras, máximo 20 caracteres</span>
                                 </div>
                             ) : (
                                 <>
                                     <h5 className="text-xl font-bold text-blueGray-700 mr-2">{userName}</h5>
                                 </>
                             )}
-                            {editUser && (
+                            {editUser ? (
                                 <FontAwesomeIcon
-                                    icon={editUserName ? faSave : faPencilAlt}
-                                    className="text-blueGray-700 ml-2 text-lg cursor-pointer"
-                                    onClick={(e) => {
-                                        e.preventDefault();
+                                    icon={editUserName ? (isCorrect ? faSave : faTimes) : faPencilAlt}
+                                    className={editUserName ? (isCorrect ? 'text-blueGray-700 ml-2 text-lg cursor-pointer' : 'hidden') : 'text-blueGray-700 ml-2 text-lg cursor-pointer'}
+                                    onClick={() => {
                                         setEditUserName(!editUserName);
                                     }}
                                 />
+                            ) : (
+                                ''
                             )}
                         </div>
                     </div>

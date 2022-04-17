@@ -9,7 +9,7 @@ const IndexLogin = ({ userData, setModalTransferencia, setModalProducto }) => {
     return (
         <div className="w-full h-2/3 flex flex-col justify-around items-center">
             <h1 className="text-3xl text-center mt-8">
-                ¡Bienvenido <b>{userData.firstName}</b>!
+                ¡Bienvenido <b>{userData.firstName}</b> <b>{userData.lastName !== userData.firstName ? userData.lastName : ''}</b>!
             </h1>
             <section className="flex flex-col w-full items-center">
                 <h2 className="text-2xl my-8 underline">¿Qué deseas hacer?</h2>
