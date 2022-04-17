@@ -67,8 +67,8 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                                                 ? contactSender.contactName + ' - ' + contactSender.contactProductId
                                                 : productSender
                                                 ? productSender.productTypeID === 1
-                                                    ? 'Cuenta ahorro - n° ' + transaction.productIDOrigin
-                                                    : 'Cuenta corriente - n° ' + transaction.productIDOrigin
+                                                    ? 'Cuenta corriente - n° ' + transaction.productIDOrigin
+                                                    : 'Cuenta ahorro - n° ' + transaction.productIDOrigin
                                                 : 'Cuenta desconocida - n° ' + transaction.productIDOrigin
                                         }
                                         receptor={
@@ -76,8 +76,8 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                                                 ? contactReceptor.contactName + ' - ' + contactReceptor.contactProductId
                                                 : productReceptor
                                                 ? productReceptor.productTypeID === 1
-                                                    ? 'Cuenta ahorro - n° ' + transaction.productIDDestination
-                                                    : 'Cuenta corriente - n° ' + transaction.productIDDestination
+                                                    ? 'Cuenta corriente - n° ' + transaction.productIDDestination
+                                                    : 'Cuenta ahorro - n° ' + transaction.productIDDestination
                                                 : 'Cuenta desconocida - n° ' + transaction.productIDDestination
                                         }
                                         number={transaction.productIDDestination}

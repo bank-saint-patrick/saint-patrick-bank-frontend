@@ -49,7 +49,7 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                 {products && products.length > 0 ? (
                     <div className="flex flex-col lg:flex-row w-full justify-around align-top my-8 flex-wrap">
                         {products.map((product) => {
-                            const nameProd = product.productTypeID === 2 || product.productTypeID === '2' ? 'Cuenta corriente' : 'Cuenta ahorro';
+                            const nameProd = product.productTypeID === 1 || product.productTypeID === '1' ? 'Cuenta corriente' : 'Cuenta ahorro';
                             return <Product key={product.cardNumber} id={product.productID} name={nameProd} numberProduct={product.cardNumber} balance={product.saldoCupo} productSelected={productSelected} setProductSelected={setProductSelected} />;
                         })}
                     </div>
@@ -113,8 +113,8 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                                             ? contactSender.contactName + ' - ' + contactSender.contactProductId
                                             : productSender
                                             ? productSender.productTypeID === 1
-                                                ? 'Cuenta ahorro - n° ' + transaction.productIDOrigin
-                                                : 'Cuenta corriente - n° ' + transaction.productIDOrigin
+                                                ? 'Cuenta corriente - n° ' + transaction.productIDOrigin
+                                                : 'Cuenta ahorro - n° ' + transaction.productIDOrigin
                                             : 'Cuenta desconocida - n° ' + transaction.productIDOrigin
                                     }
                                     receptor={
@@ -122,8 +122,8 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                                             ? contactReceptor.contactName + ' - ' + contactReceptor.contactProductId
                                             : productReceptor
                                             ? productReceptor.productTypeID === 1
-                                                ? 'Cuenta ahorro - n° ' + transaction.productIDDestination
-                                                : 'Cuenta corriente - n° ' + transaction.productIDDestination
+                                                ? 'Cuenta corriente - n° ' + transaction.productIDDestination
+                                                : 'Cuenta ahorro - n° ' + transaction.productIDDestination
                                             : 'Cuenta desconocida - n° ' + transaction.productIDDestination
                                     }
                                     number={transaction.productIDDestination}

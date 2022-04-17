@@ -106,7 +106,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, product
                                 {products.map((product) => {
                                     return (
                                         <option key={product.cardNumber} value={product.productID}>
-                                            {product.productTypeID === '2' || product.productTypeID === 2
+                                            {product.productTypeID === '1' || product.productTypeID === 1
                                                 ? `Cuenta corriente ${product.productID} - $${product.saldoCupo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
                                                 : `Cuenta de ahorro ${product.productID} - $${product.saldoCupo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
                                         </option>
