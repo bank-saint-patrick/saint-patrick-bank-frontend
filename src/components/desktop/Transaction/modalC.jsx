@@ -91,7 +91,7 @@ const ModalContacto = ({ token, url, modalContacto, setModalContacto, contacts, 
                     <div className="flex flex-col">
                         <div className="flex flex-col">
                             <label className="text-lg font-semibold mt-3 text-center" htmlFor="">
-                                Nombres completos
+                                Nombre completo
                             </label>
 
                             <input placeholder="Nombres completos" required type="text" name="contactName" className="w-3/4 mx-auto py-1 px-4 rounded-2xl font-semibold border-2 border-blue-stone mt-4" />

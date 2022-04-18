@@ -6,7 +6,7 @@ import aboutUs2 from '../../../assets/images/about-us-2.jpeg';
 
 export default function AboutUs() {
     return (
-        <div className="wrapper flex-column h-screen">
+        <div className="h-screen">
             <Navbar />
             {/* cambio hecho por alessandro */}
 
@@ -99,9 +99,7 @@ export default function AboutUs() {
                                         </svg>
                                     </div>
                                     <p className="text-xl leading-8 mt-6 text-center text-gray-600 sm:w-96 w-full">
-                                        Vas a poder solicitar un turno para acercarte a nuestras sucursales el día y horario que prefieras. Para que nuestros{' '}
-                                        <span className="underline text-desert hover:text-orange-600 mr-1 uppercase">asesores guía,</span>
-                                        te enseñen a utilizar tu Banca Digital.
+                                        Vas a poder solicitar un turno para acercarte a nuestras sucursales el día y horario que prefieras. Para que nuestros asesores guía te enseñen a utilizar tu Banca Digital.
                                     </p>
                                 </div>
                             </div>

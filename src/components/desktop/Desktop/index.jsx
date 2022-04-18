@@ -51,6 +51,15 @@ const Desktop = () => {
 
     const [userData, setUserData] = useState({});
 
+    /* Validate session */
+
+    useEffect(() => {
+        const validate = validateSession();
+        if (!validate) {
+            window.location.href = '/';
+        }
+    }, []);
+
     // ? Data Fetching GET
 
     /* UserData */

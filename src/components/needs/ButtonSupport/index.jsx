@@ -1,16 +1,36 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import soporte from '../../../assets/soporte.jpeg';
 
 export default function ButtonSupport() {
     const [openModalSupport, setOpenModalSupport] = useState(false);
+    const [url, setUrl] = useState(window.location.href);
+    const [arrayDeUrls, setArrayDeUrls] = useState([]);
+
+    const urlSplit = url.split('/');
+    const urlFirst = urlSplit[urlSplit.length - 1];
+
+    const navigateTo = useNavigate();
 
     const handleClickOpenModalSupport = () => {
+        setArrayDeUrls([...arrayDeUrls, urlFirst]);
         setOpenModalSupport(true);
+        setUrl(window.location.href);
+    };
+
+    const handleClickCloseModalSupport2 = () => {
+        setOpenModalSupport(false);
+        setUrl(window.location.href);
     };
 
     const handleClickCloseModalSupport = () => {
-        setOpenModalSupport(false);
+        if (url.includes('chat') || url.includes('llamada') || url.includes('videollamada')) {
+            const urlToGo = arrayDeUrls.find((url) => url !== 'chat' && url !== 'llamada' && url !== 'videollamada');
+            navigateTo(`/${urlToGo}`);
+            setOpenModalSupport(false);
+        } else {
+            setOpenModalSupport(false);
+        }
     };
 
     if (openModalSupport) {
@@ -41,7 +61,7 @@ export default function ButtonSupport() {
                                 <button
                                     type="button"
                                     className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
-                                    onClick={() => handleClickCloseModalSupport()}>
+                                    onClick={() => handleClickCloseModalSupport2()}>
                                     Chat
                                 </button>
                             </Link>
@@ -49,7 +69,7 @@ export default function ButtonSupport() {
                                 <button
                                     type="button"
                                     className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
-                                    onClick={() => handleClickCloseModalSupport()}>
+                                    onClick={() => handleClickCloseModalSupport2()}>
                                     Videollamada
                                 </button>
                             </Link>
@@ -57,7 +77,7 @@ export default function ButtonSupport() {
                                 <button
                                     type="button"
                                     className="bg-plantation border-2 border-white hover:bg-white hover:border-2 hover:border-teal-700 text-white hover:text-teal-700 hover:font-semibold mx-auto m-3 w-100 md:w-1/3 p-1 rounded-lg font-bold"
-                                    onClick={() => handleClickCloseModalSupport()}>
+                                    onClick={() => handleClickCloseModalSupport2()}>
                                     Llamada
                                 </button>
                             </Link>

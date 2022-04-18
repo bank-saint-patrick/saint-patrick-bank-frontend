@@ -8,6 +8,7 @@ import salud from '../../../assets/images/beneficios/salud.jpeg';
 import ejercicio from '../../../assets/images/beneficios/ejercicio.jpeg';
 import ejercicio2 from '../../../assets/images/beneficios/ejercicio2.jpeg';
 import saldo from '../../../assets/images/beneficios/saldo.jpeg';
+import credito from '../../../assets/images/beneficios/credito.jpg';
 
 const benefits = [
     {
@@ -15,7 +16,7 @@ const benefits = [
         title: 'Saldo de ahorro',
         description: '¡Cobrando tus haberes, jubilación o pensión en nuestro banco, un porcentaje de tus ingresos se te devolverá como saldo a favor!',
         img: saldo,
-        percentage: '20%',
+        percentage: '15%',
     },
     {
         id: 2,
@@ -44,6 +45,13 @@ const benefits = [
         description: 'Descuento en indumentaria deportiva. Calidad y confort.',
         img: ejercicio,
         percentage: '20%',
+    },
+    {
+        id: 6,
+        title: 'Tarjeta de crédito',
+        description: 'Suma puntos con la tarjeta de crédito y obtén descuentos en tus compras o saldo a favor en tu cuenta!',
+        img: credito,
+        percentage: '10%',
     },
 ];
 

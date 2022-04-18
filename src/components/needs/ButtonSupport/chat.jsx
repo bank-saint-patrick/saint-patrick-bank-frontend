@@ -49,7 +49,12 @@ export default function Chat() {
                         </div>
                     </div>
                     <div className="pt-5 text-center">
-                        <button onClick={() => navigateTo(-1)} type="button" className="p-2 font-bold text-lg text-blue-stone rounded-md border-2 border-slate-100 hover:bg-blue-stone hover:border-2 hover:border-blue-stone hover:text-white">
+                        <button
+                            onClick={() => {
+                                navigateTo(-1);
+                            }}
+                            type="button"
+                            className="p-2 font-bold text-lg text-blue-stone rounded-md border-2 border-slate-100 hover:bg-blue-stone hover:border-2 hover:border-blue-stone hover:text-white">
                             Deseo salir del chat
                         </button>
                     </div>
