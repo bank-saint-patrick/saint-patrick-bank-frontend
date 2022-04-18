@@ -35,7 +35,7 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                     <button
                         className="flex items-center"
                         onClick={() => {
-                            navigateTo('/productos');
+                            navigateTo('/login/productos');
                         }}>
                         <h2 className="m-0 text-base underline font-semibold">Ver todas</h2>
                     </button>

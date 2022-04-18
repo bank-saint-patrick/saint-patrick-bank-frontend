@@ -56,8 +56,8 @@ const Desktop = () => {
     /* Validate session */
 
     useEffect(() => {
-        const validate = validateSession();
-        if (!validate) {
+        const session = window.sessionStorage.getItem('session');
+        if (!session) {
             window.location.href = '/';
         }
     }, []);

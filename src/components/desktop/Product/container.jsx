@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Transaction from './../Transaction/index';
 import Product from './index';
@@ -7,8 +7,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard, faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setModalProducto, setModalUpdateProd, url, token, contacts }) => {
-    const pages = Math.ceil(transactions.length / 5);
+    const [totalPages, setTotalPages] = useState(0);
     const [page, setPage] = useState(1);
+    const [tipoFiltro, setTipoFiltro] = useState(null);
+
+    const [transactionsToShow, setTransactionsToShow] = useState([]);
+
+    /* Efectos al detectar cambios */
+
+    useEffect(() => {
+        setTotalPages(Math.ceil(transactions.length / 4));
+
+        if (transactions.length > 0) {
+            setTransactionsToShow(transactions);
+        }
+    }, [transactions]);
+
+    useEffect(() => {
+        if (productSelected) {
+            const transactionsFilter = transactions.filter((transaction) => transaction.productIDOrigin === productSelected || transaction.productIDDestination === productSelected);
+
+            if (tipoFiltro !== null) {
+                const nuevoFiltro = transactionsFilter.filter((transaction) => transaction.tipo === tipoFiltro);
+                setTransactionsToShow(nuevoFiltro);
+                setTotalPages(Math.ceil(nuevoFiltro.length / 4));
+                setPage(1);
+            } else {
+                setTransactionsToShow(transactionsFilter);
+                setTotalPages(Math.ceil(transactionsFilter.length / 4));
+                setPage(1);
+            }
+        } else {
+            if (tipoFiltro !== null) {
+                const nuevoFiltro = transactions.filter((transaction) => transaction.tipo === tipoFiltro);
+                setTransactionsToShow(nuevoFiltro);
+                setTotalPages(Math.ceil(nuevoFiltro.length / 4));
+                setPage(1);
+            } else {
+                setTransactionsToShow(transactions);
+                setTotalPages(Math.ceil(transactions.length / 4));
+                setPage(1);
+            }
+        }
+    }, [productSelected, transactions, tipoFiltro]);
 
     return (
         <div className="flex flex-col w-full">
@@ -74,7 +115,7 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
             <div className="flex flex-col w-full px-8">
                 <div className="flex justify-between items-center">
                     <h3 className="text-xl font-semibold underline text-blue-stone">
-                        Historial de Transacciones: <b className="font-bold text-indigo-700">{transactions.length}</b> en total
+                        Historial de Transacciones: <b className="font-bold text-indigo-700">{transactionsToShow.length}</b> en total
                     </h3>
                     <section className="flex items-center">
                         <button
@@ -85,23 +126,33 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                             <FontAwesomeIcon icon={faArrowCircleLeft} className="text-xl text-blue-stone" />
                         </button>
                         <p className="mx-2">
-                            Página <b className="text-blue-stone">{page}</b> de <b className="text-blue-stone">{pages}</b>
+                            Página <b className="text-blue-stone">{page}</b> de <b className="text-blue-stone">{totalPages}</b>
                         </p>
                         <button
                             onClick={() => {
                                 setPage(page + 1);
                             }}
-                            className={page === pages ? 'hidden' : 'flex items-center justify-center text-blue-stone text-lg font-semibold rounded-lg mx-2'}>
+                            className={page === totalPages ? 'hidden' : 'flex items-center justify-center text-blue-stone text-lg font-semibold rounded-lg mx-2'}>
                             <FontAwesomeIcon icon={faArrowCircleRight} className="text-xl text-blue-stone" />
                         </button>
                     </section>
                 </div>
 
-                <section className=" w-full mt-8">
-                    <article className="text-sm">
-                        {transactions.map((transaction, index) => {
-                            const showTransaction = productSelected ? transaction.productIDDestination === productSelected || transaction.productIDOrigin === productSelected : true;
+                <section className="w-full mt-8">
+                    <article className="flex items-center justify-center w-full pt-2 pb-6">
+                        <p className="text-lg font-semibold">Filtrar por:</p>
 
+                        <button onClick={() => setTipoFiltro('Ingreso')} className={`${tipoFiltro === 'Ingreso' ? 'font-bold text-blue-stone bg-cream-can' : 'text-gray-700 border-2 border-blue-stone'} mx-4 p-2`}>
+                            Ingresos
+                        </button>
+
+                        <button onClick={() => setTipoFiltro('Egreso')} className={`${tipoFiltro === 'Egreso' ? 'font-bold text-blue-stone bg-cream-can' : 'text-gray-700 border-2 border-blue-stone'} mx-4 p-2`}>
+                            Egresos
+                        </button>
+                    </article>
+
+                    <article className="text-sm">
+                        {transactionsToShow.map((transaction, index) => {
                             const contactReceptor = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDDestination));
 
                             const contactSender = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDOrigin));
@@ -124,7 +175,7 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                                 minute: 'numeric',
                             });
 
-                            return showTransaction && index >= page * 5 - 5 && index < page * 5 ? (
+                            return index >= page * 4 - 4 && index < page * 4 ? (
                                 <Transaction
                                     key={index}
                                     url={url}
