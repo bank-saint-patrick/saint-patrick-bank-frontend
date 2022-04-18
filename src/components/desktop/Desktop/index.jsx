@@ -17,6 +17,7 @@ import ModalProductos from './../Product/modalP';
 import IndexLogin from './../IndexLogin/index';
 import { toast } from 'react-toastify';
 import ModalBorrarContacto from './../Transaction/modalBorrarC';
+import ModalCalificanos from './../Transaction/modalCalificanos';
 
 // * URL de la API
 const url = `${process.env.REACT_APP_API_URL}/api`;
@@ -46,6 +47,7 @@ const Desktop = () => {
     const [modalBorrarContacto, setModalBorrarContacto] = useState(false);
     const [modalProducto, setModalProducto] = useState(false);
     const [modalUpdateProd, setModalUpdateProd] = useState(false);
+    const [modalCalificanos, setModalCalificanos] = useState(false);
 
     /* User */
 
@@ -256,7 +258,16 @@ const Desktop = () => {
                 </div>
 
                 {/* Formularios */}
-                <ModalTransferencia url={url} token={token} modalTransferencia={modalTransferencia} setModalTransferencia={setModalTransferencia} setTransactions={setTransactions} products={products} contacts={contacts} />
+                <ModalTransferencia
+                    url={url}
+                    token={token}
+                    modalTransferencia={modalTransferencia}
+                    setModalTransferencia={setModalTransferencia}
+                    setModalCalificanos={setModalCalificanos}
+                    setTransactions={setTransactions}
+                    products={products}
+                    contacts={contacts}
+                />
 
                 <ModalContacto userData={userData} token={token} url={url} modalContacto={modalContacto} setModalContacto={setModalContacto} contacts={contacts} setContacts={setContacts} />
 
@@ -264,7 +275,9 @@ const Desktop = () => {
 
                 <ModalProductos modalUpdateProd={modalUpdateProd} url={url} token={token} productsType={productsType} modalProducto={modalProducto} setModalProducto={setModalProducto} products={products} setProducts={setProducts} />
 
-                <div className={modalTransferencia || modalContacto || modalProducto || modalBorrarContacto ? 'overlay absolute h-full w-full grid place-content-center bg-black opacity-50' : 'hidden'}></div>
+                <ModalCalificanos modalCalificanos={modalCalificanos} setModalCalificanos={setModalCalificanos} />
+
+                <div className={modalTransferencia || modalContacto || modalProducto || modalBorrarContacto || modalCalificanos ? 'overlay absolute h-full w-full grid place-content-center bg-black opacity-50' : 'hidden'}></div>
             </div>
 
             <ButtonSupport />

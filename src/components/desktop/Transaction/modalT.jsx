@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import React, { useState } from 'react';
 
-const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, products, contacts, token, url }) => {
+const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, setModalCalificanos, products, contacts, token, url }) => {
     const [loading, setLoading] = useState(false);
     const [tokenConfirm, setTokenConfirm] = useState('');
     const [enabled, setEnabled] = useState(false);
@@ -34,8 +34,7 @@ const ModalTransferencia = ({ modalTransferencia, setModalTransferencia, product
         if (data.status === 'Success') {
             setLoading(false);
             toast.success(data.message);
-            setModalTransferencia(false);
-            window.location.reload();
+            setModalCalificanos(true);
         } else {
             setLoading(false);
             if (data.title) {

@@ -12,7 +12,7 @@ const IndexLogin = ({ userData, setModalTransferencia, setModalProducto }) => {
                 ¡Bienvenido <b>{userData.firstName}</b> <b>{userData.lastName !== userData.firstName ? userData.lastName : ''}</b>!
             </h1>
             <section className="flex flex-col w-full items-center">
-                <h2 className="text-2xl my-8 underline">¿Qué deseas hacer?</h2>
+                <h2 className="text-2xl mb-8">¿Qué deseas hacer?</h2>
                 <section className="flex flex-col items-center justify-around w-full">
                     <button
                         onClick={() => {

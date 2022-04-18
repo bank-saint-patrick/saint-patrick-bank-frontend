@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Transaction from './../Transaction/index';
 import Product from './index';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import { faCreditCard, faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 const ProductsContainer = ({ products, productSelected, setProductSelected, transactions, setModalProducto, setModalUpdateProd, url, token, contacts }) => {
+    const pages = Math.ceil(transactions.length / 5);
+    const [page, setPage] = useState(1);
+
     return (
         <div className="flex flex-col w-full">
             <div className="flex flex-col w-full">
@@ -69,13 +72,34 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
             </div>
 
             <div className="flex flex-col w-full px-8">
-                <h3 className="text-xl font-semibold underline text-blue-stone">
-                    Historial de Transacciones: <b className="font-bold text-indigo-700">{transactions.length}</b> en total
-                </h3>
+                <div className="flex justify-between items-center">
+                    <h3 className="text-xl font-semibold underline text-blue-stone">
+                        Historial de Transacciones: <b className="font-bold text-indigo-700">{transactions.length}</b> en total
+                    </h3>
+                    <section className="flex items-center">
+                        <button
+                            onClick={() => {
+                                setPage(page - 1);
+                            }}
+                            className={page === 1 ? 'hidden' : 'flex items-center justify-center text-blue-stone text-lg font-semibold rounded-lg mx-2'}>
+                            <FontAwesomeIcon icon={faArrowCircleLeft} className="text-xl text-blue-stone" />
+                        </button>
+                        <p className="mx-2">
+                            Página <b className="text-blue-stone">{page}</b> de <b className="text-blue-stone">{pages}</b>
+                        </p>
+                        <button
+                            onClick={() => {
+                                setPage(page + 1);
+                            }}
+                            className={page === pages ? 'hidden' : 'flex items-center justify-center text-blue-stone text-lg font-semibold rounded-lg mx-2'}>
+                            <FontAwesomeIcon icon={faArrowCircleRight} className="text-xl text-blue-stone" />
+                        </button>
+                    </section>
+                </div>
 
                 <section className=" w-full mt-8">
                     <article className="text-sm">
-                        {transactions.map((transaction) => {
+                        {transactions.map((transaction, index) => {
                             const showTransaction = productSelected ? transaction.productIDDestination === productSelected || transaction.productIDOrigin === productSelected : true;
 
                             const contactReceptor = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDDestination));
@@ -100,9 +124,9 @@ const ProductsContainer = ({ products, productSelected, setProductSelected, tran
                                 minute: 'numeric',
                             });
 
-                            return showTransaction ? (
+                            return showTransaction && index >= page * 5 - 5 && index < page * 5 ? (
                                 <Transaction
-                                    key={transaction.transferID}
+                                    key={index}
                                     url={url}
                                     token={token}
                                     id={transaction.transferID}

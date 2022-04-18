@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Calendario = ({ direction, fechaSeleccionada, setFechaSeleccionada, setConfirmacion }) => {
     const [selectedDay, setSelectedDay] = useState(null);
+    const navigateTo = useNavigate();
 
     const getMonthName = (month) => {
         switch (month) {
@@ -51,9 +53,16 @@ const Calendario = ({ direction, fechaSeleccionada, setFechaSeleccionada, setCon
     };
 
     const confirmarFecha = () => {
+        const session = JSON.parse(sessionStorage.getItem('session'));
+
         if (fechaSeleccionada) {
-            toast.success(`Fecha seleccionada: ${fechaSeleccionada}`);
-            setConfirmacion(true);
+            if (session) {
+                toast.success(`Fecha seleccionada: ${fechaSeleccionada}`);
+                setConfirmacion(true);
+            } else {
+                toast.error('Debes iniciar sesión para poder agendar una cita');
+                navigateTo('/login');
+            }
         } else {
             toast.error('Debes seleccionar una fecha');
         }

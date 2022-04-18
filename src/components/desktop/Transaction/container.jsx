@@ -3,8 +3,11 @@ import React from 'react';
 import { faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Transaction from './index';
+import { useNavigate } from 'react-router-dom';
 
 const TransactionsContainer = ({ transactions, url, token, contacts, setModalContacto, setModalTransferencia, setModalBorrarContacto, products }) => {
+    const navigateTo = useNavigate();
+
     return (
         <div className="flex align-top w-full flex-col ml-3 mt-3 p-3">
             <div className="flex flex-col md:flex-row items-center mb-4 w-full justify-between">
@@ -27,10 +30,29 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
             {/* Transferencias */}
 
             <section className=" w-full mt-8">
-                <h2 className="m-0 text-lg font-semibold">Últimas 3 transferencias </h2>
+                <div className="flex justify-between">
+                    <h2 className="m-0 text-lg font-semibold">Últimas 3 transferencias</h2>
+                    <button
+                        className="flex items-center"
+                        onClick={() => {
+                            navigateTo('/productos');
+                        }}>
+                        <h2 className="m-0 text-base underline font-semibold">Ver todas</h2>
+                    </button>
+                    <button
+                        className="flex items-center"
+                        onClick={() => {
+                            window.location.reload();
+                        }}>
+                        <h2 className="m-0 text-base underline font-semibold">Recargar</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 m-2 mt-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </button>
+                </div>
                 {transactions.length > 0 ? (
                     <article className="text-sm mx-4">
-                        {transactions.map((transaction) => {
+                        {transactions.map((transaction, index) => {
                             const contactReceptor = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDDestination));
 
                             const contactSender = contacts.find((contact) => contact.contactProductId === Number(transaction.productIDOrigin));
@@ -56,7 +78,7 @@ const TransactionsContainer = ({ transactions, url, token, contacts, setModalCon
                             if (transactions.indexOf(transaction) < 3) {
                                 return (
                                     <Transaction
-                                        key={transaction.transferID}
+                                        key={index}
                                         url={url}
                                         token={token}
                                         id={transaction.transferID}

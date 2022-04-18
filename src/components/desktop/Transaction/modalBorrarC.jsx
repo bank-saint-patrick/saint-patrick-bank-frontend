@@ -7,6 +7,7 @@ import { useState } from 'react';
 const ModalBorrarContacto = ({ token, url, modalBorrarContacto, setModalBorrarContacto, contacts, setContacts }) => {
     const [loading, setLoading] = useState(false);
     const [contactToDelete, setContactToDelete] = useState(null);
+    const [isCorrect, setIsCorrect] = useState(false);
 
     const sendContact = async (contact) => {
         setLoading(true);
@@ -94,13 +95,29 @@ const ModalBorrarContacto = ({ token, url, modalBorrarContacto, setModalBorrarCo
                         <label className="text-lg font-semibold" htmlFor="confirmDelete">
                             Confirmar eliminar contacto
                         </label>
-                        <input required type="text" className="p-2 rounded-lg my-4 border-2 border-blue-stone w-full" name="confirmDelete" id="confirmDelete" placeholder={contactToDelete ? contactToDelete.contactName : 'Seleccione un contacto'} />
+                        <input
+                            onChange={(e) => {
+                                if (e.target.value === contactToDelete.contactName) {
+                                    setIsCorrect(true);
+                                } else {
+                                    setIsCorrect(false);
+                                }
+                            }}
+                            required
+                            type="text"
+                            className="p-2 rounded-lg my-4 border-2 border-blue-stone w-full"
+                            name="confirmDelete"
+                            id="confirmDelete"
+                            placeholder={contactToDelete ? contactToDelete.contactName : 'Seleccione un contacto'}
+                        />
                         <span className="font-semibold text-sm">*Escriba el texto que aparece en el campo</span>
                     </div>
 
                     <div className="flex flex-col items-center justify-center">
-                        <button className="bg-red-600 text-white w-max py-1 px-4 rounded-2xl font-semibold">{loading ? 'Borrando...' : 'Borrar'}</button>
-                        <span className="font-semibold">*Esta acción no se puede deshacer</span>
+                        <button disabled={isCorrect ? false : true} className={isCorrect ? 'bg-red-600 text-white w-max py-1 px-4 rounded-2xl font-semibold' : 'bg-gray-300 text-gray-700 w-max py-1 px-4 rounded-2xl font-semibold'}>
+                            {loading ? 'Borrando...' : 'Borrar'}
+                        </button>
+                        <span className="text-base font-semibold">*Esta acción no se puede deshacer</span>
                     </div>
                 </form>
             </div>
