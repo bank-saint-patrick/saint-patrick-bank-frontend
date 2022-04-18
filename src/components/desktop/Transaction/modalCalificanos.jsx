@@ -48,7 +48,7 @@ const ModalCalificanos = ({ modalCalificanos, setModalCalificanos }) => {
                                     Tu calificación es: <span className="text-blue-stone font-bold">{calification.name}</span>
                                     {calification.emoji}
                                 </p>
-                                <div className="text-lg font-semibold">Tus valoraciones son muy importantes para nosotros.</div>
+                                <div className="text-lg text-center font-semibold">¡Muchas gracias por ayudarnos a mejorar nuestros procesos!</div>
                                 <p>{calification.name !== 'Muy fácil' ? 'Trabajaremos para seguir mejorando.' : ''}</p>
                             </section>
                             <button
