@@ -102,7 +102,7 @@ const Calendario = ({ direction, fechaSeleccionada, setFechaSeleccionada, setCon
                 <h2 className="text-3xl text-center font-bold py-8 pt-16">¡Selecciona una fecha!</h2>{' '}
                 <div className="flex flex-col items-center justify-center">
                     <span className="p-8 font-semibold text-blue-stone text-xl text-center inline-block w-full">
-                        Seleccionado: <b className="text-indigo-600">{fechaSeleccionada ? fechaSeleccionada : 'Selecciona una fecha'}</b> - Horario disponible <b className="text-indigo-600">08:00 - 18:00</b>
+                        Seleccionado: <b className="text-indigo-600">{fechaSeleccionada ? fechaSeleccionada : 'Selecciona una fecha'}</b> - Horario disponible <b className="text-indigo-600">09:00 - 15:00</b>
                     </span>
                     <button onClick={confirmarFecha} className="text-xl font-bold p-3 rounded-md bg-blue-stone text-white">
                         Confirmar

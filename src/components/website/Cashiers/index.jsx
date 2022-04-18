@@ -34,9 +34,9 @@ export default function Cashiers() {
         <div className="wrapper flex flex-col h-screen">
             <Navbar />
 
-            <div className="flex flex-col grow p-10">
+            <h1 className="text-4xl font-bold text-center pt-8">Acércate a conocer nuestras sucursales</h1>
+            <div className={confirmacion ? 'flex flex-col-reverse grow p-10' : 'flex flex-col grow p-10'}>
                 <header className="flex flex-col">
-                    <h1 className="text-4xl font-bold text-center">Acércate a conocer nuestras sucursales</h1>
                     <div className="flex mb-8">
                         <img src={sucursalInterior} className="w-full rounded-l-md sm:w-1/2 hidden xsm:flex h-full object-cover mt-8" alt="" />
                         <img src={sucursales} className="w-1/2 hidden rounded-r-md sm:flex h-full object-cover pb-[0.5px] mt-8" alt="" />
@@ -75,21 +75,17 @@ export default function Cashiers() {
                                 path="/calendario"
                                 element={
                                     <>
-                                        <section className="flex flex-col sm:flex-row items-center bg-cream-can rounded-md my-8">
-                                            <p className="pb-8 p-6 lg:pl-8 sm:py-16 lg:py-8 text-xl text-center">
-                                                <b>Selecciona la fecha que prefieras</b>, si tienes alguna consulta o simplemente quieres ser atendido por un asesor <b>¡Te esperamos!</b>
-                                            </p>
-                                        </section>
                                         {!confirmacion ? (
                                             <Calendario setConfirmacion={setConfirmacion} fechaSeleccionada={fechaSeleccionada} setFechaSeleccionada={setFechaSeleccionada} direction={direction} />
                                         ) : (
                                             <>
-                                                <h1 className="text-3xl text-center font-bold pt-4">¡Cita confirmada! ✅</h1>
-                                                <p className="text-xl text-center py-8">
-                                                    <b>
-                                                        Te esperamos el día <b className="text-indigo-600">{fechaSeleccionada}</b> desde las <b className="text-indigo-600">08:00 horas</b> hasta las <b className="text-indigo-600">18:00 horas</b>.
-                                                    </b>
-                                                </p>
+                                                <h1 className="text-3xl text-center font-semibold pt-4">¡Cita confirmada! ✅</h1>
+                                                <section className="p-8 w-2/3 mx-auto">
+                                                    <p className="text-xl text-center">
+                                                        Gracias por solicitar un turno con nosotros, te esperamos el día <b className="text-indigo-600">{fechaSeleccionada}</b> desde las <b className="text-indigo-600">09:00 horas</b> hasta las{' '}
+                                                        <b className="text-indigo-600">15:00 horas</b>. Un día antes te enviaremos un recordatorio a tu correo electrónico.
+                                                    </p>
+                                                </section>
                                                 <button
                                                     onClick={() => {
                                                         setConfirmacion(false);
