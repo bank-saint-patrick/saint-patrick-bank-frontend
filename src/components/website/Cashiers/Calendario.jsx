@@ -2,9 +2,19 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-const Calendario = ({ direction, fechaSeleccionada, setFechaSeleccionada, setConfirmacion }) => {
+const Calendario = ({ direction, setFechaSeleccionada, setConfirmacion }) => {
+    /* Hooks */
+
+    const [fecha, setFecha] = useState({
+        fecha: '',
+        horario: '',
+    });
     const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedHour, setSelectedHour] = useState(null);
+
     const navigateTo = useNavigate();
+
+    /* Funciones */
 
     const getMonthName = (month) => {
         switch (month) {
@@ -37,28 +47,57 @@ const Calendario = ({ direction, fechaSeleccionada, setFechaSeleccionada, setCon
         }
     };
 
+    /* Extracción de datos */
+
+    const horarios = [];
+
+    for (let i = 9; i < 15; i++) {
+        horarios.push(
+            {
+                id: i,
+                horario: `${i}:00 a ${i}:30`,
+            },
+            {
+                id: i + 1,
+                horario: `${i}:30 a ${i + 1}:00`,
+            }
+        );
+    }
+
     const date = new Date();
     const month = date.getMonth();
     const year = date.getFullYear();
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-
     const firstDay = new Date(year, month, 1).getDay();
+
+    /* Seleccionar fecha y horario */
 
     const handleSelectDay = (index) => {
         setSelectedDay(index);
+        setSelectedHour(null);
 
         const nameOfDay = new Date(year, month, index).toLocaleString('es-ES', { weekday: 'long' });
-        setFechaSeleccionada(`${nameOfDay} ${index} de ${getMonthName(month).toLowerCase()} del ${year}`);
+        setFecha({ fecha: `${nameOfDay} ${index} de ${getMonthName(month).toLowerCase()} del ${year}` });
+    };
+
+    const handleSelectHorario = (horario) => {
+        setSelectedHour(horario.horario);
+
+        setFecha({
+            fecha: fecha.fecha,
+            horario: horario.horario,
+        });
     };
 
     const confirmarFecha = () => {
         const session = JSON.parse(sessionStorage.getItem('session'));
 
-        if (fechaSeleccionada) {
+        if (fecha.fecha && fecha.horario) {
             if (session) {
-                toast.success(`Fecha seleccionada: ${fechaSeleccionada}`);
+                toast.success(`Fecha seleccionada: ${fecha.fecha} a las ${fecha.horario}`);
                 setConfirmacion(true);
+                setFechaSeleccionada(fecha);
             } else {
                 toast.error('Debes iniciar sesión para poder agendar una cita');
                 navigateTo('/login');
@@ -99,18 +138,19 @@ const Calendario = ({ direction, fechaSeleccionada, setFechaSeleccionada, setCon
             </div>
 
             <section className="w-full">
-                <h2 className="text-3xl text-center font-bold py-8 pt-16">¡Selecciona una fecha!</h2>{' '}
+                <h2 className="text-3xl text-center font-bold py-8 pt-16">¡Selecciona una fecha y horario!</h2>{' '}
                 <div className="flex flex-col items-center justify-center">
                     <span className="p-8 font-semibold text-blue-stone text-xl text-center inline-block w-full">
-                        Seleccionado: <b className="text-indigo-600">{fechaSeleccionada ? fechaSeleccionada : 'Selecciona una fecha'}</b> - Horario disponible <b className="text-indigo-600">09:00 - 15:00</b>
+                        Seleccionado: <b className="text-indigo-600">{fecha ? fecha.fecha : 'Selecciona una fecha'}</b> - Horario <b className="text-indigo-600">{fecha.horario}</b>
                     </span>
+
                     <button onClick={confirmarFecha} className="text-xl font-bold p-3 rounded-md bg-blue-stone text-white">
                         Confirmar
                     </button>
                 </div>
             </section>
 
-            <div className="flex items-center justify-center py-8 px-4">
+            <div className="flex items-end justify-center py-8 px-4">
                 <div className="2xl:w-1/3 xl:w-1/2 lg:w-3/5 sm:w-4/5 w-full shadow-lg">
                     <div className="md:p-16 md:pb-12 p-5 dark:bg-gray-800 bg-white rounded-t">
                         <div className="px-4 flex items-center justify-between">
@@ -187,6 +227,23 @@ const Calendario = ({ direction, fechaSeleccionada, setFechaSeleccionada, setCon
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+                <div className="flex flex-col h-full">
+                    <h2 className="text-2xl text-center font-bold h-1/6 flex items-center justify-center">Selecciona un horario</h2>
+                    <div className="grid grid-cols-2 grid-rows-6 h-5/6">
+                        {horarios.map((horario, index) => (
+                            <div
+                                key={index}
+                                className={`${selectedHour === horario.horario ? 'bg-blue-stone text-white' : 'bg-gray-200 text-gray-600'} p-4 rounded-md cursor-pointer`}
+                                onClick={() => {
+                                    handleSelectHorario(horario);
+                                }}>
+                                <p className="text-2xl font-bold text-center">{horario.horario}</p>
+
+                                <p className="text-xl font-bold text-center">{selectedHour === horario.horario ? 'Seleccionado' : 'Disponible'}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

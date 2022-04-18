@@ -16,7 +16,10 @@ import Calendario from './Calendario';
 export default function Cashiers() {
     const [width, setWidth] = useState(window.innerWidth);
     const [confirmacion, setConfirmacion] = useState(false);
-    const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
+    const [fechaSeleccionada, setFechaSeleccionada] = useState({
+        fecha: '',
+        horario: '',
+    });
 
     const [direction, setDirection] = useState({
         calle: '',
@@ -82,8 +85,8 @@ export default function Cashiers() {
                                                 <h1 className="text-3xl text-center font-semibold pt-4">¡Cita confirmada! ✅</h1>
                                                 <section className="p-8 w-2/3 mx-auto">
                                                     <p className="text-xl text-center">
-                                                        Gracias por solicitar un turno con nosotros, te esperamos el día <b className="text-indigo-600">{fechaSeleccionada}</b> desde las <b className="text-indigo-600">09:00 horas</b> hasta las{' '}
-                                                        <b className="text-indigo-600">15:00 horas</b>. Un día antes te enviaremos un recordatorio a tu correo electrónico.
+                                                        Gracias por solicitar un turno con nosotros, te esperamos el día <b className="text-indigo-600">{fechaSeleccionada.fecha}</b> a las <b className="text-indigo-600">{fechaSeleccionada.horario}</b>{' '}
+                                                        Un día antes te enviaremos un recordatorio a tu correo electrónico.
                                                     </p>
                                                 </section>
                                                 <button
